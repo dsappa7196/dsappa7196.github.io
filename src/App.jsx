@@ -1,5 +1,5 @@
 import React from "react";
-import Navbar from "./components/Navbar";
+import Navbar from './components/Navbar.jsx';
 import Hero from "./components/Hero";
 import About from "./components/About";
 import Timeline from "./components/Timeline"; // ✅ Make sure file is named exactly 'Timeline.jsx'
