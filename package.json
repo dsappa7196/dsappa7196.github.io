@@ -3,13 +3,13 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://dsappa7196.github.io/Padmasree_Sappa.github.io",
+  "homepage": "https://dsappa7196.github.io/padmasree-sappa",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist -b main"
   },
   "dependencies": {
     "react": "^19.1.0",

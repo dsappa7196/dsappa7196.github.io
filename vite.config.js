@@ -3,6 +3,8 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
 export default defineConfig({
-  base: '/', // For username.github.io, use just a forward slash
+  base: '/', // For user site (Padmasree_Sappa.github.io)
   plugins: [react()],
 });
+
+
