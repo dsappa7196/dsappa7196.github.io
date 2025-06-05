@@ -1,8 +1,8 @@
-import React from "react";
-import Navbar from './components/Navbar.jsx';
+import { useState, useEffect } from 'react';
 import Hero from "./components/Hero";
+// import Navbar from './components/Navbar';
 import About from "./components/About";
-import Timeline from "./components/Timeline"; // ✅ Make sure file is named exactly 'Timeline.jsx'
+import Timeline from "./components/Timeline"; 
 import Experience from "./components/Experience";
 import Projects from "./components/Projects";
 import Technologies from "./components/Technologies";
