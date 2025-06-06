@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
-import Hero from './components/Hero';
-import Navbar from './components/Navbar';
-import About from "./components/About";
-import Experience from "./components/Experience";
-import Projects from "./components/Projects";
-import Technologies from "./components/Technologies";
-import Contact from "./components/Contact";
-import SectionNav from "./components/SectionNav";
+import Hero from './Components/Hero';
+import Navbar from './Components/Navbar';
+import About from "./Components/About";
+import Experience from "./Components/Experience";
+import Projects from "./Components/Projects";
+import Technologies from "./Components/Technologies";
+import Contact from "./Components/Contact";
+import SectionNav from "./Components/SectionNav";
 
 const App = () => {
   const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'dark');
