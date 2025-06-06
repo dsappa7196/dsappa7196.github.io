@@ -30,7 +30,7 @@ const Hero = () => {
           transition={{ duration: 1, ease: 'easeOut' }}
           src={profilePic}
           alt="Padmasree Sappa"
-          className="w-24 h-32 sm:w-56 sm:h-72 lg:w-72 lg:h-80 rounded-full object-cover shadow-lg mb-6"
+          className="rounded-full w-28 h-36 sm:w-56 sm:h-72 lg:w-64 lg:h-80 object-cover shadow-lg mb-6"
         />
 
         {/* Name */}
