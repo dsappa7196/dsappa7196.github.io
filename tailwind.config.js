@@ -6,6 +6,9 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['Inter', 'sans-serif'],
+      },
       fontSize: {
         base: '1.125rem', // 18px instead of 16px
         lg: '1.25rem',    // 20px
