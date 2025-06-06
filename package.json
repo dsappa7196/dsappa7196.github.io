@@ -8,6 +8,7 @@
     "build": "npx vite build",
     "lint": "eslint .",
     "preview": "vite preview",
+    "prebuild": "chmod -R +x ./node_modules/.bin",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
   },
