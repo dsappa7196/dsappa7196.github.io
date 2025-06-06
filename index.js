@@ -6,7 +6,7 @@ import project4 from "../assets/projects/project-4.jpg";
 import project5 from "../assets/projects/project-5.png";
 
 // Hero Content
-export const HERO_CONTENT = `I am a Business Analytics professional with 6.5+ years of experience in operational analytics, process automation, and data storytelling — including impactful work at Amazon. I specialize in SQL, Excel, and Tableau to drive business insights, reduce inefficiencies, and guide decision-making. Currently pursuing a Master’s in Business Analytics at San Francisco State University, I am eager to apply my skills in data modeling, visualization, and optimization to real-world business challenges.`;
+export const Hero_CONTENT = `I am a Business Analytics professional with 6.5+ years of experience in operational analytics, process automation, and data storytelling — including impactful work at Amazon. I specialize in SQL, Excel, and Tableau to drive business insights, reduce inefficiencies, and guide decision-making. Currently pursuing a Master’s in Business Analytics at San Francisco State University, I am eager to apply my skills in data modeling, visualization, and optimization to real-world business challenges.`;
 
 // About Section
 export const ABOUT_TEXT = [
