@@ -3,8 +3,8 @@ import { FaLinkedin, FaGithub } from "react-icons/fa";
 
 const Navbar = () => {
   return (
-    <nav className="mb-20 flex items-center justify-end py-6 px-4 animate-fade-in">
-      <div className="flex items-center justify-center gap-4 text-2xl text-white">
+    <nav className="mt-24 sm:mt-6 mb-6 flex justify-center animate-fade-in">
+      <div className="flex gap-4 text-xl sm:text-2xl text-white">
         <a
           href="https://www.linkedin.com/in/padmasree-sappa"
           target="_blank"

@@ -9,7 +9,7 @@ const Contact = () => {
           initial={{ opacity: 0, y: -50 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
-          className="mb-12 text-center text-4xl font-semibold text-white"
+          className="mb-12 text-center text-2xl sm:text-4xl font-semibold text-white"
         >
           Get in Touch
         </motion.h1>
@@ -18,7 +18,7 @@ const Contact = () => {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ duration: 1, delay: 0.5 }}
-          className="not-italic text-center text-neutral-300 text-lg space-y-4"
+          className="not-italic text-center text-neutral-300 text-sm sm:text-lg space-y-4"
         >
           <p>{CONTACT.address}</p>
 

@@ -26,7 +26,7 @@ const Projects = () => {
           whileInView={{ opacity: 1, y: 0 }}
           initial={{ opacity: 0, y: -50 }}
           transition={{ duration: 1 }}
-          className="mb-20 text-center text-4xl font-semibold text-white"
+          className="mb-20 text-center text-2xl sm:text-4xl font-semibold text-white"
         >
           Projects
         </motion.h1>
@@ -54,10 +54,10 @@ const Projects = () => {
               transition={{ duration: 1 }}
               className="w-full lg:w-3/4 max-w-xl"
             >
-              <h6 className="mb-3 text-xl font-semibold text-white">
+              <h6 className="mb-3 text-base sm:text-xl font-semibold text-white">
                 {project.title}
               </h6>
-              <p className="mb-5 text-neutral-300 leading-relaxed">
+              <p className="mb-5 text-sm sm:text-base text-neutral-300 leading-relaxed">
                 {project.description}
               </p>
               <div className="mb-3">
@@ -74,7 +74,7 @@ const Projects = () => {
                 href={project.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-purple-400 hover:text-purple-300 hover:underline inline-flex items-center gap-1"
+                className="text-purple-400 hover:text-purple-300 hover:underline inline-flex items-center gap-1 text-sm sm:text-base"
               >
                 View on GitHub <FaExternalLinkAlt className="text-xs" />
               </a>
@@ -92,7 +92,7 @@ const Projects = () => {
             href="https://github.com/dsappa7196"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-purple-400 hover:text-purple-300 hover:underline inline-flex items-center gap-1 text-lg font-medium"
+            className="text-purple-400 hover:text-purple-300 hover:underline inline-flex items-center gap-1 text-sm sm:text-lg font-medium"
           >
             View More Projects <FaExternalLinkAlt className="text-sm" />
           </a>

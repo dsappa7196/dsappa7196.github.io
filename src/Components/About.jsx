@@ -13,7 +13,7 @@ const About = () => {
         initial={{ opacity: 0, y: -50 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
-        className="text-center text-5xl font-bold text-neutral-100 leading-tight tracking-tight mb-20"
+        className="text-center text-2xl sm:text-5xl font-bold text-neutral-100 leading-tight tracking-tight mb-20"
       >
         Curious by nature. <br className="hidden sm:inline" />
         Driven by data. Focused on impact.
@@ -29,7 +29,7 @@ const About = () => {
             transition: { staggerChildren: 0.25 },
           },
         }}
-        className="max-w-5xl mx-auto px-6 space-y-14 text-[1.175rem] leading-9 text-neutral-300"
+        className="max-w-5xl mx-auto px-6 space-y-14 text-sm sm:text-[1.175rem] leading-relaxed sm:leading-9 text-neutral-300"
       >
         {ABOUT_TEXT.map((paragraph, index) => (
           <motion.p
@@ -50,7 +50,7 @@ const About = () => {
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.3 }}
-        className="mt-24 max-w-4xl mx-auto px-6 py-10 border-l-4 border-cyan-500 italic text-xl text-neutral-400"
+        className="mt-24 max-w-4xl mx-auto px-6 py-10 border-l-4 border-cyan-500 italic text-base sm:text-xl text-neutral-400"
       >
         “It’s never just about data — it’s about the stories the data tells and the impact it creates.”
       </motion.blockquote>
