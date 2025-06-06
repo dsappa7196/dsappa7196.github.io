@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import Hero from '@components/Hero';
+import Hero from './components/Hero';
 import Navbar from './components/Navbar';
 import About from "./components/About";
 import Experience from "./components/Experience";
