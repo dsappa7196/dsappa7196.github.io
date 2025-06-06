@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import Hero from "./components/Hero";
 import Navbar from './components/Navbar';
 import About from "./components/About";
-import Timeline from "./components/Timeline"; 
 import Experience from "./components/Experience";
 import Projects from "./components/Projects";
 import Technologies from "./components/Technologies";
