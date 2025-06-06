@@ -2,17 +2,17 @@ import { FaGraduationCap, FaBriefcase } from "react-icons/fa";
 
 const timelineItems = [
   {
-    date: "Aug 2013",
+    date: "Aug 2013 - June 2017",
     title: "B.Tech – JNTU Kakinada",
     type: "education",
   },
   {
-    date: "Jun 2017",
+    date: "June 2017 - July 2019",
     title: "Business Analyst – Algae Bio-Tech",
     type: "career",
   },
   {
-    date: "Jul 2019",
+    date: "July 2019 - Oct 2021",
     title: "Data Ops Associate – Amazon",
     type: "career",
   },
@@ -22,7 +22,7 @@ const timelineItems = [
     type: "career",
   },
   {
-    date: "Jan 2024",
+    date: "Jan 2024 - Dec 2025",
     title: "MSBA – San Francisco State University",
     type: "education",
   },
