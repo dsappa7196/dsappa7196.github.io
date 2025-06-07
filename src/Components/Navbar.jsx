@@ -3,26 +3,29 @@ import { FaLinkedin, FaGithub } from "react-icons/fa";
 
 const Navbar = () => {
   return (
-    <nav className="mt-24 sm:mt-6 mb-6 flex justify-center animate-fade-in">
-      <div className="flex gap-4 text-xl sm:text-2xl text-white">
-        <a
-          href="https://www.linkedin.com/in/padmasree-sappa"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="hover:text-blue-400 transition-colors duration-200"
-        >
-          <FaLinkedin />
-        </a>
-        <a
-          href="https://github.com/dsappa7196"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="hover:text-blue-400 transition-colors duration-200"
-        >
-          <FaGithub />
-        </a>
-      </div>
-    </nav>
+    <>
+      {/* Social icons BELOW the section nav */}
+      <nav className="mt-6 mb-4 flex justify-center animate-fade-in">
+        <div className="flex gap-4 text-xl sm:text-2xl text-white">
+          <a
+            href="https://www.linkedin.com/in/padmasree-sappa"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-blue-400 transition-colors duration-200"
+          >
+            <FaLinkedin />
+          </a>
+          <a
+            href="https://github.com/dsappa7196"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-blue-400 transition-colors duration-200"
+          >
+            <FaGithub />
+          </a>
+        </div>
+      </nav>
+    </>
   );
 };
 
