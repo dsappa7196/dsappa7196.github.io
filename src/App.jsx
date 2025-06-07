@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
 import Hero from './Components/Hero';
-import Navbar from './Components/Navbar';
+import Navbar from './Components/Navbar'; // your actual top nav
 import About from "./Components/About";
 import Experience from "./Components/Experience";
 import Projects from "./Components/Projects";
 import Technologies from "./Components/Technologies";
 import Contact from "./Components/Contact";
 import SectionNav from "./Components/SectionNav";
+import SocialIcons from "./Components/SocialIcons"; // NEW import
 
 const App = () => {
   const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'dark');
@@ -28,8 +29,12 @@ const App = () => {
         <div className="absolute inset-0 z-[-2] h-[300vh] w-full bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]" />
       </div>
 
+      {/* Main navigation + section nav */}
       <Navbar toggleTheme={toggleTheme} currentTheme={theme} />
       <SectionNav />
+
+      {/* Social Icons BELOW SectionNav */}
+      <SocialIcons />
 
       <section id="hero">
         <Hero />
@@ -42,7 +47,6 @@ const App = () => {
       <section id="skills">
         <Technologies />
       </section>
-
 
       <section id="experience">
         <Experience />
