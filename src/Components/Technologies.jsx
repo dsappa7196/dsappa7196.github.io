@@ -37,7 +37,7 @@ const Technologies = () => {
         transition={{ duration: 1.5 }}
         className="mb-16 text-center text-4xl font-semibold text-white"
       >
-        Technologies & Certifications
+        Technologies
       </motion.h2>
 
       {/* Icon-based Technologies */}
