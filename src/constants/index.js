@@ -139,26 +139,27 @@ export const PROJECTS = [
   }
 ];
 
-// Technologies Section
-export const skills = [
-  // Technical & Analytics
-  'SQL', 'VBA Scripting', 'A/B Testing', 'Regression', 'Forecasting', 'Data Modeling',
-  'ETL Processes', 'Data Warehousing', 'Data Analysis', 'Scripting',
-  'Data Normalization', 'Relational Database Systems',
+// Skills by Category
 
-  // Visualization & Tools
-  'Tableau', 'Power BI', 'Advanced Excel (PivotTables, Power Query)', 'Excel Macros', 'Redshift', 'BI Dashboards', 'Smartsheet',
-  'PowerApps', 'Data Visualization', 'Microsoft Office', 'Report Building',
-
-  // Business & Strategy
-  'Competitive Intelligence', 'Task Automation', 'Market Research', 'GTM Strategy Support', 'Executive Reporting',
-  'Process Optimization', 'Strategic Thinking', 'Cross-functional Collaboration',
-  'Data Storytelling', 'Business Analysis', 'Stakeholder Management',
-  'Agile Methodologies', 'Time Management',
-
-  // Research & Documentation
-  'Regulatory Document Retrieval', 'Structured Content Extraction',
-  'Metadata Handling', 'Data Quality Assurance', 'Documentation', 'SOP Development',];
+export const skillsByCategory = {
+  '📊 Data Analytics & Visualization': [
+    'SQL', 'Data Modeling', 'Data Warehousing', 'Redshift',
+    'Tableau', 'Power BI', 'Advanced Excel (PivotTables, Power Query)', 'Excel Macros',
+    'Data Visualization', 'Forecasting', 'Regression', 'BI Dashboards'
+  ],
+  '⚙️ Automation & Business Reporting': [
+    'Task Automation (VBA, PowerApps, Smartsheet)', 'ETL Processes', 'Metadata Handling', 'Scripting',
+    'Executive Reporting', 'Competitive Intelligence', 'Regulatory Document Retrieval'
+  ],
+  '💼 Strategic Analysis & Collaboration': [
+    'Business Analysis', 'GTM Strategy Support', 'Process Optimization',
+    'Stakeholder Management', 'Cross-functional Collaboration', 'Strategic Thinking',
+    'Data Storytelling', 'Market Research', 'Agile Methodologies', 'Time Management'
+  ],
+  '🧾 Documentation & Governance': [
+    'Documentation', 'SOP Development', 'Structured Content Extraction', 'Data Quality Assurance'
+  ]
+};
 
 
 

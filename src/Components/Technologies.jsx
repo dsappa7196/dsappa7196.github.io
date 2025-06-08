@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { CERTIFICATIONS, skills } from '../constants';
+import { CERTIFICATIONS, skillsByCategory } from '../constants';
 
 import {
   FaPython,
@@ -98,15 +98,22 @@ const Technologies = () => {
         transition={{ duration: 1 }}
         className="mt-16 text-center"
       >
-        <h3 className="text-2xl font-semibold mb-6 text-white">Core Skills</h3>
-        <div className="flex flex-wrap justify-center gap-3 max-w-5xl mx-auto px-4">
-          {skills.map((skill, index) => (
-            <span
-              key={index}
-              className="inline-block rounded-full bg-neutral-800 text-purple-300 px-4 py-2 text-sm font-medium"
-            >
-              {skill}
-            </span>
+        <h3 className="text-2xl font-semibold mb-10 text-white">Core Skills</h3>
+        <div className="space-y-10 max-w-5xl mx-auto px-4 text-sm sm:text-base text-neutral-300">
+          {Object.entries(skillsByCategory).map(([category, items]) => (
+            <div key={category}>
+              <h4 className="text-lg font-semibold text-purple-400 mb-3">{category}</h4>
+              <div className="flex flex-wrap justify-center gap-2">
+                {items.map((skill, idx) => (
+                  <span
+                    key={idx}
+                    className="bg-neutral-800 text-purple-300 px-3 py-1 text-xs font-medium rounded-full"
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
           ))}
         </div>
       </motion.div>
