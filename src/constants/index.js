@@ -140,33 +140,33 @@ export const PROJECTS = [
 ];
 
 // === Core Skills Grouped ===
-export const skillsByGroup = {
-  '📊 Analytics & Data Modeling': [
+export const skillsByGroup = [
+  '📊 Analytics & Data Modeling': {
     'SQL', 'Data Modeling', 'Regression', 'Forecasting',
     'Data Warehousing', 'Data Analysis', 'Data Normalization',
     'Relational Database Systems', 'Redshift'
-  ],
-  '📈 Visualization & Reporting Tools': [
+  },
+  '📈 Visualization & Reporting Tools': {
     'Tableau', 'Power BI', 'BI Dashboards', 'Data Visualization',
     'Report Building', 'Executive Reporting', 'Microsoft Office',
     'Advanced Excel (PivotTables, Power Query)', 'Excel Macros'
-  ],
-  '⚙️ Automation & Scripting': [
+  },
+  '⚙️ Automation & Scripting': {
     'Scripting', 'VBA Scripting', 'PowerApps', 'Smartsheet',
     'Task Automation', 'ETL Processes'
-  ],
-  '🧠 Business & Strategy': [
+  },
+  '🧠 Business & Strategy': {
     'Business Analysis', 'GTM Strategy Support', 'Process Optimization',
     'Strategic Thinking', 'Competitive Intelligence', 'Stakeholder Management',
     'Data Storytelling', 'Market Research', 'Agile Methodologies',
     'Time Management', 'Cross-functional Collaboration'
-  ],
-  '📁 Documentation & Governance': [
+  },
+  '📁 Documentation & Governance': {
     'Metadata Handling', 'Structured Content Extraction',
     'Regulatory Document Retrieval', 'Documentation',
     'SOP Development', 'Data Quality Assurance'
-  ]
-};
+  }
+];
 
 
 
