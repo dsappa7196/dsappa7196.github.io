@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { CERTIFICATIONS, skillsByCategory } from '../constants';
+import { CERTIFICATIONS, skillsByGroup } from '../constants';
 
 import {
   FaPython,
