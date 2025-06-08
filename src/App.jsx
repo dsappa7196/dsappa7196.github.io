@@ -30,7 +30,6 @@ const App = () => {
 
       {/* Main navigation + section nav */}
       <SectionNav toggleTheme={toggleTheme} currentTheme={theme} />
-      <SectionNav />
 
       {/* Social Icons BELOW SectionNav */}
       <SocialIcons />
