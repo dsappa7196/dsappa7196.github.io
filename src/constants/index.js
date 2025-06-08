@@ -139,9 +139,8 @@ export const PROJECTS = [
   }
 ];
 
-// Skills by Category
-
-export const skillsByCategory = {
+// === Core Skills Grouped ===
+export const skillsByGroup = {
   '📊 Analytics & Data Modeling': [
     'SQL', 'Data Modeling', 'Regression', 'Forecasting',
     'Data Warehousing', 'Data Analysis', 'Data Normalization',
