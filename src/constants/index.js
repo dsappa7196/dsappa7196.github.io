@@ -142,22 +142,30 @@ export const PROJECTS = [
 // Skills by Category
 
 export const skillsByCategory = {
-  '📊 Data Analytics & Visualization': [
-    'SQL', 'Data Modeling', 'Data Warehousing', 'Redshift',
-    'Tableau', 'Power BI', 'Advanced Excel (PivotTables, Power Query)', 'Excel Macros',
-    'Data Visualization', 'Forecasting', 'Regression', 'BI Dashboards'
+  '📊 Analytics & Data Modeling': [
+    'SQL', 'Data Modeling', 'Regression', 'Forecasting',
+    'Data Warehousing', 'Data Analysis', 'Data Normalization',
+    'Relational Database Systems', 'Redshift'
   ],
-  '⚙️ Automation & Business Reporting': [
-    'Task Automation (VBA, PowerApps, Smartsheet)', 'ETL Processes', 'Metadata Handling', 'Scripting',
-    'Executive Reporting', 'Competitive Intelligence', 'Regulatory Document Retrieval'
+  '📈 Visualization & Reporting Tools': [
+    'Tableau', 'Power BI', 'BI Dashboards', 'Data Visualization',
+    'Report Building', 'Executive Reporting', 'Microsoft Office',
+    'Advanced Excel (PivotTables, Power Query)', 'Excel Macros'
   ],
-  '💼 Strategic Analysis & Collaboration': [
+  '⚙️ Automation & Scripting': [
+    'Scripting', 'VBA Scripting', 'PowerApps', 'Smartsheet',
+    'Task Automation', 'ETL Processes'
+  ],
+  '🧠 Business & Strategy': [
     'Business Analysis', 'GTM Strategy Support', 'Process Optimization',
-    'Stakeholder Management', 'Cross-functional Collaboration', 'Strategic Thinking',
-    'Data Storytelling', 'Market Research', 'Agile Methodologies', 'Time Management'
+    'Strategic Thinking', 'Competitive Intelligence', 'Stakeholder Management',
+    'Data Storytelling', 'Market Research', 'Agile Methodologies',
+    'Time Management', 'Cross-functional Collaboration'
   ],
-  '🧾 Documentation & Governance': [
-    'Documentation', 'SOP Development', 'Structured Content Extraction', 'Data Quality Assurance'
+  '📁 Documentation & Governance': [
+    'Metadata Handling', 'Structured Content Extraction',
+    'Regulatory Document Retrieval', 'Documentation',
+    'SOP Development', 'Data Quality Assurance'
   ]
 };
 
