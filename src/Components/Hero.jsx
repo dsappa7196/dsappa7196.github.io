@@ -23,16 +23,14 @@ const Hero = () => {
   return (
     <div className="bg-transparent pt-40 pb-12">
       <div className="container mx-auto flex flex-col items-center px-8 text-center">
-        
-        {/* Profile Image - Perfect Pill Shape */}
+        {/* Profile Image */}
         <motion.img
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ duration: 1, ease: 'easeOut' }}
           src={profilePic}
           alt="Padmasree Sappa"
-          className="rounded-full w-40 h-40 sm:w-56 sm:h-66 lg:w-74 lg:h-74 object-cover shadow-lg mb-7"
-          style={{ borderRadius: '9999px' }} // Pill shape!
+          className="rounded-full w-50 h-50 sm:w-56 sm:h-66 lg:w-74 lg:h-74 object-cover shadow-lg mb-7"
         />
 
         {/* Name */}
@@ -45,7 +43,7 @@ const Hero = () => {
           Padmasree Sappa
         </motion.h1>
 
-        {/* Role Tags */}
+        {/* Role Tags with Gradient */}
         <motion.span
           variants={container(1)}
           initial="hidden"
@@ -97,3 +95,5 @@ const Hero = () => {
 };
 
 export default Hero;
+
+
