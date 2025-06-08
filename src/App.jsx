@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import Hero from './Components/Hero';
-import Navbar from './Components/Navbar'; // your actual top nav
 import About from "./Components/About";
 import Experience from "./Components/Experience";
 import Projects from "./Components/Projects";
@@ -30,7 +29,7 @@ const App = () => {
       </div>
 
       {/* Main navigation + section nav */}
-      <Navbar toggleTheme={toggleTheme} currentTheme={theme} />
+      <SectionNav toggleTheme={toggleTheme} currentTheme={theme} />
       <SectionNav />
 
       {/* Social Icons BELOW SectionNav */}
