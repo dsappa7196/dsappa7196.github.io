@@ -4,7 +4,7 @@ import { FaLinkedin, FaGithub } from "react-icons/fa";
 
 const SocialIcons = () => {
   return (
-    <nav className="mt-6 mb-4 flex justify-center animate-fade-in">
+    <nav className="mt-16 mb-4 flex justify-center animate-fade-in">
       <div className="flex gap-6 text-xl sm:text-2xl text-white">
         <a
           href="https://www.linkedin.com/in/padmasree-sappa"
