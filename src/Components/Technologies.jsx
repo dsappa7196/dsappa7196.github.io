@@ -91,7 +91,7 @@ const Technologies = () => {
         </div>
       </motion.div>
 
-      {/* Core Skills */}
+      {/* Core Skills (Grouped) */}
       <motion.div
         whileInView={{ opacity: 1, y: 0 }}
         initial={{ opacity: 0, y: 50 }}
@@ -100,11 +100,11 @@ const Technologies = () => {
       >
         <h3 className="text-2xl font-semibold mb-10 text-white">Core Skills</h3>
         <div className="space-y-10 max-w-5xl mx-auto px-4 text-sm sm:text-base text-neutral-300">
-          {Object.entries(skillsByCategory).map(([category, items]) => (
+          {Object.entries(skillsByGroup).map(([category, skills]) => (
             <div key={category}>
               <h4 className="text-lg font-semibold text-purple-400 mb-3">{category}</h4>
               <div className="flex flex-wrap justify-center gap-2">
-                {items.map((skill, idx) => (
+                {skills.map((skill, idx) => (
                   <span
                     key={idx}
                     className="bg-neutral-800 text-purple-300 px-3 py-1 text-xs font-medium rounded-full"
