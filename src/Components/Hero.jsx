@@ -31,7 +31,7 @@ const Hero = () => {
           transition={{ duration: 1, ease: 'easeOut' }}
           src={profilePic}
           alt="Padmasree Sappa"
-          className="rounded-full w-50 h-50 sm:w-56 sm:h-66 lg:w-74 lg:h-74 object-cover shadow-lg mb-7"
+          className="rounded-full w-40 h-40 sm:w-56 sm:h-66 lg:w-74 lg:h-74 object-cover shadow-lg mb-7"
           style={{ borderRadius: '9999px' }} // Pill shape!
         />
 
