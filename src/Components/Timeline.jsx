@@ -26,16 +26,31 @@ const timelineItems = [
     title: "MSBA – San Francisco State University",
     type: "education",
   },
+  {
+    date: "May 2024 - Aug 2024",
+    title: "Intern – UCSF Catalyst Program",
+    type: "career",
+  },
+  {
+    date: "Aug 2024 - May 2025",
+    title: "Teaching Assistant – Operations Management & Managerial Decision Making, SFSU",
+    type: "career",
+  },
+  {
+    date: "May 2025 – Present",
+    title: "Research Assistant – Traffic Congestion Project, SFSU",
+    type: "career",
+  },
 ];
 
 const Timeline = () => {
   return (
-    <div className="py-20">
+    <div className="py-20 bg-[#0F0F1A]">
       <h2 className="text-3xl font-semibold text-center text-white mb-14">
         My Education & Career Timeline
       </h2>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 max-w-6xl mx-auto px-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-8 max-w-6xl mx-auto px-4">
         {timelineItems.map((item, index) => (
           <div
             key={index}
@@ -51,8 +66,8 @@ const Timeline = () => {
               {item.type === "education" ? <FaGraduationCap /> : <FaBriefcase />}
             </div>
 
-            {/* Role Text */}
-            <div className="text-white font-medium mb-1 whitespace-normal max-w-[180px]">
+            {/* Title */}
+            <div className="text-white font-medium mb-1 whitespace-normal max-w-[200px]">
               {item.title}
             </div>
 
