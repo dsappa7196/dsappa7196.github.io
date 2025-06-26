@@ -64,7 +64,7 @@ const events = [
 
 const Timeline = () => {
   return (
-    <div className="bg-[#0F0F1A] py-20">
+    <div className="bg-gradient-to-b from-[#0F0F1A] to-black py-20">
       <h2 className="text-3xl font-semibold text-center text-white mb-14">
         My Education & Career Timeline
       </h2>
