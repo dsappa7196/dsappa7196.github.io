@@ -1,24 +1,25 @@
-import { useState, useEffect } from 'react';
-import Hero from './Components/Hero';
+import { useState, useEffect } from "react";
+import Hero from "./Components/Hero";
 import About from "./Components/About";
 import Experience from "./Components/Experience";
 import Projects from "./Components/Projects";
 import Technologies from "./Components/Technologies";
 import Contact from "./Components/Contact";
 import SectionNav from "./Components/SectionNav";
-import SocialIcons from "./Components/SocialIcons"; // NEW import
+import SocialIcons from "./Components/SocialIcons";
+import Certifications from "./Components/Certifications"; // ✅ NEW import
 
 const App = () => {
-  const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'dark');
+  const [theme, setTheme] = useState(() => localStorage.getItem("theme") || "dark");
 
   useEffect(() => {
-    document.documentElement.classList.remove('light', 'dark');
+    document.documentElement.classList.remove("light", "dark");
     document.documentElement.classList.add(theme);
-    localStorage.setItem('theme', theme);
+    localStorage.setItem("theme", theme);
   }, [theme]);
 
   const toggleTheme = () => {
-    setTheme(prev => (prev === 'dark' ? 'light' : 'dark'));
+    setTheme((prev) => (prev === "dark" ? "light" : "dark"));
   };
 
   return (
@@ -28,12 +29,11 @@ const App = () => {
         <div className="absolute inset-0 z-[-2] h-[300vh] w-full bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]" />
       </div>
 
-      {/* Main navigation + section nav */}
+      {/* Navigation */}
       <SectionNav toggleTheme={toggleTheme} currentTheme={theme} />
-
-      {/* Social Icons BELOW SectionNav */}
       <SocialIcons />
 
+      {/* Main sections */}
       <section id="hero">
         <Hero />
       </section>
@@ -52,6 +52,11 @@ const App = () => {
 
       <section id="projects">
         <Projects />
+      </section>
+
+      {/* ✅ Certifications Section */}
+      <section id="certifications">
+        <Certifications />
       </section>
 
       <section id="contact">
