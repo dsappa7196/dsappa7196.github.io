@@ -80,7 +80,7 @@ const Hero = () => {
           </button>
 
           <a
-            href="https://github.com/dsappa7196/Padmasree-Sappa/blob/main/PadmasreeSappa_BusinessAnalyst.pdf"
+            href="https://github.com/dsappa7196/Padmasree_Resume/blob/main/PadmasreeSappa_Resume.pdf"
             target="_blank"
             rel="noopener noreferrer"
             className="bg-neutral-200 text-neutral-900 py-2 px-6 rounded-full hover:bg-neutral-300 transition duration-200 flex items-center gap-2"
