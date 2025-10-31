@@ -62,7 +62,7 @@ const events = [
   },
   {
   date: "Aug 2025 – Present",
-  title: "Business Analyst – Graduate Researcher, CGI (MSBA – SFSU Capstone Project)",
+  title: "Business Analyst – Graduate Researcher, CGI",
   icon: <FaBriefcase />,
   type: "career",
   },
