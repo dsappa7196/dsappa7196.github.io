@@ -1,5 +1,7 @@
-import { motion } from 'framer-motion';
-import { CERTIFICATIONS, skillsByGroup } from '../constants';
+// src/Components/Technologies.jsx
+import React from "react";
+import { motion } from "framer-motion";
+import { CERTIFICATIONS, skillsByGroup } from "../constants";
 
 import {
   FaPython,
@@ -8,12 +10,10 @@ import {
   FaChartBar,
   FaRProject,
   FaCloud,
-  FaProjectDiagram
-} from 'react-icons/fa';
-
-import { TbBrandDatabricks, TbFileTypeSql } from 'react-icons/tb';
-import { DiMsqlServer } from 'react-icons/di';
-
+  FaProjectDiagram,
+} from "react-icons/fa";
+import { TbBrandDatabricks, TbFileTypeSql } from "react-icons/tb";
+import { DiMsqlServer } from "react-icons/di";
 
 const iconVariants = (duration) => ({
   initial: { y: -10 },
@@ -21,16 +21,19 @@ const iconVariants = (duration) => ({
     y: [10, -10],
     transition: {
       duration,
-      ease: 'linear',
+      ease: "linear",
       repeat: Infinity,
-      repeatType: 'reverse',
+      repeatType: "reverse",
     },
   },
 });
 
 const Technologies = () => {
+  const certs = Array.isArray(CERTIFICATIONS) ? CERTIFICATIONS : [];
+  const groups = Object.entries(skillsByGroup || {});
+
   return (
-    <section id="technologies" className="bg-transparent py-24 border-t border-neutral-800">
+    <section id="skills" className="bg-transparent py-24 border-t border-neutral-800">
       <motion.h2
         whileInView={{ opacity: 1, y: 0 }}
         initial={{ opacity: 0, y: -150 }}
@@ -71,7 +74,7 @@ const Technologies = () => {
         ))}
       </motion.div>
 
-      {/* Certifications */}
+      {/* Certifications (safe rendering for strings OR {name, link} objects) */}
       <motion.div
         whileInView={{ opacity: 1, y: 0 }}
         initial={{ opacity: 0, y: 50 }}
@@ -80,14 +83,38 @@ const Technologies = () => {
       >
         <h3 className="text-2xl font-semibold mb-6 text-white">Certifications</h3>
         <div className="flex flex-wrap justify-center gap-3">
-          {CERTIFICATIONS.map((cert, index) => (
-            <span
-              key={index}
-              className="inline-block rounded-full bg-purple-800 text-white px-4 py-2 text-sm font-medium"
-            >
-              {cert}
-            </span>
-          ))}
+          {certs.map((c, index) => {
+            if (typeof c === "string") {
+              return (
+                <span
+                  key={`${c}-${index}`}
+                  className="inline-block rounded-full bg-purple-800 text-white px-4 py-2 text-sm font-medium"
+                >
+                  {c}
+                </span>
+              );
+            }
+            const { name, link } = c || {};
+            const label = name || link || `Certification ${index + 1}`;
+            return link ? (
+              <a
+                key={label}
+                href={link}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-block rounded-full bg-purple-800 text-white px-4 py-2 text-sm font-medium hover:bg-purple-700 underline decoration-transparent hover:decoration-inherit"
+              >
+                {label}
+              </a>
+            ) : (
+              <span
+                key={label}
+                className="inline-block rounded-full bg-purple-800 text-white px-4 py-2 text-sm font-medium"
+              >
+                {label}
+              </span>
+            );
+          })}
         </div>
       </motion.div>
 
@@ -100,13 +127,13 @@ const Technologies = () => {
       >
         <h3 className="text-2xl font-semibold mb-10 text-white">Core Skills</h3>
         <div className="space-y-10 max-w-5xl mx-auto px-4 text-sm sm:text-base text-neutral-300">
-          {Object.entries(skillsByGroup).map(([category, skills]) => (
+          {groups.map(([category, skills]) => (
             <div key={category}>
               <h4 className="text-lg font-semibold text-purple-400 mb-3">{category}</h4>
               <div className="flex flex-wrap justify-center gap-2">
-                {skills.map((skill, idx) => (
+                {(Array.isArray(skills) ? skills : []).map((skill) => (
                   <span
-                    key={idx}
+                    key={skill}
                     className="bg-neutral-800 text-purple-300 px-3 py-1 text-xs font-medium rounded-full"
                   >
                     {skill}

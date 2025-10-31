@@ -193,6 +193,6 @@ export const CERTIFICATIONS = [
 // Contact Info
 export const CONTACT = {
   address: "San Francisco, CA",
-  phoneNo: "+1 (628) 208-3271",
+  phoneNo: "+1 (628)208-3271",
   email: "sdnps7196@gmail.com",
 };
