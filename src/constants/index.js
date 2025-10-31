@@ -141,39 +141,99 @@ export const PROJECTS = [
 
 export const skillsByGroup = {
   '📊 Analytics & Data Modeling': [
-    'SQL', 'Data Modeling', 'Regression', 'Forecasting',
-    'Data Warehousing', 'Data Analysis', 'Data Normalization',
-    'Relational Database Systems', 'Redshift'
+    'SQL',
+    'Data Modeling',
+    'Predictive Analytics',
+    'Regression',
+    'Forecasting',
+    'Data Warehousing',
+    'ETL Processes',
+    'Data Profiling',
+    'Data Analysis',
+    'Data Normalization',
+    'Redshift',
+    'Snowflake'
   ],
+
   '📈 Visualization & Reporting Tools': [
-    'Tableau', 'Power BI', 'BI Dashboards', 'Data Visualization',
-    'Report Building', 'Executive Reporting', 'Microsoft Office',
-    'Advanced Excel (PivotTables, Power Query)', 'Excel Macros'
+    'Tableau',
+    'Power BI',
+    'Looker',
+    'Excel (Advanced Functions, PivotTables, Power Query)',
+    'Data Visualization',
+    'Dashboard Development',
+    'Report Automation',
+    'Executive Reporting',
+    'KPI Tracking'
   ],
+
   '⚙️ Automation & Scripting': [
-    'Scripting', 'VBA Scripting', 'PowerApps', 'Smartsheet',
-    'Task Automation', 'ETL Processes'
+    'Python',
+    'JavaScript',
+    'HTML',
+    'VBA (Macros)',
+    'Task Automation',
+    'Process Optimization',
+    'Workflow Automation',
+    'Data Pipeline Development'
   ],
+
   '🧠 Business & Strategy': [
-    'Business Analysis', 'GTM Strategy Support', 'Process Optimization',
-    'Strategic Thinking', 'Competitive Intelligence', 'Stakeholder Management',
-    'Data Storytelling', 'Market Research', 'Agile Methodologies',
-    'Time Management', 'Cross-functional Collaboration'
+    'Business Analysis',
+    'Operational Efficiency',
+    'Strategic Planning',
+    'Process Improvement',
+    'Market Research',
+    'Competitive Benchmarking',
+    'Stakeholder Management',
+    'Cross-Functional Collaboration',
+    'Agile Methodologies',
+    'Project Coordination',
+    'Data Storytelling'
   ],
+
   '📁 Documentation & Governance': [
-    'Metadata Handling', 'Structured Content Extraction',
-    'Regulatory Document Retrieval', 'Documentation',
-    'SOP Development', 'Data Quality Assurance'
+    'SOP Development',
+    'Data Governance',
+    'Data Quality Assurance',
+    'Documentation & Reporting Standards',
+    'Compliance Monitoring'
   ]
 };
 
+
 // Certifications Section
 export const CERTIFICATIONS = [
-  "Power BI Essential Training",
-  "Data Visualization in Power BI",
-  "Statistics with Python (Coursera)",
-  "Information Systems Specialization"
+  {
+    name: "Graduate Certificate in Decision Sciences",
+    link: "https://www.parchment.com/u/award/8b21fd2a28744e07692d6972e3027f82", // Add link to official university certificate or transcript if available
+  },
+  {
+    name: "McKinsey Forward Program Certification",
+    link: "https://www.credly.com/badges/a0a111e0-9130-4d1f-9035-46bc0fcab55a/public_url", // Add McKinsey Forward certificate link or LinkedIn credential
+  },
+  {
+    name: "HelloPM Product Management Certification",
+    link: "https://hellopm.co/certificate/?certificate_id=N6BXTX", // Add HelloPM certificate URL
+  },
+  {
+    name: "Generative AI Essentials for Data Science",
+    link: "https://www.credly.com/earner/earned/badge/b6c1046b-f7ea-47b2-879b-19e5060a1f76", // Add LinkedIn Learning or Udemy course link
+  },
+  {
+    name: "Data Science Orientation",
+    link: "https://www.credly.com/earner/earned/badge/9e1b3e3c-2506-4372-9477-2df745ec8588", // Add Coursera or LinkedIn Learning link
+  },
+  {
+    name: "Statistics with Python (Coursera)",
+    link: "https://coursera.org/share/d76f9eb992dcec1571b5306fca1fbe35", // Add Coursera credential link
+  },
+  {
+    name: "Information Systems Specialization",
+    link: "https://coursera.org/share/98cf8924339d15851d1e1b6775485262", // Add course certificate or academic record link
+  },
 ];
+
 
 // Contact Info
 export const CONTACT = {

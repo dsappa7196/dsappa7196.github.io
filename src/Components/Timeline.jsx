@@ -44,13 +44,7 @@ const events = [
   },
   {
     date: "Aug 2024 - May 2025",
-    title: "Teaching Assistant – Operations Management & Managerial Decision Making",
-    icon: <FaBriefcase />,
-    type: "career",
-  },
-  {
-    date: "May 2025 – Present",
-    title: "Research Assistant – Traffic Congestion Project",
+    title: "Teaching Assistant – Operations Management",
     icon: <FaBriefcase />,
     type: "career",
   },
@@ -59,6 +53,18 @@ const events = [
     title: "Participant – INFORMS Data Analytics Competition",
     icon: <FaBriefcase />,
     type: "career",
+  },
+  {
+    date: "Aug 2025 – Present",
+    title: "Teaching Assistant – Data Mining with Business Applications",
+    icon: <FaBriefcase />,
+    type: "career",
+  },
+  {
+  date: "Aug 2025 – Present",
+  title: "Business Analyst – Graduate Researcher, CGI (MSBA – SFSU Capstone Project)",
+  icon: <FaBriefcase />,
+  type: "career",
   },
 ];
 
