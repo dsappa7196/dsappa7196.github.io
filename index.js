@@ -192,10 +192,6 @@ export const CERTIFICATIONS = [
     link: "https://bcert.me/snnhsakbl"
   },
   {
-    name: "Project Management Professional (PMP) – In Progress",
-    link: 
-  },
-  {
     name: "Graduate Certificate in Decision Sciences",
     link: "https://www.parchment.com/u/award/8b21fd2a28744e07692d6972e3027f82"
   },
