@@ -8,13 +8,13 @@ import { FaBriefcase, FaGraduationCap } from "react-icons/fa";
 const events = [
   {
     date: "Aug 2025 – Dec 2025",
-    title: "Data Analyst - CGI (MSBA Capstone)",
+    title: "Data Analyst — CGI (MSBA Capstone)",
     icon: <FaBriefcase />,
     type: "career",
   },
   {
-    date: "Aug 2025 – Present",
-    title: "Teaching Assistant — Data Mining with Business Applications - SFSU",
+    date: "Aug 2025 – Dec 2025",
+    title: "Teaching Assistant — Data Mining with Business Applications — SFSU",
     icon: <FaBriefcase />,
     type: "career",
   },
@@ -26,7 +26,7 @@ const events = [
   },
   {
     date: "Aug 2024 – May 2025",
-    title: "Teaching Assistant — Operations Management - SFSU",
+    title: "Teaching Assistant — Operations Management — SFSU",
     icon: <FaBriefcase />,
     type: "career",
   },

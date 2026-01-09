@@ -1,6 +1,6 @@
-import { motion } from 'framer-motion';
-import { ABOUT_TEXT } from '../constants';
-import Timeline from './Timeline';
+import { motion } from "framer-motion";
+import { ABOUT_TEXT } from "../constants";
+import Timeline from "./Timeline";
 
 const About = () => {
   return (
@@ -8,18 +8,18 @@ const About = () => {
       id="about"
       className="bg-transparent py-28 border-b border-neutral-800"
     >
-      {/* Hero Title */}
+      {/* Section Header */}
       <motion.h2
-        initial={{ opacity: 0, y: -50 }}
+        initial={{ opacity: 0, y: -40 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
         className="text-center text-2xl sm:text-5xl font-bold text-neutral-100 leading-tight tracking-tight mb-20"
       >
-        Curious by nature. <br className="hidden sm:inline" />
-        Driven by data. Focused on impact.
+        Turning data into clarity. <br className="hidden sm:inline" />
+        Driving outcomes through analytics.
       </motion.h2>
 
-      {/* Content Block */}
+      {/* Content */}
       <motion.div
         initial="hidden"
         whileInView="visible"
@@ -35,8 +35,12 @@ const About = () => {
           <motion.p
             key={index}
             variants={{
-              hidden: { opacity: 0, y: 40 },
-              visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+              hidden: { opacity: 0, y: 30 },
+              visible: {
+                opacity: 1,
+                y: 0,
+                transition: { duration: 0.6 },
+              },
             }}
             className="border-l-4 border-purple-500 pl-6 font-light"
           >
@@ -52,10 +56,11 @@ const About = () => {
         transition={{ duration: 0.6, delay: 0.3 }}
         className="mt-24 max-w-4xl mx-auto px-6 py-10 border-l-4 border-cyan-500 italic text-base sm:text-xl text-neutral-400"
       >
-        “It’s never just about data — it’s about the stories the data tells and the impact it creates.”
+        “Great analytics doesn’t just explain what happened — it empowers teams
+        to decide what to do next.”
       </motion.blockquote>
 
-      {/* Optional: Timeline */}
+      {/* Timeline */}
       <div className="mt-32">
         <Timeline />
       </div>
