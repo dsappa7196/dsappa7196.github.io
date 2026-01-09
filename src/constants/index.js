@@ -5,78 +5,76 @@ import project3 from "../assets/projects/project-3.png";
 import project4 from "../assets/projects/project-4.jpg";
 import project5 from "../assets/projects/project-5.png";
 
-// Hero Content
-export const HERO_CONTENT = `I am a Business Analytics professional with 6.5+ years of experience in operational analytics, process automation, and data storytelling — including impactful work at Amazon. I specialize in SQL, Excel, and Tableau to drive business insights, reduce inefficiencies, and guide decision-making. Currently pursuing a Master’s in Business Analytics at San Francisco State University, I am eager to apply my skills in data modeling, visualization, and optimization to real-world business challenges.`;
+// ------------------------------------------------------
+// HERO CONTENT
+// ------------------------------------------------------
+export const HERO_CONTENT = `I am a Business Intelligence Engineer with 6.5+ years of experience building analytics systems, dashboards, and automation solutions that drive operational decision-making — including impactful work at Amazon. I specialize in SQL, Power BI, Python, and Excel to create scalable reporting pipelines, improve KPI visibility, and reduce manual effort. Currently pursuing a Master’s in Business Analytics at San Francisco State University, I bring a strong delivery mindset supported by CSM, CSPO, and PMP (in progress).`;
 
-// About Section
+// ------------------------------------------------------
+// ABOUT SECTION
+// ------------------------------------------------------
 export const ABOUT_TEXT = [
-  "Curious by nature and driven by data, I bring over 6 years of experience transforming business problems into clear, actionable insights. My journey has taken me from building operational automations at Amazon to uncovering growth opportunities through dashboards and predictive models.",
-  "Now, as a graduate student in Business Analytics at San Francisco State University, I’m deepening my expertise in machine learning, optimization, and decision science. I thrive at the intersection of analytics and strategy—where the numbers meet nuance.",
-  "I’ve led analytics initiatives that cut delivery times, saved thousands of hours through automation, and helped global teams make faster, better decisions. But for me, it’s never just about data—it’s about the stories the data tells and the impact it creates.",
-  "Whether I’m building a regression model or crafting a stakeholder report, I’m driven by clarity, creativity, and a desire to simplify the complex. My toolkit includes SQL, Python, Tableau, and Excel VBA—but it’s curiosity and structure that really guide my work.",
-  "I’m excited to contribute to data-forward teams that value both rigor and imagination—whether in product strategy, decision intelligence, or business analytics."
+  "I’m a Business Intelligence Engineer with over 6.5 years of experience across Amazon and data-driven organizations, transforming complex operational data into clear, actionable insights.",
+  "I specialize in building SQL data models, Power BI and Tableau dashboards, and automation pipelines that help leadership teams track KPIs, identify risks, and make faster, better decisions.",
+  "Beyond analytics, I bring a strong delivery mindset — collaborating with stakeholders, prioritizing high-impact work, and ensuring data solutions are adopted and trusted by the business.",
+  "My technical toolkit spans SQL, Python, Excel (Power Query & VBA), data modeling, forecasting, and visualization, allowing me to bridge business needs with scalable analytics solutions.",
+  "With CSM, CSPO, and PMP (in progress), I focus on turning analytics into real operational impact — not just dashboards, but measurable business outcomes."
 ];
 
 // Experience Section
 export const EXPERIENCES = [
   {
+    year: "Aug-2025 – Dec-2025",
+    role: "Graduate Data Analyst - Agile Jira Analytics & Forecasting",
+    company: "CGI — MSBA Capstone (San Francisco, CA)",
+    description:
+      "Delivered enterprise-grade agile analytics solutions by building scalable Jira data pipelines, KPI models, and Power BI dashboards supporting forecasting, risk detection, and program execution across multiple SAFe teams.",
+    technologies: ["Python", "SQL", "Power BI", "Dimensional Modeling", "Jira API", "Agile Analytics"],
+    details: [
+      "Reduced data preparation effort by 60% by building scalable Python pipelines ingesting ~240K Jira issues across 5–10 SAFe teams, establishing reusable analytics datasets and AI-ready pipelines.",
+      "Improved reporting performance by 35% and reuse by 40% by defining 15+ standardized delivery KPIs and modeling curated Jira data into a dimensional Power BI semantic layer.",
+      "Enabled early risk detection across 20%+ cycle-time variance by developing dashboards for sprint health, bottlenecks, release readiness, and workflow throughput used by cross-functional leaders.",
+      "Reduced sprint planning variance by 30% by automating reporting and what‑if capacity scenarios, improving forecast accuracy across 3+ program increments."
+    ]
+  },
+  {
+    year: "Jul-2019 – Dec-2023",
+    role: "Business Analyst — Brand Protection Analytics",
+    company: "Amazon (India)",
+    description:
+      "Owned analytics and automation initiatives supporting Amazon’s Brand Protection organization, improving fraud detection accuracy, SLA performance, and leadership decision velocity.",
+    technologies: ["SQL", "Python", "ETL", "Power BI", "Tableau", "Automation", "AWS", "Excel"],
+    details: [
+      "Protected ~$1M in annual cost savings by improving fraud‑signal prioritization accuracy (+28%) and SLA compliance (+15%) through SQL and Python‑driven analytics pipelines.",
+      "Accelerated leadership decision-making by 70% by automating BI dashboards and reporting pipelines, significantly reducing data latency and manual effort.",
+      "Eliminated ~1,200 manual hours per year by implementing automated data validation and reconciliation workflows, improving reporting accuracy and consistency.",
+      "Led and coordinated 12–15 business operations specialists across workload planning, reporting cadence, training, and vendor coordination; recognized with 8 consecutive quarterly Spotlight Awards."
+    ]
+  },
+  {
+    year: "Jun-2017 – Jul-2019",
+    role: "Business Operations Analyst — Data & Process Optimization",
+    company: "Algae Bio-Tech India Pvt Ltd",
+    description:
+      "Led analytics initiatives to improve operational efficiency, automate reporting pipelines, and enable data-driven production and inventory planning.",
+    technologies: ["SQL", "Python", "ETL", "Process Optimization", "Team Leadership"],
+    details: [
+      "Improved operational efficiency by 20% through SQL and Python-driven data models and ETL workflows supporting production and inventory planning decisions.",
+      "Reduced reporting cycle time by 35% by leading a 5-member analytics team and implementing standardized automated reporting processes."
+    ]
+  },
+  {
     year: "Jan-2024 – Dec-2025",
     role: "MS in Business Analytics",
     company: "San Francisco State University",
     description:
-      "Graduate coursework in Business Intelligence, Machine Learning, Data Warehousing, and Optimization. Focused on building scalable analytics pipelines and actionable dashboards for decision-making.",
+      "Graduate coursework focused on business intelligence, machine learning, optimization, data engineering, and analytics strategy.",
     technologies: ["Python", "SQL", "Tableau", "Optimization", "Data Modeling"],
     details: [
-      "Built a Tableau dashboard to analyze YouTube metrics like impressions, click-through rates, monetized playbacks, and audience retention — boosted creator revenue strategies by 25%.",
-      "Analyzed US health insurance data to uncover cost drivers such as BMI and smoking; built regression models with 92% accuracy and stratified user risk segments.",
-      "Developed a 14-table SQL schema for Amazon counterfeit product tracking; reduced resolution times by 30% and improved brand protection workflows.",
-      "Created an optimization model in Excel using Solver and VBA macros to minimize delivery times for meal logistics based on weather, traffic, and route constraints.",
-      "Designed a SQL database and dashboard for Amazon complaints and investigations; delivered fraud insights on high-risk product categories and reduced SLA violations."
-    ]
-  },
-  {
-    year: "Oct-2021 – Dec-2023",
-    role: "Business Operations Specialist",
-    company: "Amazon",
-    description:
-      "Led automation and analytics within Amazon’s Transparency Program to streamline brand protection.",
-    technologies: ["SQL", "VBA", "AWS", "Excel", "Operational Automation", "Redshift", "Tableau", "Power BI"],
-    details: [
-      "Authored 60%+ of SOPs for Brand Protection, improving clarity and execution.",
-      "Built automated SQL + BI tools to increase seller approval by 25% and reduce AHT by 40%.",
-      "Reduced report latency 70% by optimizing Redshift SQL for QBR processes.",
-      "Implemented VBA automation to cut ASIN validation manual workload by 40%.",
-      "Streamlined Easy Ship workflows, saving 0.07 FTEs and cutting task time from 300 to 120 mins.",
-      "Facilitated bi-weekly Kaizen meetings to drive cross-team process improvements."
-    ]
-  },
-  {
-    year: "July-2019 – Oct-2021",
-    role: "Data Operations Associate",
-    company: "Amazon",
-    description:
-      "Created predictive models to enhance SLA compliance and reduce stow defect variance by 20%. Introduced resource automation tools that saved ~1,800 hours/year. Led robotics pilot (SCOUT) that cut last-mile human intervention by 25%.",
-    technologies: ["SQL", "Python", "Forecasting", "AI Planning", "ETL"],
-    details: [
-      "Enhanced SLA compliance by 15% using predictive models.",
-      "Reduced defects 20% and saved 1,800 work hours annually through AI automation.",
-      "Reduced manual intervention 40% via VBA tools and improved task turnaround by 25%.",
-      "Led a data-mining initiative cutting robotic ops costs by 20%.",
-      "Piloted Amazon Robotics SCOUT, cutting human intervention by 25%.",
-      "Analyzed 1M+ data points to drive 25% performance uplift via predictive modeling."
-    ]
-  },
-  {
-    year: "June-2017 – July-2019",
-    role: "Business Analyst",
-    company: "Algae Bio-Tech India",
-    description:
-      "Managed a team of analysts to streamline operations using SQL and Excel. Designed reporting pipelines and mentored junior analysts. Improved data quality and process visibility through operational dashboards.",
-    technologies: ["Team Management", "Process Optimization", "SQL", "Python"],
-    details: [
-      "Extracted insights from 1M+ rows with SQL + Python to cut inefficiencies 20%.",
-      "Managed 5 analysts; boosted team productivity by 15%.",
-      "Mentored junior analysts and improved data quality and processes by 20%."
+      "Built a Tableau dashboard analyzing YouTube metrics across 200+ videos, improving monetization strategy decisions by 25%.",
+      "Developed regression and predictive models achieving 92% accuracy on healthcare cost datasets.",
+      "Designed a 14-table SQL schema supporting Amazon counterfeit investigations and KPI reporting.",
+      "Built optimization models in Excel using Solver and VBA to minimize delivery times under real-world constraints."
     ]
   },
   {
@@ -84,18 +82,20 @@ export const EXPERIENCES = [
     role: "B.Tech in Electrical & Electronics",
     company: "JNTU Kakinada",
     description:
-      "Bachelor’s program with foundational courses in engineering math, programming, economics, and core electrical systems.",
-    technologies: ["C Programming", "Linear Algebra", "Control Systems"],
-  },
+      "Bachelor’s degree with strong foundations in engineering mathematics, programming, systems analysis, and quantitative problem solving.",
+    technologies: ["C Programming", "Linear Algebra", "Control Systems"]
+  }
 ];
 
-// Projects Section (Fixed image imports)
+// ------------------------------------------------------
+// PROJECTS SECTION
+// ------------------------------------------------------
 export const PROJECTS = [
   {
     title: "Seoul Bike Demand Prediction",
     image: project1,
     description:
-      "Developed a regression model using Gradient Boosting to predict hourly rental demand using weather and calendar data. Achieved 92% R² accuracy. Engineered cyclical features and validated performance with cross-validation, learning curves, and residual analysis.",
+      "Built a Gradient Boosting regression model to predict hourly bike rental demand using weather and calendar features. Achieved 92% R² accuracy with feature engineering, cross-validation, and residual analysis.",
     technologies: ["Python", "Scikit-learn", "EDA", "Gradient Boosting", "Feature Engineering"],
     github: "https://github.com/dsappa7196/seoul-bike-demand-prediction"
   },
@@ -103,96 +103,125 @@ export const PROJECTS = [
     title: "Amazon Counterfeit Product Database",
     image: project2,
     description:
-      "Designed a 14-table SQL database to support Amazon’s brand protection workflows. Captured complaints, investigations, and enforcement actions in 3NF. Delivered fraud insights like high-risk product rates, resolution times, and investigation efficiency using SQL analytics.",
-    technologies: ["SQL", "MySQL", "EER Diagrams", "Schema Design", "Query Optimization"],
+      "Designed a normalized 14-table SQL database supporting brand protection workflows. Enabled fraud insights, resolution tracking, and investigation analytics.",
+    technologies: ["SQL", "MySQL", "Schema Design", "Query Optimization"],
     github: "https://github.com/dsappa7196/Amazon-Counterfeit-Product-Management"
   },
   {
     title: "Health Insurance Premium Prediction",
     image: project3,
     description:
-      "Analyzed a public health insurance dataset to identify key cost drivers (e.g., smoking, BMI, age). Built models using Linear Regression, Random Forest, and Gradient Boosting. Final GBM model achieved 90% R². Delivered actionable insights to inform risk-based pricing strategy.",
-    technologies: ["Python", "Pandas", "Regression", "XGBoost", "Risk Scoring"],
+      "Analyzed health insurance data to identify cost drivers and built predictive models achieving 90%+ accuracy to support risk-based pricing strategies.",
+    technologies: ["Python", "Regression", "XGBoost", "Risk Modeling"],
     github: "https://github.com/dsappa7196/US-Health-Insurance-Premium-Prediction"
   },
   {
     title: "YouTube Metrics Dashboard",
     image: project4,
     description:
-      "Built an interactive Tableau dashboard that visualized CTR, watch time, ad revenue, and engagement across 200+ videos. Uncovered viewer behavior patterns and upload timing insights, resulting in a 25% improvement in monetization decisions for creators.",
-    technologies: ["Tableau", "Data Visualization", "Excel", "KPI Dashboards"],
+      "Built an interactive Tableau dashboard tracking engagement and monetization KPIs across 200+ videos, improving content strategy decisions by 25%.",
+    technologies: ["Tableau", "Data Visualization", "KPI Dashboards"],
     github: "https://github.com/dsappa7196/youtube-metrics-dashboard"
   },
   {
     title: "Meal Delivery Optimization",
     image: project5,
     description:
-      "Built an Excel Solver-based optimization engine that dynamically assigned couriers to orders based on distance, traffic, and weather. Reduced delivery time by 15% and automated route planning with one-click macros. Modeled real-world constraints using linear programming.",
-    technologies: ["Excel Solver", "Linear Programming", "VBA Macros", "Operations Research"],
+      "Built an Excel-based optimization model using linear programming to dynamically assign couriers, reducing delivery time by 15%.",
+    technologies: ["Excel Solver", "Linear Programming", "VBA", "Operations Research"],
     github: "https://github.com/dsappa7196/meal-delivery-optimization"
   }
 ];
 
+// ------------------------------------------------------
+// SKILLS SECTION (REBUILT FOR BI ENGINEER POSITIONING)
+// ------------------------------------------------------
 export const skillsByGroup = {
-  "📊 Analytics & Data Modeling": [
-    "SQL", "Data Modeling", "Predictive Analytics", "Regression", "Forecasting",
-    "Data Warehousing", "ETL Processes", "Data Profiling", "Data Analysis",
-    "Data Normalization", "Redshift", "Snowflake"
+  "📊 Business Intelligence & Data Modeling": [
+    "SQL",
+    "Data Modeling",
+    "Dimensional Modeling",
+    "KPI Design",
+    "Data Warehousing",
+    "ETL Pipelines",
+    "Data Quality & Validation",
+    "Query Optimization",
+    "Redshift",
+    "Snowflake"
   ],
-  "📈 Visualization & Reporting Tools": [
-    "Tableau", "Power BI", "Looker", "Excel (Advanced Functions, PivotTables, Power Query)",
-    "Data Visualization", "Dashboard Development", "Report Automation", "Executive Reporting", "KPI Tracking"
+  "📈 Visualization & Reporting": [
+    "Power BI",
+    "Tableau",
+    "Looker",
+    "Dashboard Development",
+    "Executive Reporting",
+    "Self-Service Analytics",
+    "Data Storytelling",
+    "Visualization Best Practices"
   ],
-  "⚙️ Automation & Scripting": [
-    "Python", "JavaScript", "HTML", "VBA (Macros)", "Task Automation", "Process Optimization",
-    "Workflow Automation", "Data Pipeline Development"
+  "⚙️ Analytics & Automation": [
+    "Python",
+    "Excel (Power Query, VBA)",
+    "Forecasting",
+    "Predictive Analytics",
+    "Optimization Modeling",
+    "Automation Workflows",
+    "Data Pipeline Development"
   ],
-  "🧠 Business & Strategy": [
-    "Business Analysis", "Operational Efficiency", "Strategic Planning", "Process Improvement",
-    "Market Research", "Competitive Benchmarking", "Stakeholder Management", "Cross-Functional Collaboration",
-    "Agile Methodologies", "Project Coordination", "Data Storytelling"
-  ],
-  "📁 Documentation & Governance": [
-    "SOP Development", "Data Governance", "Data Quality Assurance",
-    "Documentation & Reporting Standards", "Compliance Monitoring"
+  "🧭 Program & Delivery": [
+    "Agile Methodologies",
+    "Stakeholder Management",
+    "Requirements Gathering",
+    "Process Improvement",
+    "KPI Tracking",
+    "Cross-Functional Collaboration",
+    "Documentation & SOP Development"
   ]
 };
 
-// Certifications
+// ------------------------------------------------------
+// CERTIFICATIONS
+// ------------------------------------------------------
 export const CERTIFICATIONS = [
   {
+    name: "Certified ScrumMaster (CSM)",
+    link: "https://bcert.me/sscndgkym"
+  },
+  {
+    name: "Certified Scrum Product Owner (CSPO)",
+    link: "https://bcert.me/snnhsakbl"
+  },
+  {
     name: "Graduate Certificate in Decision Sciences",
-    link: "https://www.parchment.com/u/award/8b21fd2a28744e07692d6972e3027f82",
+    link: "https://www.parchment.com/u/award/8b21fd2a28744e07692d6972e3027f82"
   },
   {
     name: "McKinsey Forward Program Certification",
-    link: "https://www.credly.com/badges/a0a111e0-9130-4d1f-9035-46bc0fcab55a/public_url",
-  },
-  {
-    name: "HelloPM Product Management Certification",
-    link: "https://hellopm.co/certificate/?certificate_id=N6BXTX",
+    link: "https://www.credly.com/badges/a0a111e0-9130-4d1f-9035-46bc0fcab55a/public_url"
   },
   {
     name: "Generative AI Essentials for Data Science",
-    link: "https://www.credly.com/earner/earned/badge/b6c1046b-f7ea-47b2-879b-19e5060a1f76",
+    link: "https://www.credly.com/earner/earned/badge/b6c1046b-f7ea-47b2-879b-19e5060a1f76"
   },
   {
     name: "Data Science Orientation",
-    link: "https://www.credly.com/earner/earned/badge/9e1b3e3c-2506-4372-9477-2df745ec8588",
+    link: "https://www.credly.com/earner/earned/badge/9e1b3e3c-2506-4372-9477-2df745ec8588"
   },
   {
     name: "Statistics with Python (Coursera)",
-    link: "https://coursera.org/share/d76f9eb992dcec1571b5306fca1fbe35",
+    link: "https://coursera.org/share/d76f9eb992dcec1571b5306fca1fbe35"
   },
   {
     name: "Information Systems Specialization",
-    link: "https://coursera.org/share/98cf8924339d15851d1e1b6775485262",
-  },
+    link: "https://coursera.org/share/98cf8924339d15851d1e1b6775485262"
+  }
 ];
 
-// Contact Info
+// ------------------------------------------------------
+// CONTACT INFO
+// ------------------------------------------------------
 export const CONTACT = {
   address: "San Francisco, CA",
-  phoneNo: "+1 (628) 208-3271",
-  email: "sdnps7196@gmail.com",
+  phoneNo: "+1 (628)208-3271",
+  email: "sdnps7196@gmail.com"
 };
