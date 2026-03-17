@@ -7,15 +7,17 @@ const Projects = () => {
   const items = Array.isArray(PROJECTS) ? PROJECTS : [];
 
   return (
-    <div id="projects" className="bg-transparent py-24">
+    <div id="projects" className="bg-transparent py-20">
       <div className="container mx-auto px-6 sm:px-8">
+
+        {/* Heading */}
         <motion.h1
           whileInView={{ opacity: 1, y: 0 }}
-          initial={{ opacity: 0, y: -50 }}
-          transition={{ duration: 1 }}
-          className="mb-20 text-center text-2xl sm:text-4xl font-semibold text-white"
+          initial={{ opacity: 0, y: -40 }}
+          transition={{ duration: 0.8 }}
+          className="mb-14 text-center text-2xl sm:text-4xl font-semibold text-white"
         >
-          Projects
+          Projects & Analytics Work
         </motion.h1>
 
         {items.map((project, index) => {
@@ -26,17 +28,23 @@ const Projects = () => {
           const gh = typeof project?.github === "string" ? project.github : "";
 
           return (
-            <div key={title} className="mb-16 flex flex-wrap lg:justify-center">
+            <div key={title} className="mb-14 flex flex-wrap lg:justify-center">
+
+              {/* Image */}
               <motion.div
                 whileInView={{ opacity: 1, x: 0 }}
-                initial={{ opacity: 0, x: -100 }}
-                transition={{ duration: 1 }}
+                initial={{ opacity: 0, x: -80 }}
+                transition={{ duration: 0.7 }}
                 className="w-full lg:w-1/4 flex justify-center lg:justify-start mb-4 lg:mb-0"
               >
                 {imgSrc && (
-                  <a href={gh || "#"} target={gh ? "_blank" : undefined} rel={gh ? "noopener noreferrer" : undefined}>
+                  <a
+                    href={gh || "#"}
+                    target={gh ? "_blank" : undefined}
+                    rel={gh ? "noopener noreferrer" : undefined}
+                  >
                     <img
-                      className="w-48 h-48 object-cover rounded-xl shadow-md hover:scale-105 transition-transform duration-300"
+                      className="w-44 h-44 object-cover rounded-xl shadow-md hover:scale-105 transition-transform duration-300"
                       src={imgSrc}
                       alt={title}
                     />
@@ -44,15 +52,24 @@ const Projects = () => {
                 )}
               </motion.div>
 
+              {/* Content */}
               <motion.div
                 whileInView={{ opacity: 1, x: 0 }}
-                initial={{ opacity: 0, x: 100 }}
-                transition={{ duration: 1 }}
+                initial={{ opacity: 0, x: 80 }}
+                transition={{ duration: 0.7 }}
                 className="w-full lg:w-3/4 max-w-xl"
               >
-                <h6 className="mb-3 text-base sm:text-xl font-semibold text-white">{title}</h6>
-                {desc && <p className="mb-5 text-sm sm:text-base text-neutral-300 leading-relaxed">{desc}</p>}
+                <h6 className="mb-2 text-base sm:text-xl font-semibold text-white">
+                  {title}
+                </h6>
 
+                {desc && (
+                  <p className="mb-4 text-sm sm:text-base text-neutral-300 leading-relaxed">
+                    {desc}
+                  </p>
+                )}
+
+                {/* Tech */}
                 {tech.length > 0 && (
                   <div className="mb-3">
                     {tech.map((t) => (
@@ -66,6 +83,7 @@ const Projects = () => {
                   </div>
                 )}
 
+                {/* GitHub */}
                 {gh && (
                   <a
                     href={gh}
@@ -73,7 +91,7 @@ const Projects = () => {
                     rel="noopener noreferrer"
                     className="text-purple-400 hover:text-purple-300 hover:underline inline-flex items-center gap-1 text-sm sm:text-base"
                   >
-                    View on GitHub <FaExternalLinkAlt className="text-xs" />
+                    View Project <FaExternalLinkAlt className="text-xs" />
                   </a>
                 )}
               </motion.div>
@@ -81,11 +99,12 @@ const Projects = () => {
           );
         })}
 
+        {/* Footer CTA */}
         <motion.div
           whileInView={{ opacity: 1, y: 0 }}
-          initial={{ opacity: 0, y: 50 }}
-          transition={{ duration: 1 }}
-          className="text-center mt-10"
+          initial={{ opacity: 0, y: 40 }}
+          transition={{ duration: 0.8 }}
+          className="text-center mt-8"
         >
           <a
             href="https://github.com/dsappa7196"
@@ -93,9 +112,10 @@ const Projects = () => {
             rel="noopener noreferrer"
             className="text-purple-400 hover:text-purple-300 hover:underline inline-flex items-center gap-1 text-sm sm:text-lg font-medium"
           >
-            View More Projects <FaExternalLinkAlt className="text-sm" />
+            Explore More Work <FaExternalLinkAlt className="text-sm" />
           </a>
         </motion.div>
+
       </div>
     </div>
   );

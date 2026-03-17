@@ -4,7 +4,7 @@ import { FaEnvelope, FaPhoneAlt, FaMapMarkerAlt, FaLinkedin } from "react-icons/
 
 const Contact = () => {
   return (
-    <div id="contact" className="bg-transparent border-t border-neutral-800 py-28">
+    <div id="contact" className="bg-transparent border-t border-neutral-800 py-20">
       <div className="container mx-auto px-6 sm:px-8 text-center">
 
         {/* Heading */}
@@ -22,10 +22,10 @@ const Contact = () => {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="max-w-2xl mx-auto text-neutral-400 text-sm sm:text-lg mb-12 leading-relaxed"
+          className="max-w-2xl mx-auto text-neutral-400 text-sm sm:text-lg mb-10 leading-relaxed"
         >
-          Open to Business Intelligence Engineer, Business Analyst, and Data Analytics roles.  
-          If you’re hiring, collaborating, or exploring analytics-driven solutions — let’s connect.
+          I’m currently exploring opportunities in Business Intelligence, Analytics, and Data roles.  
+          If you’re hiring, collaborating, or just want to discuss analytics — I’d love to connect.
         </motion.p>
 
         {/* Contact Cards */}
@@ -33,7 +33,7 @@ const Contact = () => {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.3 }}
-          className="grid gap-6 sm:grid-cols-3 max-w-4xl mx-auto mb-14"
+          className="grid gap-6 sm:grid-cols-3 max-w-4xl mx-auto mb-12"
         >
 
           {/* Location */}
@@ -84,7 +84,7 @@ const Contact = () => {
             Email Me
           </a>
 
-          {/* LinkedIn CTA - Replace with real profile */}
+          {/* LinkedIn CTA */}
           <a
             href="https://www.linkedin.com/in/padmasreesappa/"
             target="_blank"
@@ -101,7 +101,7 @@ const Contact = () => {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.7 }}
-          className="mt-10 text-xs sm:text-sm text-neutral-500"
+          className="mt-8 text-xs sm:text-sm text-neutral-500"
         >
           Actively seeking full-time opportunities • Open to relocation & hybrid roles
         </motion.p>

@@ -4,17 +4,36 @@ import { CERTIFICATIONS } from "../constants";
 
 export default function Certifications() {
   const items = Array.isArray(CERTIFICATIONS) ? CERTIFICATIONS : [];
+
   return (
-    <section id="certifications" className="mt-16">
-      <h2 className="text-2xl font-semibold text-white mb-4">Certifications</h2>
-      <ul className="space-y-2 text-neutral-300">
+    <section id="certifications" className="mt-12"> {/* reduced spacing */}
+
+      <h2 className="text-2xl sm:text-[28px] font-semibold text-white mb-5">
+        Certifications & Learning
+      </h2>
+
+      <ul className="space-y-2 text-neutral-200 text-sm sm:text-[15px] max-w-3xl">
         {items.map((c, i) => {
-          if (typeof c === "string") return <li key={i}>{c}</li>;
+          if (typeof c === "string") {
+            return (
+              <li key={i} className="leading-relaxed">
+                • {c}
+              </li>
+            );
+          }
+
           const { name, link } = c || {};
+
           return (
-            <li key={name || link}>
+            <li key={name || link} className="leading-relaxed">
+              •{" "}
               {link ? (
-                <a href={link} target="_blank" rel="noreferrer" className="underline hover:text-purple-300">
+                <a
+                  href={link}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="underline hover:text-purple-300 transition"
+                >
                   {name || link}
                 </a>
               ) : (

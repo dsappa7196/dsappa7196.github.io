@@ -4,6 +4,11 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
+/* GLOBAL FONT CONTROL */
+html {
+  font-size: 15px; /* 👈 slightly reduced (balanced UI) */
+}
+
+body {
   font-family: 'Inter', sans-serif;
 }

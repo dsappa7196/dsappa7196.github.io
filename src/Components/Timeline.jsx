@@ -10,91 +10,99 @@ const events = [
     date: "Aug 2025 – Dec 2025",
     title: "Data Analyst — CGI (MSBA Capstone)",
     icon: <FaBriefcase />,
-    type: "career",
+    order: 10,
   },
   {
     date: "Aug 2025 – Dec 2025",
-    title: "Teaching Assistant — Data Mining with Business Applications — SFSU",
+    title: "Teaching Assistant — Data Mining — SFSU",
     icon: <FaBriefcase />,
-    type: "career",
+    order: 9,
   },
   {
-    date: "May 15, 2025 – Aug 15, 2025",
-    title: "Participant — INFORMS Data Analytics Competition",
+    date: "May 2025 – Aug 2025",
+    title: "INFORMS Data Analytics Competition",
     icon: <FaBriefcase />,
-    type: "career",
+    order: 8,
   },
   {
     date: "Aug 2024 – May 2025",
-    title: "Teaching Assistant — Operations Management — SFSU",
+    title: "Teaching Assistant — Operations — SFSU",
     icon: <FaBriefcase />,
-    type: "career",
+    order: 7,
   },
   {
     date: "May 2024 – Aug 2024",
-    title: "Intern — UCSF Catalyst Program",
+    title: "Intern — UCSF Catalyst",
     icon: <FaBriefcase />,
-    type: "career",
+    order: 6,
   },
   {
     date: "Jan 2024 – Dec 2025",
-    title: "MS in Business Analytics — San Francisco State University",
+    title: "MSBA — San Francisco State University",
     icon: <FaGraduationCap />,
-    type: "education",
+    order: 5,
   },
   {
     date: "Oct 2021 – Dec 2023",
     title: "Business Analyst — Amazon",
     icon: <FaBriefcase />,
-    type: "career",
+    order: 4,
   },
   {
     date: "Jul 2019 – Oct 2021",
     title: "Data Operations Analyst — Amazon",
     icon: <FaBriefcase />,
-    type: "career",
+    order: 3,
   },
   {
     date: "Jun 2017 – Jul 2019",
     title: "Business Operations Analyst — Algae Bio-Tech",
     icon: <FaBriefcase />,
-    type: "career",
+    order: 2,
   },
   {
     date: "Aug 2013 – Jun 2017",
     title: "B.Tech — JNTU Kakinada",
     icon: <FaGraduationCap />,
-    type: "education",
+    order: 1,
   },
 ];
 
 const Timeline = () => {
   return (
-    <div className="bg-gradient-to-b from-[#0F0F1A] to-black py-20">
-      <h2 className="text-3xl font-semibold text-center text-white mb-14">
-        Education & Professional Timeline
+    <div className="bg-transparent py-16 border-t border-neutral-800">
+      
+      <h2 className="text-2xl font-semibold text-center text-white mb-10">
+        Career Journey
       </h2>
 
       <VerticalTimeline lineColor="#7e22ce">
-        {events.map((item, index) => (
-          <VerticalTimelineElement
-            key={index}
-            date={item.date}
-            icon={item.icon}
-            iconStyle={{
-              background: "#7e22ce",
-              color: "#fff",
-            }}
-            contentStyle={{
-              background: "#0F0F1A",
-              color: "#fff",
-              border: "1px solid #7e22ce",
-            }}
-            contentArrowStyle={{ borderRight: "7px solid #7e22ce" }}
-          >
-            <h3 className="text-lg font-semibold">{item.title}</h3>
-          </VerticalTimelineElement>
-        ))}
+        {events
+          .sort((a, b) => b.order - a.order) // ✅ FIXED ORDER
+          .map((item, index) => (
+            <VerticalTimelineElement
+              key={index}
+              date={item.date}
+              icon={item.icon}
+              iconStyle={{ background: "#7e22ce", color: "#fff" }}
+              contentStyle={{
+                background: "#0F0F1A",
+                color: "#fff",
+                border: "1px solid #7e22ce",
+                padding: "12px",
+              }}
+              contentArrowStyle={{ borderRight: "7px solid #7e22ce" }}
+            >
+              {/* ✅ Slightly bigger (perfect balance) */}
+              <h3 className="text-base font-medium">
+                {item.title}
+              </h3>
+
+              <p className="text-xs text-neutral-400 mt-1">
+                {item.date}
+              </p>
+            </VerticalTimelineElement>
+          ))}
       </VerticalTimeline>
     </div>
   );

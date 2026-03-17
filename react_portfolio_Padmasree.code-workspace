@@ -1,8 +1,13 @@
 {
-	"folders": [
-		{
-			"path": "."
-		}
-	],
-	"settings": {}
+  "folders": [
+    {
+      "path": "."
+    }
+  ],
+  "settings": {
+    "css.validate": false,
+    "tailwindCSS.includeLanguages": {
+      "plaintext": "html"
+    }
+  }
 }
