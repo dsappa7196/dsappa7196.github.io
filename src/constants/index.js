@@ -4,6 +4,7 @@ import project2 from "../assets/projects/project-2.jpg";
 import project3 from "../assets/projects/project-3.png";
 import project4 from "../assets/projects/project-4.jpg";
 import project5 from "../assets/projects/project-5.png";
+import HubView_Image from "../assets/projects/HubView_Image.png";
 
 // ------------------------------------------------------
 // HERO CONTENT
@@ -97,6 +98,14 @@ export const EXPERIENCES = [
 // PROJECTS SECTION
 // ------------------------------------------------------
 export const PROJECTS = [
+  {
+  title: "Operations Analytics Hub (End-to-End System)",
+  image: HubView_Image,
+  description:
+    "Built an end-to-end operations analytics system integrating SQL, Power BI, and structured communication layers. Designed to enable executive decision-making through KPI monitoring, risk identification, and actionable insights.",
+  technologies: ["SQL", "Power BI", "DAX", "Data Modeling", "Analytics Design"],
+  live: `${window.location.origin}/Operations_Analytics_Hub.html`
+  },
   {
     title: "Seoul Bike Demand Prediction",
     image: project1,

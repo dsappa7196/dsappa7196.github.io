@@ -25,7 +25,14 @@ const Projects = () => {
           const imgSrc = project?.image || "";
           const desc = project?.description || "";
           const tech = Array.isArray(project?.technologies) ? project.technologies : [];
-          const gh = typeof project?.github === "string" ? project.github : "";
+
+          // 🔥 KEY CHANGE (support live + github)
+          const link =
+            typeof project?.live === "string"
+              ? project.live
+              : typeof project?.github === "string"
+              ? project.github
+              : "";
 
           return (
             <div key={title} className="mb-14 flex flex-wrap lg:justify-center">
@@ -39,9 +46,9 @@ const Projects = () => {
               >
                 {imgSrc && (
                   <a
-                    href={gh || "#"}
-                    target={gh ? "_blank" : undefined}
-                    rel={gh ? "noopener noreferrer" : undefined}
+                    href={link || "#"}
+                    target={link ? "_blank" : undefined}
+                    rel={link ? "noopener noreferrer" : undefined}
                   >
                     <img
                       className="w-44 h-44 object-cover rounded-xl shadow-md hover:scale-105 transition-transform duration-300"
@@ -83,17 +90,32 @@ const Projects = () => {
                   </div>
                 )}
 
-                {/* GitHub */}
-                {gh && (
-                  <a
-                    href={gh}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-purple-400 hover:text-purple-300 hover:underline inline-flex items-center gap-1 text-sm sm:text-base"
-                  >
-                    View Project <FaExternalLinkAlt className="text-xs" />
-                  </a>
-                )}
+                {/* 🔥 ACTION BUTTONS */}
+                <div className="flex gap-4 mt-2">
+
+                  {project.live && (
+                    <a
+                      href={project.live}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-green-400 hover:text-green-300 hover:underline inline-flex items-center gap-1 text-sm sm:text-base"
+                    >
+                      Live Demo <FaExternalLinkAlt className="text-xs" />
+                    </a>
+                  )}
+
+                  {project.github && (
+                    <a
+                      href={project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-purple-400 hover:text-purple-300 hover:underline inline-flex items-center gap-1 text-sm sm:text-base"
+                    >
+                      GitHub <FaExternalLinkAlt className="text-xs" />
+                    </a>
+                  )}
+
+                </div>
               </motion.div>
             </div>
           );

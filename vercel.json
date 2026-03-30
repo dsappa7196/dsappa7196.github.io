@@ -1,0 +1,7 @@
+{
+  "routes": [
+    { "handle": "filesystem" },
+    { "src": "/Operations_Analytics_Hub.html", "dest": "/Operations_Analytics_Hub.html" },
+    { "src": "/(.*)", "dest": "/index.html" }
+  ]
+}
