@@ -99,12 +99,10 @@ export const EXPERIENCES = [
 // ------------------------------------------------------
 export const PROJECTS = [
   {
-  title: "Operations Analytics Hub (End-to-End System)",
+  title: "Operations Analytics Hub",
   image: HubView_Image,
-  description:
-    "Built an end-to-end operations analytics system integrating SQL, Power BI, and structured communication layers. Designed to enable executive decision-making through KPI monitoring, risk identification, and actionable insights.",
+  description: "Built an end-to-end operations analytics system integrating SQL, Power BI, and structured communication layers. Designed to enable executive decision-making through KPI monitoring, risk identification, and actionable insights.",
   technologies: ["SQL", "Power BI", "DAX", "Data Modeling", "Analytics Design"],
-  live: `${window.location.origin}/Operations_Analytics_Hub.html`
   },
   {
     title: "Seoul Bike Demand Prediction",
