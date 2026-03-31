@@ -3,7 +3,7 @@ import { PROJECTS } from "../constants";
 import { motion } from "framer-motion";
 import { FaExternalLinkAlt } from "react-icons/fa";
 
-const Projects = () => {
+const Projects = ({ openHub }) => {
   const items = Array.isArray(PROJECTS) ? PROJECTS : [];
 
   return (
@@ -26,14 +26,6 @@ const Projects = () => {
           const desc = project?.description || "";
           const tech = Array.isArray(project?.technologies) ? project.technologies : [];
 
-          // 🔥 KEY CHANGE (support live + github)
-          const link =
-            typeof project?.live === "string"
-              ? project.live
-              : typeof project?.github === "string"
-              ? project.github
-              : "";
-
           return (
             <div key={title} className="mb-14 flex flex-wrap lg:justify-center">
 
@@ -45,17 +37,11 @@ const Projects = () => {
                 className="w-full lg:w-1/4 flex justify-center lg:justify-start mb-4 lg:mb-0"
               >
                 {imgSrc && (
-                  <a
-                    href={link || "#"}
-                    target={link ? "_blank" : undefined}
-                    rel={link ? "noopener noreferrer" : undefined}
-                  >
-                    <img
-                      className="w-44 h-44 object-cover rounded-xl shadow-md hover:scale-105 transition-transform duration-300"
-                      src={imgSrc}
-                      alt={title}
-                    />
-                  </a>
+                  <img
+                    className="w-44 h-44 object-cover rounded-xl shadow-md hover:scale-105 transition-transform duration-300"
+                    src={imgSrc}
+                    alt={title}
+                  />
                 )}
               </motion.div>
 
@@ -93,26 +79,38 @@ const Projects = () => {
                 {/* 🔥 ACTION BUTTONS */}
                 <div className="flex gap-4 mt-2">
 
-                  {project.live && (
-                    <a
-                      href={project.live}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                  {/* 🔥 SPECIAL CASE FOR HUB */}
+                  {title === "Operations Analytics Hub" ? (
+                    <button
+                      onClick={openHub}
                       className="text-green-400 hover:text-green-300 hover:underline inline-flex items-center gap-1 text-sm sm:text-base"
                     >
-                      Live Demo <FaExternalLinkAlt className="text-xs" />
-                    </a>
-                  )}
+                      Open Analytics Hub <FaExternalLinkAlt className="text-xs" />
+                    </button>
+                  ) : (
+                    <>
+                      {project.live && (
+                        <a
+                          href={project.live}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-green-400 hover:text-green-300 hover:underline inline-flex items-center gap-1 text-sm sm:text-base"
+                        >
+                          Live Demo <FaExternalLinkAlt className="text-xs" />
+                        </a>
+                      )}
 
-                  {project.github && (
-                    <a
-                      href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-purple-400 hover:text-purple-300 hover:underline inline-flex items-center gap-1 text-sm sm:text-base"
-                    >
-                      GitHub <FaExternalLinkAlt className="text-xs" />
-                    </a>
+                      {project.github && (
+                        <a
+                          href={project.github}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-purple-400 hover:text-purple-300 hover:underline inline-flex items-center gap-1 text-sm sm:text-base"
+                        >
+                          GitHub <FaExternalLinkAlt className="text-xs" />
+                        </a>
+                      )}
+                    </>
                   )}
 
                 </div>
@@ -121,7 +119,7 @@ const Projects = () => {
           );
         })}
 
-        {/* Footer CTA */}
+        {/* Footer */}
         <motion.div
           whileInView={{ opacity: 1, y: 0 }}
           initial={{ opacity: 0, y: 40 }}

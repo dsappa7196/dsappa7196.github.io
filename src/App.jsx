@@ -7,9 +7,13 @@ import Technologies from "./Components/Technologies";
 import Contact from "./Components/Contact";
 import SectionNav from "./Components/SectionNav";
 import SocialIcons from "./Components/SocialIcons";
+import AnalyticsHub from "./pages/AnalyticsHub";
 
 const App = () => {
   const [theme, setTheme] = useState(() => localStorage.getItem("theme") || "dark");
+
+  // 🔹 NEW STATE (important)
+  const [showHub, setShowHub] = useState(false);
 
   useEffect(() => {
     document.documentElement.classList.remove("light", "dark");
@@ -20,6 +24,22 @@ const App = () => {
   const toggleTheme = () => {
     setTheme((prev) => (prev === "dark" ? "light" : "dark"));
   };
+
+  // 🔹 OPEN HUB
+  const openHub = () => {
+    setShowHub(true);
+    window.scrollTo(0, 0);
+  };
+
+  // 🔹 CLOSE HUB
+  const closeHub = () => {
+    setShowHub(false);
+  };
+
+  // 🔥 IF HUB IS OPEN → SHOW ONLY HUB
+  if (showHub) {
+    return <AnalyticsHub onClose={closeHub} />;
+  }
 
   return (
     <div className="overflow-x-hidden font-sans text-neutral-700 dark:text-neutral-200 antialiased selection:bg-cyan-300 selection:text-cyan-900 dark:selection:bg-cyan-600 dark:selection:text-neutral-50">
@@ -32,7 +52,7 @@ const App = () => {
       {/* Navigation */}
       <SectionNav toggleTheme={toggleTheme} currentTheme={theme} />
 
-      {/* Hero + Social (together) */}
+      {/* Hero */}
       <div id="hero" className="flex flex-col items-center">
         <SocialIcons />
         <Hero />
@@ -42,9 +62,11 @@ const App = () => {
       <About />
       <Technologies />
       <Experience />
-      <Projects />
-      <Contact />
 
+      {/* 🔥 PASS openHub FUNCTION */}
+      <Projects openHub={openHub} />
+
+      <Contact />
     </div>
   );
 };
