@@ -422,13 +422,214 @@ body { background: var(--bg); color: var(--text); font-family: var(--sans); font
 }
 .ms-radio { border-top: none; }
 
+/* ─── SOURCE DATA TAB ─────────────────────────────────────── */
+.datafiles-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(380px,1fr)); gap:16px; margin-bottom:24px; }
+.df-card { background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:18px; display:flex; flex-direction:column; gap:8px; }
+.df-header { display:flex; align-items:flex-start; justify-content:space-between; gap:10px; }
+.df-name { font-family:var(--mono); font-size:12px; font-weight:600; color:var(--navy); }
+.df-badge { font-size:10px; font-weight:600; color:var(--teal); background:var(--teal-lt); padding:2px 8px; border-radius:10px; white-space:nowrap; }
+.df-stats { font-size:11px; color:var(--blue); font-family:var(--mono); }
+.df-desc { font-size:12px; color:var(--text2); line-height:1.6; }
+.df-cols { font-size:11px; color:var(--text3); line-height:1.6; padding:8px 10px; background:var(--surface2); border-radius:4px; border-left:3px solid var(--border); }
+.df-dl { display:inline-block; margin-top:6px; padding:6px 14px; background:var(--blue); color:#fff; border-radius:4px; font-size:11px; font-weight:600; text-decoration:none; font-family:var(--mono); transition:background .15s; }
+.df-dl:hover { background:var(--navy); }
+
+/* ─── SQL BLOCK ───────────────────────────────────────────── */
+.sql-block { background:#0d1117; border-radius:8px; padding:0; overflow:hidden; border:1px solid #30363d; }
+.sql-block pre { margin:0; padding:20px 24px; font-family:'DM Mono',monospace; font-size:11px; line-height:1.7; color:#e6edf3; overflow-x:auto; white-space:pre; }
+
+/* ─── BUILD NOTES TAB ─────────────────────────────────────── */
+.build-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(380px,1fr)); gap:16px; }
+.build-card { background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:20px; display:flex; flex-direction:column; gap:10px; }
+.build-num { font-family:var(--mono); font-size:9px; font-weight:700; color:var(--text4); letter-spacing:.12em; text-transform:uppercase; }
+.build-title { font-size:13px; font-weight:600; color:var(--navy); line-height:1.4; }
+.build-body { font-size:12px; color:var(--text2); line-height:1.75; }
+.build-body em { color:var(--blue); font-style:normal; font-weight:500; }
+.build-list { margin:0; padding-left:16px; display:flex; flex-direction:column; gap:5px; }
+.build-list li { font-size:12px; color:var(--text2); line-height:1.55; }
+.build-list li strong { color:var(--text); }
+.build-list li code { font-family:var(--mono); font-size:11px; background:var(--bg); padding:1px 4px; border-radius:3px; color:var(--blue); }
+.build-tags { display:flex; flex-wrap:wrap; gap:5px; }
+.btag { font-size:10px; font-weight:600; padding:2px 8px; border-radius:10px; font-family:var(--mono); }
+.btag-blue   { background:var(--blue-lt);  color:var(--blue);  }
+.btag-green  { background:var(--green-lt); color:var(--green); }
+.btag-amber  { background:var(--amber-lt); color:var(--amber); }
+.btag-red    { background:var(--red-lt);   color:var(--red);   }
+.btag-neutral{ background:var(--bg);       color:var(--text3); border:1px solid var(--border); }
+
+/* ─── PROTOTYPE DOWNLOAD MODAL ───────────────────────────── */
+.proto-backdrop {
+  position: fixed; inset: 0; background: rgba(13,34,64,.5);
+  backdrop-filter: blur(3px); z-index: 900;
+}
+.proto-box {
+  position: fixed; top: 50%; left: 50%; transform: translate(-50%, -60%);
+  background: var(--surface); border-radius: 12px; padding: 32px 28px;
+  width: 460px; max-width: 92vw; z-index: 901;
+  box-shadow: 0 20px 60px rgba(0,0,0,.18);
+  border: 1px solid var(--border);
+  opacity: 0; transition: opacity .2s, transform .2s;
+}
+#proto-modal.proto-open .proto-box {
+  opacity: 1; transform: translate(-50%, -50%);
+}
+.proto-icon { font-size: 28px; margin-bottom: 10px; }
+.proto-title { font-size: 17px; font-weight: 700; color: var(--navy); margin-bottom: 12px; }
+.proto-msg {
+  font-size: 13px; color: var(--text2); line-height: 1.65;
+  background: var(--blue-lt); border-radius: 6px; padding: 12px 14px;
+  margin-bottom: 10px; border-left: 3px solid var(--blue);
+}
+.proto-msg strong { color: var(--navy); }
+.proto-note {
+  font-size: 12px; color: var(--text3); line-height: 1.6;
+  background: var(--surface2); border-radius: 6px; padding: 10px 14px;
+  margin-bottom: 20px;
+}
+.proto-actions { display: flex; gap: 10px; }
+.proto-dl {
+  flex: 1; background: var(--blue); color: #fff; border: none;
+  border-radius: 6px; padding: 10px 16px; font-size: 13px; font-weight: 600;
+  cursor: pointer; font-family: var(--sans); transition: background .15s;
+}
+.proto-dl:hover { background: var(--navy); }
+.proto-cancel {
+  background: var(--bg); color: var(--text3); border: 1px solid var(--border);
+  border-radius: 6px; padding: 10px 16px; font-size: 13px;
+  cursor: pointer; font-family: var(--sans); transition: background .15s;
+}
+.proto-cancel:hover { background: var(--border); color: var(--text); }
+
 /* ─── SCROLLBAR ───────────────────────────────────────────── */
 ::-webkit-scrollbar { width: 4px; height: 4px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
 
-/* ─── RESPONSIVE MISC ─────────────────────────────────────── */
-.full { grid-column: 1 / -1; }
+/* ─── RESPONSIVE ──────────────────────────────────────────── */
+@media (max-width: 768px) {
+
+  /* Topbar */
+  .topbar { padding: 0 14px; height: 48px; }
+  .brand-name { font-size: 12px; }
+  .brand-sub { display: none; }
+  .period-label { display: none; }
+  .live-badge { font-size: 9px; padding: 2px 6px; }
+
+  /* Hub hero */
+  .hub-hero { padding: 18px 16px 14px; }
+  .hub-hero .hub-title { font-size: 22px; }
+  .hub-desc { font-size: 12px; }
+  .hub-meta-row { flex-wrap: wrap; gap: 6px; }
+  .hub-meta-item { font-size: 11px; padding: 3px 8px; }
+  .hub-breadcrumb { font-size: 10px; }
+  .hub-alert { flex-direction: column; gap: 8px; padding: 12px 14px; }
+  .hub-alert-link { align-self: flex-start; }
+
+  /* Hub KPI strip */
+  .hub-kpi-strip { padding: 10px 16px; gap: 0; overflow-x: auto; }
+  .hub-kpi { min-width: 100px; padding: 0 12px; }
+  .hub-kpi-val { font-size: 20px; }
+  .hub-kpi-label { font-size: 9px; }
+  .hub-kpi-sub { font-size: 9px; }
+  .hub-kpi + .hub-kpi { border-left: 1px solid var(--border); }
+
+  /* Hub tabs — scrollable horizontal */
+  .hub-tabs { padding: 0 12px; overflow-x: auto; white-space: nowrap; gap: 0; flex-wrap: nowrap; top: 48px; }
+  .htab { font-size: 11px; padding: 10px 10px; white-space: nowrap; flex-shrink: 0; }
+
+  /* Hub body */
+  .hub-body { padding: 14px 12px; }
+  .hub-section-head { flex-direction: column; align-items: flex-start; gap: 4px; }
+  .hub-section-line { display: none; }
+
+  /* Dashboard grid — 1 col on mobile */
+  .dash-grid { grid-template-columns: 1fr; }
+  .dc-head { flex-direction: column; gap: 6px; }
+
+  /* Metric grid — 1 col */
+  .metric-grid { grid-template-columns: 1fr; }
+
+  /* Owner grid — 1 col */
+  .owner-grid { grid-template-columns: 1fr; }
+
+  /* Datafiles grid — 1 col */
+  .datafiles-grid { grid-template-columns: 1fr; }
+
+  /* Build notes grid — 1 col */
+  .build-grid { grid-template-columns: 1fr; }
+
+  /* Insight grid */
+  .insights-grid { grid-template-columns: 1fr; }
+
+  /* Howto grid */
+  .howto-grid { grid-template-columns: 1fr; }
+
+  /* Datamodel grid */
+  .datamodel-grid { grid-template-columns: 1fr 1fr; }
+
+  /* Dashboard topbar */
+  .db-topbar { flex-direction: column; gap: 0; height: auto; padding: 0; }
+  .db-nav { overflow-x: auto; padding: 6px 12px; gap: 2px; flex-wrap: nowrap; white-space: nowrap; border-bottom: 1px solid var(--border); }
+  .dbnav-btn { font-size: 11px; padding: 5px 10px; white-space: nowrap; flex-shrink: 0; }
+  .db-hub-btn { display: none; }
+
+  /* Filter bar — wrap to 2 rows */
+  .filter-bar { flex-wrap: wrap; padding: 8px 12px; gap: 6px; }
+  .filter-label { width: 100%; font-size: 10px; margin-bottom: 2px; }
+  .ms-btn { font-size: 11px; min-width: 90px; padding: 5px 8px; }
+  .filter-context { display: none; }
+  .filter-clear { font-size: 10px; padding: 4px 8px; }
+
+  /* Dashboard pages padding */
+  .db-page { padding: 10px 12px; }
+
+  /* Alert strip */
+  .alert-strip { flex-direction: column; gap: 8px; padding: 10px 12px; }
+  .alert-btn { align-self: flex-start; font-size: 10px; }
+
+  /* Action bar — hide context, wrap */
+  .action-bar { flex-wrap: wrap; gap: 4px; padding: 8px 12px; }
+  .ab-sep { display: none; }
+  .ab-ctx { display: none; }
+  .act-btn { font-size: 10px; padding: 4px 10px; }
+
+  /* KPI row — 2 cols on mobile */
+  .kpi-row { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .kpi-val { font-size: 22px; }
+  .kpi-label { font-size: 9px; }
+  .kpi-sub { font-size: 9px; }
+
+  /* Decision row — 1 col */
+  .dec-row { grid-template-columns: 1fr; }
+
+  /* Charts — 1 col (stack vertically) */
+  .g2 { grid-template-columns: 1fr; }
+
+  /* Section label */
+  .sec-label { font-size: 10px; margin: 10px 0 6px; }
+
+  /* Tables — scrollable */
+  .chart-card { overflow-x: auto; }
+  .data-table { font-size: 10px; min-width: 500px; }
+  .data-table th, .data-table td { padding: 6px 8px; }
+
+  /* SQL block */
+  .sql-block pre { font-size: 10px; padding: 14px; }
+}
+
+@media (max-width: 480px) {
+  .hub-title { font-size: 18px; }
+  .kpi-row { grid-template-columns: repeat(2, 1fr); }
+  .datamodel-grid { grid-template-columns: 1fr; }
+  .hub-kpi-strip { padding: 8px 12px; }
+  .hub-kpi { min-width: 80px; padding: 0 8px; }
+  .hub-kpi-val { font-size: 17px; }
+  .kpi-val { font-size: 20px; }
+  .dec-card { padding: 12px; }
+  .chart-card { padding: 12px; }
+  .cc-title { font-size: 12px; }
+  .cc-sub { font-size: 10px; }
+}
 </style>
 </head>
 <body>
@@ -514,6 +715,8 @@ body { background: var(--bg); color: var(--text); font-family: var(--sans); font
     <button class="htab" onclick="switchHubTab('insights',this)">Current Insights</button>
     <button class="htab" onclick="switchHubTab('metrics',this)">Metric Definitions</button>
     <button class="htab" onclick="switchHubTab('datamodel',this)">Data Model</button>
+    <button class="htab" onclick="switchHubTab('sourcedata',this)">Source Data</button>
+    <button class="htab" onclick="switchHubTab('builtnotes',this)">How It Was Built</button>
     <button class="htab" onclick="switchHubTab('howto',this)">How to Use</button>
     <button class="htab" onclick="switchHubTab('ownership',this)">Ownership</button>
   </div>
@@ -989,6 +1192,402 @@ body { background: var(--bg); color: var(--text); font-family: var(--sans); font
         </div>
       </div>
     </div>
+
+
+    <div class="hub-tab-content" id="htab-sourcedata">
+      <div class="hub-section">
+        <div class="hub-section-head">
+          <div class="hub-section-label">Dataset Downloads</div>
+          <div class="hub-section-line"></div>
+          <div class="hub-section-count">8 tables · 16,666 total rows · Jan 2024 – Jun 2025</div>
+        </div>
+        <div style="background:var(--blue-lt);border:1px solid rgba(26,86,219,.2);border-radius:8px;padding:14px 18px;margin-bottom:20px;font-size:12px;color:var(--text2);line-height:1.7;">
+          <strong style="color:var(--blue);">About this dataset.</strong> All data was independently designed and generated to represent a realistic data center operations environment across 12 Americas sites over 18 months. The schema, column definitions, business logic, and relationships were authored from scratch to support three core analytical decisions: site risk prioritisation, asset repair-vs-replace analysis, and spend variance investigation. No real company data is used.
+        </div>
+        <div class="datafiles-grid">
+
+          <div class="df-card">
+            <div class="df-header">
+              <div class="df-name">operations_daily.csv</div>
+              <div class="df-badge">Fact · Daily grain</div>
+            </div>
+            <div class="df-stats">6,564 rows · 19 columns · 547 days × 12 sites</div>
+            <div class="df-desc">Daily operational metrics per site — availability %, incident counts (P1/P2/P3), downtime hours, outage flag, capacity utilization %, power usage MW, hall temperature, visitor count, and customer tickets. Primary source for all availability and incident KPIs.</div>
+            <div class="df-cols"><strong>Key columns:</strong> availability_pct · incidents_p1/p2/p3 · downtime_hours_total · outage_flag · capacity_utilization_pct · power_usage_mw · sla_met_flag</div>
+            <a class="df-dl" href="#" onclick="dlCSV('operations_daily');return false;">↓ Download CSV</a>
+          </div>
+
+          <div class="df-card">
+            <div class="df-header">
+              <div class="df-name">maintenance_work_orders.csv</div>
+              <div class="df-badge">Fact · Event grain</div>
+            </div>
+            <div class="df-stats">7,761 rows · 22 columns · 18 months × 12 sites</div>
+            <div class="df-desc">One row per maintenance work order. Captures maintenance type (Preventive/Corrective), failure category, priority level, technician, vendor, labor and parts costs, response and resolution times, and SLA breach flag. Core source for corrective ratio, SLA breach rate, and repair cost analysis.</div>
+            <div class="df-cols"><strong>Key columns:</strong> maintenance_type · failure_category · repair_cost_usd · sla_breach_flag · response_time_hours · repeat_failure_flag · priority_level</div>
+            <a class="df-dl" href="#" onclick="dlCSV('maintenance_work_orders');return false;">↓ Download CSV</a>
+          </div>
+
+          <div class="df-card">
+            <div class="df-header">
+              <div class="df-name">assets.csv</div>
+              <div class="df-badge">Dimension · Asset grain</div>
+            </div>
+            <div class="df-stats">540 rows · 21 columns · 12 sites · 5 asset types</div>
+            <div class="df-desc">Asset registry with one row per physical asset. Includes install date, expected life, current age, condition score (0–100), criticality level, replacement cost, depreciated value, energy efficiency rating, and last maintenance date. Drives repair-vs-replace and asset lifecycle analysis.</div>
+            <div class="df-cols"><strong>Key columns:</strong> asset_type · condition_score · current_age_years · expected_life_years · replacement_cost_usd · asset_condition · criticality_level</div>
+            <a class="df-dl" href="#" onclick="dlCSV('assets');return false;">↓ Download CSV</a>
+          </div>
+
+          <div class="df-card">
+            <div class="df-header">
+              <div class="df-name">finance_monthly.csv</div>
+              <div class="df-badge">Fact · Monthly grain</div>
+            </div>
+            <div class="df-stats">864 rows · 11 columns · 18 months × 12 sites × 4 cost centers</div>
+            <div class="df-desc">Monthly budget vs actual spend by site, cost center, and spend category (Power Opex, Capex Replacement, Maintenance Opex, Vendor Services). Includes variance USD, variance %, vendor name, and PO number. Every month shows positive variance — all 18 months are over budget.</div>
+            <div class="df-cols"><strong>Key columns:</strong> budget_usd · actual_spend_usd · variance_usd · variance_pct · spend_category · cost_center · vendor_name</div>
+            <a class="df-dl" href="#" onclick="dlCSV('finance_monthly');return false;">↓ Download CSV</a>
+          </div>
+
+          <div class="df-card">
+            <div class="df-header">
+              <div class="df-name">customer_experience_monthly.csv</div>
+              <div class="df-badge">Fact · Monthly grain</div>
+            </div>
+            <div class="df-stats">216 rows · 6 columns · 18 months × 12 sites</div>
+            <div class="df-desc">Monthly customer satisfaction survey results per site. Contains CSAT score (0–100), NPS score (−100 to +100), and survey response count. Used to quantify the customer impact of operational failures — DAL01's 74.9 CSAT directly correlates with its 99.678% availability.</div>
+            <div class="df-cols"><strong>Key columns:</strong> customer_satisfaction_score · nps_score · survey_response_count · year_month · site_code</div>
+            <a class="df-dl" href="#" onclick="dlCSV('customer_experience_monthly');return false;">↓ Download CSV</a>
+          </div>
+
+          <div class="df-card">
+            <div class="df-header">
+              <div class="df-name">installed_customer_base_monthly.csv</div>
+              <div class="df-badge">Fact · Monthly grain</div>
+            </div>
+            <div class="df-stats">216 rows · 7 columns · 18 months × 12 sites</div>
+            <div class="df-desc">Monthly snapshot of installed customer counts, active cabinet utilisation, committed power in MW, and cross-connect counts per site. Tracks customer base growth and capacity consumption. Fleet grew from 976 to 1,066 installed customers (+9.2%) over the period.</div>
+            <div class="df-cols"><strong>Key columns:</strong> installed_customers_count · active_cabinets_count · committed_power_mw · cross_connects_count</div>
+            <a class="df-dl" href="#" onclick="dlCSV('installed_customer_base_monthly');return false;">↓ Download CSV</a>
+          </div>
+
+          <div class="df-card">
+            <div class="df-header">
+              <div class="df-name">site_dim.csv</div>
+              <div class="df-badge">Dimension · Site grain</div>
+            </div>
+            <div class="df-stats">12 rows · 9 columns · one row per site</div>
+            <div class="df-desc">Site dimension table — the primary hub of the star schema. Contains site code (PK), region, country, city, site size, capacity MW, power redundancy rating, risk baseline index, and commissioned year. All fact tables join to this via site_code.</div>
+            <div class="df-cols"><strong>Key columns:</strong> site_code (PK) · region · city · capacity_mw · risk_baseline_index · power_redundancy · commissioned_year</div>
+            <a class="df-dl" href="#" onclick="dlCSV('site_dim');return false;">↓ Download CSV</a>
+          </div>
+
+          <div class="df-card">
+            <div class="df-header">
+              <div class="df-name">date_dim.csv</div>
+              <div class="df-badge">Dimension · Date grain</div>
+            </div>
+            <div class="df-stats">547 rows · 10 columns · Jan 1 2024 – Jun 30 2025</div>
+            <div class="df-desc">Date dimension table — the second hub of the star schema. Contains calendar date (PK), year_month (secondary key for monthly grain tables), year, quarter, month number, month name, week of year, day of week, and is_weekend flag. Enables all time intelligence in Power BI.</div>
+            <div class="df-cols"><strong>Key columns:</strong> calendar_date (PK) · year_month · year · quarter · month_name · is_weekend</div>
+            <a class="df-dl" href="#" onclick="dlCSV('date_dim');return false;">↓ Download CSV</a>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="hub-section">
+        <div class="hub-section-head">
+          <div class="hub-section-label">MySQL Star Schema — CREATE TABLE Statements</div>
+          <div class="hub-section-line"></div>
+          <div class="hub-section-count">Paste-ready SQL · equinix_ops_analytics database</div>
+        </div>
+        <div class="sql-block"><pre>-- ═══════════════════════════════════════════════════════════════
+-- DATABASE: equinix_ops_analytics
+-- SCHEMA:   Star schema — 2 dimensions, 6 fact tables
+-- AUTHOR:   Padmasree Sappa
+-- ═══════════════════════════════════════════════════════════════
+
+CREATE DATABASE IF NOT EXISTS equinix_ops_analytics;
+USE equinix_ops_analytics;
+
+-- ─── DIMENSION: Site ─────────────────────────────────────────
+CREATE TABLE site_dim (
+    site_code           VARCHAR(10)  PRIMARY KEY,
+    region              VARCHAR(30)  NOT NULL,
+    country             VARCHAR(30)  NOT NULL,
+    city                VARCHAR(50)  NOT NULL,
+    site_size           VARCHAR(5),
+    capacity_mw         INT,
+    power_redundancy    VARCHAR(5),
+    risk_baseline_index DECIMAL(4,2),
+    commissioned_year   INT
+);
+
+-- ─── DIMENSION: Date ─────────────────────────────────────────
+CREATE TABLE date_dim (
+    calendar_date   DATE         PRIMARY KEY,
+    date_key        INT          UNIQUE NOT NULL,
+    year            INT          NOT NULL,
+    quarter         VARCHAR(3),
+    month_num       INT,
+    month_name      VARCHAR(10),
+    year_month      VARCHAR(8)   NOT NULL,  -- 'YYYY-MM' text key for monthly grain joins
+    week_of_year    INT,
+    day_of_week     VARCHAR(12),
+    is_weekend      BOOLEAN
+);
+
+-- ─── FACT: Operations Daily ───────────────────────────────────
+CREATE TABLE operations_daily (
+    operations_date          DATE         NOT NULL,
+    site_code                VARCHAR(10)  NOT NULL,
+    region                   VARCHAR(30),
+    incidents_total          INT,
+    incidents_p1             INT,
+    incidents_p2             INT,
+    incidents_p3             INT,
+    work_orders_opened       INT,
+    corrective_work_orders   INT,
+    downtime_hours_total     DECIMAL(8,2),
+    sla_target_pct           DECIMAL(5,2),
+    availability_pct         DECIMAL(8,3),
+    sla_met_flag             TINYINT,        -- 1 = met, 0 = missed
+    capacity_utilization_pct DECIMAL(6,2),
+    avg_hall_temperature_f   DECIMAL(6,2),
+    power_usage_mw           DECIMAL(8,2),
+    outage_flag              TINYINT,        -- 1 = outage occurred
+    visitor_count            INT,
+    customer_tickets_opened  INT,
+    PRIMARY KEY (operations_date, site_code),
+    FOREIGN KEY (site_code)      REFERENCES site_dim(site_code),
+    FOREIGN KEY (operations_date) REFERENCES date_dim(calendar_date)
+);
+
+-- ─── FACT: Maintenance Work Orders ───────────────────────────
+CREATE TABLE maintenance_work_orders (
+    work_order_id        VARCHAR(15)  PRIMARY KEY,
+    asset_id             VARCHAR(15)  NOT NULL,
+    site_code            VARCHAR(10)  NOT NULL,
+    region               VARCHAR(30),
+    work_order_date      DATE         NOT NULL,
+    maintenance_type     VARCHAR(20), -- 'Preventive' | 'Corrective'
+    failure_category     VARCHAR(40),
+    failure_subcategory  VARCHAR(60),
+    priority_level       VARCHAR(5),  -- P1 | P2 | P3 | P4
+    technician_id        VARCHAR(15),
+    vendor_name          VARCHAR(50),
+    labor_hours          DECIMAL(6,2),
+    downtime_hours       DECIMAL(6,2),
+    parts_cost_usd       INT,
+    labor_cost_usd       INT,
+    repair_cost_usd      INT,
+    response_time_hours  DECIMAL(6,2),
+    resolution_time_hours DECIMAL(8,2),
+    status               VARCHAR(20),
+    sla_breach_flag      TINYINT,     -- 1 = SLA missed
+    repeat_failure_flag  TINYINT,     -- 1 = same asset failed before
+    year_month           VARCHAR(8),
+    FOREIGN KEY (site_code)       REFERENCES site_dim(site_code),
+    FOREIGN KEY (work_order_date) REFERENCES date_dim(calendar_date)
+);
+
+-- ─── FACT: Assets ────────────────────────────────────────────
+CREATE TABLE assets (
+    asset_id              VARCHAR(15)  PRIMARY KEY,
+    site_code             VARCHAR(10)  NOT NULL,
+    region                VARCHAR(30),
+    asset_type            VARCHAR(20), -- Generator | Cooling | UPS | Chiller | PDU
+    manufacturer          VARCHAR(50),
+    model_number          VARCHAR(50),
+    serial_number         VARCHAR(30),
+    install_date          DATE,
+    commission_date       DATE,
+    expected_life_years   INT,
+    current_age_years     DECIMAL(5,2),
+    asset_condition       VARCHAR(15), -- Good | Warning | Critical
+    condition_score       DECIMAL(5,2),-- 0–100 (lower = worse)
+    criticality_level     VARCHAR(10), -- Low | Medium | High
+    capacity_rating       INT,
+    capacity_unit         VARCHAR(10),
+    replacement_cost_usd  INT,
+    depreciated_value_usd INT,
+    asset_status          VARCHAR(15), -- Active | Retired | Standby
+    energy_efficiency_rating VARCHAR(5),
+    last_maintenance_date DATE,
+    FOREIGN KEY (site_code) REFERENCES site_dim(site_code)
+);
+
+-- ─── FACT: Finance Monthly ───────────────────────────────────
+CREATE TABLE finance_monthly (
+    year_month       VARCHAR(8)   NOT NULL,
+    site_code        VARCHAR(10)  NOT NULL,
+    region           VARCHAR(30),
+    cost_center      VARCHAR(20),
+    spend_category   VARCHAR(40),
+    budget_usd       INT,
+    actual_spend_usd INT,
+    variance_usd     INT,
+    variance_pct     DECIMAL(7,2),
+    vendor_name      VARCHAR(50),
+    po_number        VARCHAR(20),
+    PRIMARY KEY (year_month, site_code, spend_category),
+    FOREIGN KEY (site_code)  REFERENCES site_dim(site_code),
+    FOREIGN KEY (year_month) REFERENCES date_dim(year_month)
+);
+
+-- ─── FACT: Customer Experience Monthly ───────────────────────
+CREATE TABLE customer_experience_monthly (
+    year_month                  VARCHAR(8)  NOT NULL,
+    site_code                   VARCHAR(10) NOT NULL,
+    region                      VARCHAR(30),
+    survey_response_count       INT,
+    customer_satisfaction_score DECIMAL(5,2),
+    nps_score                   INT,
+    PRIMARY KEY (year_month, site_code),
+    FOREIGN KEY (site_code)  REFERENCES site_dim(site_code),
+    FOREIGN KEY (year_month) REFERENCES date_dim(year_month)
+);
+
+-- ─── FACT: Installed Customer Base Monthly ────────────────────
+CREATE TABLE installed_customer_base_monthly (
+    year_month               VARCHAR(8)   NOT NULL,
+    site_code                VARCHAR(10)  NOT NULL,
+    region                   VARCHAR(30),
+    installed_customers_count INT,
+    active_cabinets_count    INT,
+    committed_power_mw       DECIMAL(8,2),
+    cross_connects_count     INT,
+    PRIMARY KEY (year_month, site_code),
+    FOREIGN KEY (site_code)  REFERENCES site_dim(site_code),
+    FOREIGN KEY (year_month) REFERENCES date_dim(year_month)
+);</pre></div>
+      </div>
+    </div>
+
+    <!-- ══ Tab: How It Was Built ════════════════════════════════ -->
+    <div class="hub-tab-content" id="htab-builtnotes">
+      <div class="hub-section">
+        <div class="hub-section-head">
+          <div class="hub-section-label">How This Was Built</div>
+          <div class="hub-section-line"></div>
+          <div class="hub-section-count">Tech stack · Key decisions · Architecture rationale</div>
+        </div>
+
+        <div class="build-grid">
+
+          <div class="build-card">
+            <div class="build-num">TECH STACK</div>
+            <div class="build-title">Tools Used</div>
+            <div class="build-tags">
+              <span class="btag btag-blue">MySQL</span>
+              <span class="btag btag-blue">Power BI Desktop</span>
+              <span class="btag btag-blue">DAX</span>
+              <span class="btag btag-green">HTML / CSS / JS</span>
+              <span class="btag btag-green">Chart.js</span>
+              <span class="btag btag-amber">Python</span>
+              <span class="btag btag-amber">Star Schema Design</span>
+            </div>
+            <ul class="build-list">
+              <li><strong>MySQL</strong> — star schema database, 8 tables, 16K+ rows</li>
+              <li><strong>Power BI Desktop</strong> — semantic model, DAX measures, 6 report pages</li>
+              <li><strong>HTML/JS</strong> — SharePoint-style access hub with live filters</li>
+              <li><strong>Python</strong> — data generation, per-site aggregations, preprocessing</li>
+            </ul>
+          </div>
+
+          <div class="build-card">
+            <div class="build-num">ARCHITECTURE</div>
+            <div class="build-title">Why HTML + Power BI — not just one tool</div>
+            <ul class="build-list">
+              <li><strong>Power BI Desktop</strong> = the analytics layer (model, DAX, dashboards)</li>
+              <li><strong>HTML hub</strong> = the access layer (what Matt described as a SharePoint-style repository)</li>
+              <li>Power BI Service requires an <strong>org Microsoft account</strong> to publish — not available for personal portfolio</li>
+              <li>In production: Power BI reports would be <strong>embedded into this hub via iframe</strong> after publishing to Power BI Service</li>
+            </ul>
+          </div>
+
+          <div class="build-card">
+            <div class="build-num">DATA MODEL</div>
+            <div class="build-title">Star schema — why not a flat table</div>
+            <ul class="build-list">
+              <li><strong>Site + Date</strong> as dimension hubs — all 6 fact tables join through them</li>
+              <li>Enables <strong>cross-domain analysis</strong>: ops + finance + maintenance in one query</li>
+              <li>Required for <strong>DAX time intelligence</strong> (DATESMTD, DATEADD, etc.)</li>
+              <li>Follows <strong>Medallion pattern</strong>: Bronze (raw) → Silver (cleaned) → Gold (modelled)</li>
+              <li>Finance/Customer connect via <strong>year_month text key</strong> — different grain than daily ops</li>
+            </ul>
+          </div>
+
+          <div class="build-card">
+            <div class="build-num">KEY DECISION</div>
+            <div class="build-title">Composite Risk Score — weight rationale</div>
+            <div class="build-tags" style="margin-bottom:8px">
+              <span class="btag btag-red">Availability 25%</span>
+              <span class="btag btag-red">Incidents 20%</span>
+              <span class="btag btag-red">Downtime 20%</span>
+              <span class="btag btag-amber">SLA Breach 20%</span>
+              <span class="btag btag-neutral">Variance 15%</span>
+            </div>
+            <ul class="build-list">
+              <li>Availability + downtime highest weight — <strong>direct customer SLA impact</strong></li>
+              <li>SLA breach = <strong>leading indicator</strong> of capacity problems</li>
+              <li>Spend variance lowest — <strong>lagging financial signal</strong>, not operational risk</li>
+              <li>Weights are <strong>adjustable</strong> via parameter table — no rebuild needed</li>
+            </ul>
+          </div>
+
+          <div class="build-card">
+            <div class="build-num">KEY DECISION</div>
+            <div class="build-title">Assets → Maintenance: no direct relationship</div>
+            <ul class="build-list">
+              <li>Both tables connect to Site — creates an <strong>ambiguous path</strong> in Power BI</li>
+              <li>Power BI raises an error: two routes from Maintenance to Site</li>
+              <li>Solution: <strong>DAX FILTER by asset_id</strong> instead of a model relationship</li>
+              <li>This is the <strong>correct production pattern</strong> for this schema shape</li>
+            </ul>
+          </div>
+
+          <div class="build-card">
+            <div class="build-num">IMPORTANT CONTEXT</div>
+            <div class="build-title">Why SLA met rate shows 28.7% — not a data error</div>
+            <ul class="build-list">
+              <li>SLA target = <strong>99.9% availability</strong> per day</li>
+              <li>Fleet average = 99.78% — strong performance but <strong>technically below target daily</strong></li>
+              <li>So <code>sla_met_flag = 0</code> on most days even when performance is good</li>
+              <li>28.7% reflects the genuine difficulty of <strong>hitting 99.9% every single day</strong></li>
+              <li>Always explain this to stakeholders — looks alarming without context</li>
+            </ul>
+          </div>
+
+          <div class="build-card">
+            <div class="build-num">PRODUCTION PATH</div>
+            <div class="build-title">What would change in a live deployment</div>
+            <ul class="build-list">
+              <li>Static embedded data → <strong>live API calls</strong> to MySQL database</li>
+              <li>Power BI Desktop → <strong>published to Power BI Service</strong> with scheduled refresh</li>
+              <li>HTML hub embeds reports via <strong>Power BI REST API iframe</strong></li>
+              <li>Python risk scoring runs on <strong>scheduled job</strong>, writes back to DB</li>
+              <li>Current build = full logic + architecture. Production wiring = <strong>deployment step, not a redesign</strong></li>
+            </ul>
+          </div>
+
+          <div class="build-card">
+            <div class="build-num">FILTER DESIGN</div>
+            <div class="build-title">Multi-select filter architecture</div>
+            <ul class="build-list">
+              <li>Rebuilt from single-select to <strong>multi-select checkboxes</strong> — allows DAL01 vs ASH01 comparison</li>
+              <li><strong>Per-site monthly data</strong> pre-computed and embedded (Python aggregations)</li>
+              <li><code>getMonthlySeries()</code> picks correct scope: site → region → fleet</li>
+              <li>Count metrics <strong>summed</strong>, rate metrics <strong>averaged</strong> — no averaging-of-averages distortion</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
 
   </div><!-- hub-body -->
 </div><!-- view-hub -->
@@ -2065,6 +2664,586 @@ document.addEventListener('DOMContentLoaded', () => {
   // Precompute repeat failures stat
   document.getElementById('m-repeat').textContent = '1,284';
 });
+
+
+const CSV_SAMPLES = {
+  "operations_daily": `operations_date,site_code,region,incidents_total,incidents_p1,incidents_p2,incidents_p3,work_orders_opened,corrective_work_orders,downtime_hours_total,sla_target_pct,availability_pct,sla_met_flag,capacity_utilization_pct,avg_hall_temperature_f,power_usage_mw,outage_flag,visitor_count,customer_tickets_opened
+2024-01-01,ASH01,AMER-East,1,0,0,1,4,1,7.81,99.9,99.749,0,74.3,70.8,56.3,0,49,0
+2024-01-02,ASH01,AMER-East,0,0,0,0,0,0,0.45,99.9,99.98,1,77.7,71.3,57.85,0,61,0
+2024-01-03,ASH01,AMER-East,1,0,0,1,0,0,0.17,99.9,99.921,1,75.0,68.9,50.26,0,55,0
+2024-01-04,ASH01,AMER-East,2,1,0,1,3,3,14.41,99.9,99.636,0,78.5,73.1,58.18,1,48,2
+2024-01-05,ASH01,AMER-East,0,0,0,0,0,0,0.74,99.9,99.915,1,74.7,74.6,56.69,0,44,0
+2024-01-06,ASH01,AMER-East,1,0,0,1,2,2,18.08,99.9,99.567,0,71.5,70.8,49.91,0,76,0
+2024-01-07,ASH01,AMER-East,2,0,0,2,1,1,8.75,99.9,99.704,0,78.0,73.7,58.65,0,62,1
+2024-01-08,ASH01,AMER-East,2,0,0,2,4,2,14.21,99.9,99.628,0,70.8,73.1,48.38,0,54,1
+2024-01-09,ASH01,AMER-East,0,0,0,0,1,1,2.91,99.9,99.901,1,74.3,68.9,50.21,0,58,1
+2024-01-10,ASH01,AMER-East,0,0,0,0,2,2,12.2,99.9,99.782,0,67.8,75.0,47.87,0,45,0
+2024-01-11,ASH01,AMER-East,1,0,0,1,2,1,4.22,99.9,99.885,0,70.1,71.6,46.59,0,61,3
+2024-01-12,ASH01,AMER-East,3,1,0,2,0,0,0.66,99.9,99.812,0,74.1,74.7,53.92,1,61,1
+2024-01-13,ASH01,AMER-East,1,0,1,0,0,0,0.2,99.9,99.922,1,71.8,74.8,52.84,0,54,0
+2024-01-14,ASH01,AMER-East,1,0,0,1,1,0,1.6,99.9,99.844,0,76.6,72.8,57.1,0,56,0
+2024-01-15,ASH01,AMER-East,0,0,0,0,2,0,4.86,99.9,99.919,1,71.8,68.6,50.93,0,57,0
+2024-01-16,ASH01,AMER-East,0,0,0,0,0,0,0.6,99.9,99.968,1,71.6,71.0,50.23,0,51,0
+2024-01-17,ASH01,AMER-East,1,0,1,0,0,0,0.26,99.9,99.952,1,67.7,70.2,49.43,0,66,1
+2024-01-18,ASH01,AMER-East,0,0,0,0,0,0,0.14,99.9,99.99,1,66.6,71.1,47.24,0,63,0
+2024-01-19,ASH01,AMER-East,2,0,0,2,2,1,10.76,99.9,99.729,0,67.4,73.9,52.35,0,54,0
+2024-01-20,ASH01,AMER-East,2,0,0,2,3,3,18.28,99.9,99.526,0,73.1,73.7,51.01,0,58,1
+2024-01-21,ASH01,AMER-East,1,0,0,1,1,1,13.48,99.9,99.663,0,75.6,73.5,57.83,0,60,0
+2024-01-22,ASH01,AMER-East,2,0,2,0,1,0,3.38,99.9,99.874,0,72.8,73.6,51.43,0,54,0
+2024-01-23,ASH01,AMER-East,1,0,0,1,1,1,2.19,99.9,99.869,0,71.6,74.9,55.13,0,49,2
+2024-01-24,ASH01,AMER-East,0,0,0,0,3,3,18.0,99.9,99.594,0,76.8,73.2,52.76,0,63,0
+2024-01-25,ASH01,AMER-East,9,0,2,7,5,3,28.27,99.9,99.008,0,71.5,70.5,50.36,1,49,4
+2024-01-26,ASH01,AMER-East,2,0,0,2,1,0,1.87,99.9,99.797,0,71.7,72.5,52.87,0,53,1
+2024-01-27,ASH01,AMER-East,2,0,1,1,3,2,15.04,99.9,99.557,0,69.0,75.8,50.75,0,48,0
+2024-01-28,ASH01,AMER-East,0,0,0,0,1,0,2.97,99.9,99.924,1,77.9,73.8,54.78,0,57,0
+2024-01-29,ASH01,AMER-East,0,0,0,0,0,0,0.38,99.9,100.0,1,78.3,70.9,54.8,0,58,0
+2024-01-30,ASH01,AMER-East,1,0,0,1,0,0,0.58,99.9,99.88,0,65.9,67.7,50.29,0,74,1
+2024-01-31,ASH01,AMER-East,1,0,0,1,0,0,0.43,99.9,99.89,0,87.7,70.0,63.33,0,66,1
+2024-02-01,ASH01,AMER-East,0,0,0,0,0,0,0.21,99.9,99.967,1,82.5,72.4,59.69,0,65,0
+2024-02-02,ASH01,AMER-East,1,1,0,0,4,2,19.59,99.9,99.576,0,72.2,71.8,55.74,1,68,1
+2024-02-03,ASH01,AMER-East,2,0,0,2,1,1,1.6,99.9,99.848,0,66.5,74.8,44.3,0,59,0
+2024-02-04,ASH01,AMER-East,5,1,0,4,3,2,18.31,99.9,99.356,0,66.9,73.5,47.81,1,60,0
+2024-02-05,ASH01,AMER-East,3,0,0,3,3,1,10.26,99.9,99.596,0,67.7,65.7,46.33,0,41,0
+2024-02-06,ASH01,AMER-East,1,0,1,0,3,2,10.69,99.9,99.723,0,76.2,72.2,54.56,0,48,0
+2024-02-07,ASH01,AMER-East,0,0,0,0,1,0,2.52,99.9,99.909,1,77.3,71.9,60.22,0,54,0
+2024-02-08,ASH01,AMER-East,0,0,0,0,2,0,4.51,99.9,99.829,0,78.3,72.2,58.12,0,53,0
+2024-02-09,ASH01,AMER-East,5,1,1,3,6,3,31.57,99.9,99.164,0,88.0,71.8,61.41,1,66,1
+2024-02-10,ASH01,AMER-East,1,0,0,1,0,0,0.15,99.9,99.911,1,76.1,70.6,56.77,0,55,0
+2024-02-11,ASH01,AMER-East,2,0,0,2,2,2,17.01,99.9,99.574,0,77.6,75.7,60.1,0,53,0
+2024-02-12,ASH01,AMER-East,0,0,0,0,1,1,7.43,99.9,99.784,0,76.0,72.0,52.39,0,55,0
+2024-02-13,ASH01,AMER-East,1,0,0,1,1,1,10.47,99.9,99.733,0,77.2,70.3,52.42,0,63,0
+2024-02-14,ASH01,AMER-East,1,0,0,1,1,0,0.9,99.9,99.888,0,72.2,70.4,54.93,0,50,0
+2024-02-15,ASH01,AMER-East,6,1,0,5,2,2,20.99,99.9,99.245,0,73.3,66.3,49.72,1,49,1
+2024-02-16,ASH01,AMER-East,1,0,0,1,3,2,15.35,99.9,99.665,0,68.2,76.2,49.81,0,55,2
+2024-02-17,ASH01,AMER-East,2,0,0,2,2,2,12.77,99.9,99.637,0,78.4,77.8,54.44,0,54,0
+2024-02-18,ASH01,AMER-East,4,0,1,3,3,2,22.97,99.9,99.293,0,75.3,72.1,53.16,1,59,0
+2024-02-19,ASH01,AMER-East,1,1,0,0,2,2,7.08,99.9,99.774,0,74.4,73.9,57.47,1,62,1
+2024-02-20,ASH01,AMER-East,1,0,0,1,2,0,5.08,99.9,99.821,0,80.4,71.7,58.12,0,67,0
+2024-02-21,ASH01,AMER-East,6,0,3,3,3,2,18.74,99.9,99.34,0,68.2,72.2,48.77,1,64,2
+2024-02-22,ASH01,AMER-East,0,0,0,0,1,0,2.47,99.9,99.958,1,73.0,73.8,53.04,0,43,0
+2024-02-23,ASH01,AMER-East,0,0,0,0,0,0,0.77,99.9,100.0,1,64.0,73.9,48.77,0,56,0
+2024-02-24,ASH01,AMER-East,1,0,0,1,2,0,4.84,99.9,99.867,0,67.4,76.9,50.0,0,55,0
+2024-02-25,ASH01,AMER-East,1,0,0,1,2,1,10.01,99.9,99.729,0,78.2,75.1,53.8,0,51,1
+2024-02-26,ASH01,AMER-East,0,0,0,0,1,0,2.76,99.9,99.886,0,76.2,74.1,55.25,0,62,0
+2024-02-27,ASH01,AMER-East,5,0,0,5,4,4,31.05,99.9,99.167,0,76.1,72.5,55.54,1,59,3
+2024-02-28,ASH01,AMER-East,1,0,0,1,3,1,12.49,99.9,99.711,0,75.2,72.5,57.32,0,65,1
+2024-02-29,ASH01,AMER-East,1,0,0,1,0,0,0.06,99.9,99.897,0,67.6,73.6,44.71,0,52,0
+2024-03-01,ASH01,AMER-East,2,0,0,2,3,1,10.51,99.9,99.605,0,75.0,73.5,51.42,0,55,0
+2024-03-02,ASH01,AMER-East,1,0,0,1,2,2,11.58,99.9,99.727,0,72.9,72.8,51.08,0,61,0
+2024-03-03,ASH01,AMER-East,1,0,0,1,1,1,6.29,99.9,99.799,0,77.1,72.0,55.55,0,53,1
+2024-03-04,ASH01,AMER-East,0,0,0,0,3,1,9.97,99.9,99.843,0,76.0,71.8,53.97,0,72,0
+2024-03-05,ASH01,AMER-East,2,0,0,2,4,2,12.15,99.9,99.64,0,67.6,74.4,46.88,0,45,0
+2024-03-06,ASH01,AMER-East,0,0,0,0,2,1,7.46,99.9,99.867,0,78.1,73.5,59.3,0,47,0
+2024-03-07,ASH01,AMER-East,2,1,0,1,1,1,9.88,99.9,99.687,0,74.3,73.2,56.46,1,56,0
+2024-03-08,ASH01,AMER-East,2,1,1,0,2,1,9.44,99.9,99.723,0,71.9,73.7,48.84,1,52,1
+2024-03-09,ASH01,AMER-East,2,0,0,2,4,3,15.37,99.9,99.587,0,68.6,75.4,46.18,0,67,0
+2024-03-10,ASH01,AMER-East,0,0,0,0,0,0,0.44,99.9,99.923,1,73.4,69.0,55.02,0,62,0
+2024-03-11,ASH01,AMER-East,2,0,1,1,1,1,2.15,99.9,99.831,0,71.7,73.5,49.52,0,60,1
+2024-03-12,ASH01,AMER-East,0,0,0,0,0,0,0.53,99.9,99.911,1,78.2,74.6,53.85,0,58,0
+2024-03-13,ASH01,AMER-East,0,0,0,0,1,0,2.15,99.9,99.944,1,64.5,72.5,46.69,0,56,0
+2024-03-14,ASH01,AMER-East,0,0,0,0,0,0,0.78,99.9,99.929,1,71.5,73.1,54.69,0,51,0
+2024-03-15,ASH01,AMER-East,1,0,0,1,0,0,0.11,99.9,99.901,1,72.4,75.4,50.56,0,65,2
+2024-03-16,ASH01,AMER-East,0,0,0,0,2,1,10.11,99.9,99.778,0,73.3,71.6,49.47,0,50,0
+2024-03-17,ASH01,AMER-East,2,0,0,2,3,2,16.09,99.9,99.56,0,76.3,72.8,58.83,0,53,0
+2024-03-18,ASH01,AMER-East,0,0,0,0,0,0,0.21,99.9,99.967,1,76.8,70.3,59.1,0,51,0
+2024-03-19,ASH01,AMER-East,1,0,0,1,1,0,1.89,99.9,99.863,0,66.7,72.8,51.92,0,52,0
+2024-03-20,ASH01,AMER-East,1,0,0,1,0,0,0.58,99.9,99.908,1,74.9,75.5,53.0,0,63,0
+2024-03-21,ASH01,AMER-East,2,0,1,1,1,1,4.94,99.9,99.845,0,66.8,77.9,51.92,0,52,0
+2024-03-22,ASH01,AMER-East,1,0,0,1,1,0,2.1,99.9,99.891,0,76.3,70.5,55.89,0,60,0
+2024-03-23,ASH01,AMER-East,3,0,2,1,3,2,18.58,99.9,99.471,0,65.4,76.0,45.65,0,62,0
+2024-03-24,ASH01,AMER-East,0,0,0,0,3,1,5.3,99.9,99.846,0,79.0,70.0,56.12,0,43,0
+2024-03-25,ASH01,AMER-East,1,0,1,0,1,1,10.77,99.9,99.733,0,70.6,74.3,47.5,0,55,0
+2024-03-26,ASH01,AMER-East,0,0,0,0,2,1,9.43,99.9,99.775,0,72.7,70.6,51.19,0,65,0
+2024-03-27,ASH01,AMER-East,0,0,0,0,2,0,4.52,99.9,99.885,0,72.2,69.3,55.6,0,64,0
+2024-03-28,ASH01,AMER-East,2,0,1,1,4,1,12.6,99.9,99.645,0,67.4,67.5,45.42,0,56,3
+2024-03-29,ASH01,AMER-East,0,0,0,0,0,0,0.67,99.9,99.949,1,74.7,69.2,57.35,0,59,0
+2024-03-30,ASH01,AMER-East,0,0,0,0,0,0,0.21,99.9,99.961,1,70.5,74.4,54.77,0,54,0
+2024-03-31,ASH01,AMER-East,0,0,0,0,0,0,0.62,99.9,99.893,0,73.0,67.6,55.33,0,43,0
+2024-04-01,ASH01,AMER-East,0,0,0,0,4,1,5.66,99.9,99.852,0,74.1,71.9,56.77,0,51,0
+2024-04-02,ASH01,AMER-East,5,0,1,4,3,2,14.33,99.9,99.41,0,68.2,75.8,50.94,0,45,1
+2024-04-03,ASH01,AMER-East,4,0,1,3,4,3,18.25,99.9,99.471,0,75.1,67.2,51.04,0,67,0
+2024-04-04,ASH01,AMER-East,0,0,0,0,1,1,6.66,99.9,99.843,0,81.5,74.3,56.25,0,63,0
+2024-04-05,ASH01,AMER-East,3,0,0,3,2,2,9.55,99.9,99.656,0,73.6,74.5,50.1,0,52,0
+2024-04-06,ASH01,AMER-East,0,0,0,0,1,1,2.97,99.9,99.909,1,71.6,76.3,51.78,0,51,0
+2024-04-07,ASH01,AMER-East,2,0,0,2,3,2,14.7,99.9,99.637,0,74.6,72.3,54.95,0,62,2
+2024-04-08,ASH01,AMER-East,2,0,0,2,3,2,15.51,99.9,99.605,0,70.8,71.0,46.89,0,57,0
+2024-04-09,ASH01,AMER-East,3,0,1,2,4,0,8.94,99.9,99.595,0,71.1,69.3,54.99,0,43,1
+`,
+  "maintenance_work_orders": `work_order_id,asset_id,site_code,region,work_order_date,maintenance_type,failure_category,failure_subcategory,priority_level,technician_id,vendor_name,labor_hours,downtime_hours,parts_cost_usd,labor_cost_usd,repair_cost_usd,response_time_hours,resolution_time_hours,status,sla_breach_flag,repeat_failure_flag,year_month
+WO0005577,AST00388,SJC01,AMER-West,2024-01-01,Preventive,Sensor,Flow sensor,P2,TECH0013,PowerGrid Mechanical,2.2,0.82,334,253,685,9.6,12.56,Completed,0,0,2024-01
+WO0005765,AST00399,PHX01,AMER-West,2024-01-01,Corrective,Capacitor,Bulge,P3,TECH0014,FacilityPro,12.6,3.4,5033,1890,7066,1.38,14.54,Completed,0,0,2024-01
+WO0005475,AST00384,DAL01,AMER-Central,2024-01-01,Preventive,Routine Wear,Alignment,P3,TECH0044,Schneider Services,1.5,2.2,1014,156,1483,8.72,10.31,Completed,0,0,2024-01
+WO0001160,AST00085,SEA01,AMER-West,2024-01-01,Corrective,Capacitor,Capacitor aging,P2,TECH0111,FacilityPro,11.1,6.4,1083,1365,2634,2.3,15.46,Completed,1,0,2024-01
+WO0003510,AST00251,LAX01,AMER-West,2024-01-01,Corrective,Routine Wear,Alignment,P3,TECH0054,DataVolt,14.0,10.2,2601,1694,4335,1.47,17.96,Completed,1,1,2024-01
+WO0001830,AST00129,SJC01,AMER-West,2024-01-01,Corrective,Routine Wear,Seal wear,P2,TECH0007,EcoCool,19.5,8.65,3201,2496,5765,2.67,23.72,Completed,1,0,2024-01
+WO0006063,AST00418,TOR01,AMER-Central,2024-01-01,Corrective,Rectifier,Power board,P3,TECH0042,FacilityPro,14.7,4.81,4489,2307,7080,0.2,16.47,Completed,0,1,2024-01
+WO0003650,AST00262,LAX01,AMER-West,2024-01-01,Preventive,Battery,Battery bank,P4,TECH0038,Vertiv Services,6.8,2.78,88,632,888,9.43,17.06,Completed,0,0,2024-01
+WO0005299,AST00372,DAL01,AMER-Central,2024-01-01,Preventive,Compressor,Compressor vibration,P2,TECH0093,DataVolt,4.8,2.27,431,475,1116,8.38,15.38,Completed,0,0,2024-01
+WO0003667,AST00264,NYC01,AMER-East,2024-01-01,Corrective,Fuel System,Fuel pump,P3,TECH0008,CBRE Ops,11.0,4.11,3124,1749,5199,2.57,16.23,Completed,0,0,2024-01
+WO0004647,AST00326,SJC01,AMER-West,2024-01-01,Corrective,Sensor,Pressure sensor,P1,TECH0058,Vertiv Services,11.0,10.22,1198,1199,2486,2.94,13.72,Closed,1,0,2024-01
+WO0007708,AST00537,ASH01,AMER-East,2024-01-01,Corrective,Battery,Cell degradation,P2,TECH0108,CBRE Ops,8.6,4.25,4074,963,5409,3.22,12.99,Completed,0,0,2024-01
+WO0006381,AST00436,DAL01,AMER-Central,2024-01-01,Corrective,Cooling Loop,Heat exchanger,P2,TECH0107,CBRE Ops,16.3,4.27,3530,2608,6483,0.95,18.02,Completed,0,1,2024-01
+WO0000570,AST00043,MIA01,AMER-Central,2024-01-01,Corrective,Fan Motor,Bearing wear,P3,TECH0038,EcoCool,14.8,8.34,832,2427,3594,2.46,19.59,In Review,1,1,2024-01
+WO0007519,AST00521,ASH01,AMER-East,2024-01-01,Preventive,Valve,Valve blockage,P4,TECH0091,PowerGrid Mechanical,7.6,0.3,600,1041,1962,7.33,15.01,Closed,0,0,2024-01
+WO0002156,AST00153,DEN01,AMER-Central,2024-01-01,Preventive,Routine Wear,Alignment,P2,TECH0054,EcoCool,2.4,2.49,290,235,866,7.38,11.64,Completed,0,0,2024-01
+WO0000673,AST00051,ASH01,AMER-East,2024-01-01,Preventive,Breaker,Trip event,P3,TECH0099,Schneider Services,10.2,0.87,642,1305,2032,9.9,21.29,Completed,0,0,2024-01
+WO0005909,AST00408,DAL01,AMER-Central,2024-01-01,Preventive,Firmware,Sensor mapping,P1,TECH0042,DataVolt,8.5,3.27,336,1028,1438,8.83,19.37,Completed,0,0,2024-01
+WO0005063,AST00358,ASH01,AMER-East,2024-01-01,Preventive,Routine Wear,Inspection finding,P1,TECH0026,Schneider Services,1.5,2.3,979,169,1487,7.4,10.51,Completed,0,0,2024-01
+WO0000525,AST00041,PHX01,AMER-West,2024-01-01,Corrective,Compressor,Compressor vibration,P1,TECH0023,ABB Services,15.1,9.39,4647,2008,7043,2.93,19.81,Closed,1,1,2024-01
+WO0007756,AST00540,DAL01,AMER-Central,2024-01-01,Corrective,Sensor,Temperature sensor,P3,TECH0028,FacilityPro,15.6,8.64,2658,1575,4472,0.73,18.92,Completed,1,0,2024-01
+WO0005083,AST00359,SJC01,AMER-West,2024-01-02,Corrective,Compressor,Bearing wear,P4,TECH0119,EcoCool,14.5,5.71,3095,1392,4684,0.2,16.45,Closed,1,1,2024-01
+WO0004149,AST00296,ATL01,AMER-East,2024-01-02,Corrective,Cooling Loop,Pump,P4,TECH0081,CBRE Ops,14.3,8.43,4192,2044,6498,0.92,17.07,Completed,1,0,2024-01
+WO0005443,AST00381,DAL01,AMER-Central,2024-01-02,Corrective,Routine Wear,Alignment,P4,TECH0054,FacilityPro,24.7,6.18,4363,2395,7099,2.15,27.34,Completed,1,0,2024-01
+WO0002124,AST00151,NYC01,AMER-East,2024-01-02,Corrective,Compressor,Compressor vibration,P4,TECH0085,ABB Services,11.0,6.51,4936,1639,6758,0.2,13.91,Completed,1,0,2024-01
+WO0004471,AST00319,CHI01,AMER-East,2024-01-02,Corrective,Controller,Control board,P3,TECH0018,Vertiv Services,12.7,11.29,4989,1219,6392,0.2,13.98,Completed,1,0,2024-01
+WO0007594,AST00527,ATL01,AMER-East,2024-01-02,Corrective,Valve,Valve blockage,P3,TECH0044,EcoCool,20.5,8.39,3285,2890,6233,3.26,25.07,Completed,1,0,2024-01
+WO0002457,AST00175,DEN01,AMER-Central,2024-01-02,Corrective,Routine Wear,Alignment,P2,TECH0079,CBRE Ops,17.9,6.36,3683,2094,6127,0.82,20.2,Completed,1,0,2024-01
+WO0007101,AST00494,ATL01,AMER-East,2024-01-02,Corrective,Compressor,Bearing wear,P4,TECH0002,DataVolt,24.0,4.9,1714,3648,5660,2.65,27.15,Completed,0,1,2024-01
+WO0007606,AST00527,ATL01,AMER-East,2024-01-02,Corrective,Fan Motor,Bearing wear,P2,TECH0022,DataVolt,25.6,5.72,3366,2534,5966,0.72,30.16,Completed,1,1,2024-01
+WO0007543,AST00522,SJC01,AMER-West,2024-01-02,Corrective,Battery,Battery connector,P3,TECH0112,DataVolt,5.1,7.91,4061,770,5104,0.2,7.15,Completed,1,0,2024-01
+WO0005024,AST00355,LAX01,AMER-West,2024-01-02,Corrective,Fan Motor,Bearing wear,P4,TECH0092,FacilityPro,10.8,4.58,6177,1144,7659,1.12,13.26,Completed,0,0,2024-01
+WO0000874,AST00063,SJC01,AMER-West,2024-01-02,Preventive,Routine Wear,Inspection finding,P3,TECH0105,CBRE Ops,1.5,2.33,763,141,1205,6.53,11.46,Completed,0,0,2024-01
+WO0004140,AST00296,ATL01,AMER-East,2024-01-02,Preventive,Sensor,Temperature sensor,P3,TECH0074,FacilityPro,7.7,1.74,835,1070,2256,9.19,20.29,Completed,0,0,2024-01
+WO0001596,AST00113,SJC01,AMER-West,2024-01-02,Preventive,Sensor,Temperature sensor,P3,TECH0057,Vertiv Services,4.6,1.9,530,436,1325,6.93,11.56,Closed,0,0,2024-01
+WO0006919,AST00478,SEA01,AMER-West,2024-01-02,Corrective,Compressor,Bearing wear,P3,TECH0091,DataVolt,10.5,9.61,1153,1081,2339,0.47,14.13,Completed,1,1,2024-01
+WO0003769,AST00271,DAL01,AMER-Central,2024-01-02,Preventive,Cooling Loop,Heat exchanger,P4,TECH0106,DataVolt,5.4,0.31,933,610,1692,8.48,14.02,Closed,0,0,2024-01
+WO0005985,AST00412,DAL01,AMER-Central,2024-01-02,Corrective,Compressor,Bearing wear,P4,TECH0120,EcoCool,5.4,8.31,1927,772,2742,0.87,6.58,Completed,1,0,2024-01
+WO0002860,AST00201,TOR01,AMER-Central,2024-01-02,Corrective,Sensor,Pressure sensor,P2,TECH0042,DataVolt,5.3,9.7,4185,720,4947,2.88,8.25,In Review,1,0,2024-01
+WO0004759,AST00334,PHX01,AMER-West,2024-01-02,Preventive,Fuel System,Fuel leak,P2,TECH0106,ABB Services,10.0,0.8,600,880,1673,7.87,18.85,Completed,0,0,2024-01
+WO0007748,AST00540,DAL01,AMER-Central,2024-01-03,Corrective,Sensor,Pressure sensor,P4,TECH0060,FacilityPro,16.8,7.32,3155,1881,5254,1.54,20.7,Completed,1,1,2024-01
+WO0005576,AST00388,SJC01,AMER-West,2024-01-03,Preventive,Sensor,Temperature sensor,P2,TECH0031,CBRE Ops,3.9,0.65,1005,331,1616,9.34,15.32,Completed,0,0,2024-01
+WO0006908,AST00477,NYC01,AMER-East,2024-01-03,Preventive,Battery,Battery bank,P1,TECH0041,EcoCool,5.8,1.81,153,794,1043,8.06,15.28,Completed,0,0,2024-01
+WO0005869,AST00404,ATL01,AMER-East,2024-01-03,Corrective,Routine Wear,Seal wear,P4,TECH0108,Vertiv Services,8.7,6.79,1570,1131,3014,0.79,10.68,Completed,1,0,2024-01
+WO0004602,AST00324,SJC01,AMER-West,2024-01-03,Preventive,Compressor,Start failure,P3,TECH0052,DataVolt,5.9,2.17,746,554,1462,9.74,18.08,Completed,0,0,2024-01
+WO0000212,AST00013,CHI01,AMER-East,2024-01-03,Preventive,Battery,Battery bank,P3,TECH0050,Vertiv Services,7.9,1.54,520,687,1308,7.71,15.92,Completed,0,0,2024-01
+WO0005907,AST00408,DAL01,AMER-Central,2024-01-03,Preventive,Routine Wear,Alignment,P4,TECH0011,FacilityPro,10.5,2.4,821,1281,2182,8.59,19.86,Completed,0,0,2024-01
+WO0000870,AST00063,SJC01,AMER-West,2024-01-03,Preventive,Cooling Loop,Heat exchanger,P4,TECH0003,PowerGrid Mechanical,6.3,2.68,359,535,952,8.14,16.57,Completed,0,0,2024-01
+WO0005423,AST00380,PHX01,AMER-West,2024-01-03,Corrective,Capacitor,Capacitor aging,P3,TECH0024,Vertiv Services,13.3,6.96,2073,1981,4244,1.23,15.2,Closed,1,1,2024-01
+WO0003822,AST00274,ATL01,AMER-East,2024-01-04,Corrective,Routine Wear,Seal wear,P3,TECH0064,DataVolt,16.5,7.81,2908,2640,5879,2.39,22.95,Completed,1,1,2024-01
+WO0002295,AST00162,ASH01,AMER-East,2024-01-04,Corrective,Routine Wear,Seal wear,P4,TECH0106,PowerGrid Mechanical,16.7,3.52,3267,2404,5721,1.54,19.3,Completed,0,0,2024-01
+WO0003280,AST00229,DAL01,AMER-Central,2024-01-04,Preventive,Fan Motor,Bearing wear,P4,TECH0107,Schneider Services,3.4,4.03,530,414,1194,6.27,9.18,Completed,0,0,2024-01
+WO0004855,AST00344,SJC01,AMER-West,2024-01-04,Corrective,Battery,Battery bank,P1,TECH0026,EcoCool,5.5,4.85,3404,665,4328,2.35,8.03,Completed,0,0,2024-01
+WO0001551,AST00111,LAX01,AMER-West,2024-01-04,Corrective,Firmware,Patch gap,P3,TECH0051,CBRE Ops,20.0,2.65,2749,2520,5568,0.29,23.38,Completed,0,0,2024-01
+WO0005707,AST00395,PHX01,AMER-West,2024-01-04,Corrective,Cooling Loop,Pump,P3,TECH0118,Schneider Services,22.2,4.3,3068,3529,6789,2.59,25.33,Completed,0,0,2024-01
+WO0006117,AST00421,TOR01,AMER-Central,2024-01-04,Corrective,Routine Wear,Inspection finding,P3,TECH0006,Vertiv Services,11.5,7.38,2932,1380,4394,1.81,13.79,Completed,1,0,2024-01
+WO0005554,AST00386,CHI01,AMER-East,2024-01-04,Corrective,Breaker,Trip event,P3,TECH0086,PowerGrid Mechanical,22.6,11.16,3061,3186,6383,1.38,24.58,Completed,1,0,2024-01
+WO0002740,AST00193,DAL01,AMER-Central,2024-01-04,Corrective,Fan Motor,VFD issue,P2,TECH0090,FacilityPro,12.9,10.42,1776,1793,3922,1.79,17.03,Completed,1,0,2024-01
+WO0007504,AST00519,PHX01,AMER-West,2024-01-04,Corrective,Routine Wear,Inspection finding,P2,TECH0098,CBRE Ops,14.4,4.86,2341,2044,4524,0.98,16.42,Completed,0,0,2024-01
+WO0004726,AST00332,ASH01,AMER-East,2024-01-04,Corrective,Compressor,Bearing wear,P2,TECH0117,CBRE Ops,10.5,2.8,3999,1386,5561,0.2,13.15,Completed,0,0,2024-01
+WO0005237,AST00367,ASH01,AMER-East,2024-01-04,Corrective,Valve,Valve blockage,P4,TECH0042,FacilityPro,4.2,7.99,2272,420,2822,0.2,4.85,Closed,1,0,2024-01
+WO0006829,AST00469,SJC01,AMER-West,2024-01-04,Preventive,Fuel System,Fuel leak,P2,TECH0074,PowerGrid Mechanical,2.8,1.16,452,364,1081,8.21,11.77,Completed,0,0,2024-01
+WO0002949,AST00207,TOR01,AMER-Central,2024-01-04,Corrective,Transformer,Oil temp rise,P1,TECH0094,Schneider Services,12.8,7.53,4733,2009,6956,3.35,16.89,Completed,1,0,2024-01
+WO0006325,AST00434,LAX01,AMER-West,2024-01-04,Corrective,Routine Wear,Alignment,P4,TECH0039,Vertiv Services,14.7,6.39,3765,1793,5782,3.72,17.88,Closed,1,1,2024-01
+WO0005883,AST00405,SEA01,AMER-West,2024-01-04,Corrective,Routine Wear,Alignment,P3,TECH0032,DataVolt,30.2,6.17,3564,3382,6996,3.26,36.78,Completed,1,0,2024-01
+WO0003954,AST00284,TOR01,AMER-Central,2024-01-04,Corrective,Sensor,Flow sensor,P4,TECH0090,PowerGrid Mechanical,15.5,9.45,2388,2294,5068,2.31,18.82,Completed,1,0,2024-01
+WO0000910,AST00066,ATL01,AMER-East,2024-01-05,Corrective,Battery,Battery connector,P1,TECH0115,DataVolt,23.5,10.42,6533,3055,9855,1.37,26.45,Completed,1,0,2024-01
+WO0001755,AST00124,TOR01,AMER-Central,2024-01-05,Preventive,Rectifier,Voltage imbalance,P3,TECH0084,ABB Services,10.6,1.32,764,985,1974,8.67,18.07,Completed,0,0,2024-01
+WO0004876,AST00347,NYC01,AMER-East,2024-01-05,Preventive,Battery,Battery connector,P3,TECH0086,EcoCool,5.4,2.42,934,610,1701,8.24,17.4,Completed,0,0,2024-01
+WO0007615,AST00527,ATL01,AMER-East,2024-01-05,Preventive,Sensor,Pressure sensor,P3,TECH0092,EcoCool,5.2,1.65,309,639,1175,8.43,15.94,In Review,0,0,2024-01
+WO0000357,AST00024,MIA01,AMER-Central,2024-01-05,Preventive,Valve,Valve leak,P2,TECH0001,ABB Services,6.1,2.45,555,689,1599,11.37,16.72,Closed,0,0,2024-01
+WO0003240,AST00228,DEN01,AMER-Central,2024-01-05,Preventive,Sensor,Flow sensor,P4,TECH0010,FacilityPro,6.6,0.82,469,706,1215,9.76,16.93,Closed,0,0,2024-01
+WO0003186,AST00224,SEA01,AMER-West,2024-01-05,Preventive,Valve,Valve leak,P2,TECH0061,CBRE Ops,6.6,1.89,715,858,1740,6.74,14.75,Completed,0,0,2024-01
+WO0005298,AST00372,DAL01,AMER-Central,2024-01-05,Corrective,Routine Wear,Seal wear,P3,TECH0067,CBRE Ops,10.9,7.36,2909,1536,4525,1.44,13.09,Closed,1,0,2024-01
+WO0005261,AST00369,CHI01,AMER-East,2024-01-05,Corrective,Firmware,Sensor mapping,P2,TECH0061,DataVolt,7.7,8.14,3831,908,4964,1.27,8.87,Closed,1,0,2024-01
+WO0006977,AST00481,SEA01,AMER-West,2024-01-05,Corrective,Fuel System,Fuel leak,P3,TECH0072,ABB Services,8.6,5.34,6721,963,8038,4.3,14.31,Closed,0,0,2024-01
+WO0004795,AST00338,CHI01,AMER-East,2024-01-05,Corrective,Cable,Insulation wear,P3,TECH0093,Schneider Services,12.4,4.47,3011,1512,4902,0.61,16.03,Completed,0,1,2024-01
+WO0005391,AST00378,TOR01,AMER-Central,2024-01-05,Corrective,Routine Wear,Seal wear,P3,TECH0027,FacilityPro,8.8,1.36,1499,1135,2746,2.77,12.69,Closed,0,1,2024-01
+WO0002053,AST00144,SJC01,AMER-West,2024-01-05,Preventive,Transformer,Insulation aging,P3,TECH0082,FacilityPro,4.4,3.25,598,576,1540,9.03,15.57,Closed,0,0,2024-01
+WO0003309,AST00231,SEA01,AMER-West,2024-01-05,Corrective,Sensor,Pressure sensor,P1,TECH0041,DataVolt,6.1,8.94,2731,994,3776,2.87,10.0,Completed,1,1,2024-01
+WO0001559,AST00111,LAX01,AMER-West,2024-01-05,Preventive,Firmware,Patch gap,P4,TECH0048,ABB Services,6.4,2.04,215,652,988,7.32,14.0,Closed,0,0,2024-01
+WO0003682,AST00264,NYC01,AMER-East,2024-01-05,Preventive,Battery,Battery bank,P1,TECH0114,FacilityPro,10.4,0.83,492,1112,1881,6.89,18.7,Closed,0,0,2024-01
+WO0003690,AST00265,DAL01,AMER-Central,2024-01-05,Corrective,Routine Wear,Seal wear,P2,TECH0114,DataVolt,12.1,8.55,5063,1718,7115,1.05,15.54,Completed,1,0,2024-01
+WO0006326,AST00434,LAX01,AMER-West,2024-01-05,Corrective,Routine Wear,Alignment,P2,TECH0098,EcoCool,12.5,6.15,2790,1650,4819,1.63,14.77,Completed,1,0,2024-01
+WO0005743,AST00397,PHX01,AMER-West,2024-01-05,Preventive,Rectifier,Power board,P3,TECH0075,Schneider Services,5.8,1.7,123,655,1054,10.12,16.35,Completed,0,0,2024-01
+WO0005653,AST00392,DAL01,AMER-Central,2024-01-05,Preventive,Cooling Loop,Pump,P3,TECH0038,CBRE Ops,3.7,2.35,135,473,814,8.56,14.58,Completed,0,0,2024-01
+WO0003923,AST00282,DAL01,AMER-Central,2024-01-05,Preventive,Transformer,Oil temp rise,P2,TECH0024,EcoCool,7.0,2.84,536,798,1646,7.44,15.05,Completed,0,0,2024-01
+WO0003423,AST00241,ASH01,AMER-East,2024-01-06,Corrective,Transformer,Insulation aging,P3,TECH0048,DataVolt,12.2,9.51,2034,1744,4119,0.66,13.84,Closed,1,0,2024-01
+WO0005790,AST00401,MIA01,AMER-Central,2024-01-06,Corrective,Routine Wear,Inspection finding,P3,TECH0100,Vertiv Services,10.1,7.86,2720,1141,3922,1.32,11.77,Completed,1,0,2024-01
+WO0001091,AST00079,SJC01,AMER-West,2024-01-06,Preventive,Routine Wear,Alignment,P2,TECH0070,PowerGrid Mechanical,9.9,3.19,658,841,1646,10.34,21.43,Completed,0,0,2024-01
+WO0000560,AST00043,MIA01,AMER-Central,2024-01-06,Corrective,Routine Wear,Inspection finding,P2,TECH0077,Schneider Services,19.0,4.38,2643,2907,5799,0.2,22.21,Completed,0,0,2024-01
+WO0004787,AST00337,SJC01,AMER-West,2024-01-06,Corrective,Transformer,Oil temp rise,P2,TECH0101,EcoCool,8.7,0.75,4063,1270,5643,0.2,9.85,Completed,0,0,2024-01
+WO0005177,AST00363,SJC01,AMER-West,2024-01-06,Preventive,Routine Wear,Alignment,P4,TECH0109,Schneider Services,6.3,2.94,317,800,1202,9.06,16.26,Closed,0,0,2024-01
+WO0002978,AST00209,MIA01,AMER-Central,2024-01-06,Preventive,Capacitor,Bulge,P3,TECH0116,EcoCool,11.3,2.93,805,1502,2577,8.56,20.75,Closed,0,0,2024-01
+WO0004112,AST00295,SEA01,AMER-West,2024-01-06,Corrective,Routine Wear,Alignment,P2,TECH0059,ABB Services,17.7,8.31,3803,2619,6767,1.44,21.47,Completed,1,1,2024-01
+WO0002038,AST00142,ASH01,AMER-East,2024-01-06,Corrective,Routine Wear,Inspection finding,P3,TECH0020,CBRE Ops,2.0,8.49,5702,222,6016,0.31,4.33,Completed,1,0,2024-01
+WO0000610,AST00046,LAX01,AMER-West,2024-01-06,Preventive,Routine Wear,Seal wear,P2,TECH0029,FacilityPro,5.1,1.71,1137,433,1829,9.52,16.53,Completed,0,0,2024-01
+WO0005345,AST00374,NYC01,AMER-East,2024-01-06,Corrective,Routine Wear,Alignment,P2,TECH0060,Vertiv Services,13.8,5.25,3778,1904,5937,0.27,16.07,Closed,0,0,2024-01
+WO0007556,AST00523,NYC01,AMER-East,2024-01-06,Preventive,Fan Motor,VFD issue,P4,TECH0047,ABB Services,5.7,3.99,950,513,1848,10.77,17.33,Completed,0,0,2024-01
+WO0005007,AST00355,LAX01,AMER-West,2024-01-06,Corrective,Valve,Actuator fault,P3,TECH0044,FacilityPro,11.8,4.77,4376,1652,6103,1.78,16.6,Closed,0,0,2024-01
+`,
+  "assets": `asset_id,site_code,region,asset_type,manufacturer,model_number,serial_number,install_date,commission_date,expected_life_years,current_age_years,asset_condition,condition_score,criticality_level,capacity_rating,capacity_unit,replacement_cost_usd,depreciated_value_usd,asset_status,energy_efficiency_rating,last_maintenance_date
+AST00001,SEA01,AMER-West,Generator,Cummins,CUM-GEN-291,SN2033551,2016-07-19,2016-08-13,15,8.9,Warning,64.1,High,2184,kW,464779,234971,Active,A,2025-04-21
+AST00002,PHX01,AMER-West,Chiller,York,YOR-CHI-121,SN3587952,2019-04-09,2019-05-08,11,6.2,Warning,72.8,Medium,710,Tons,276730,146750,Active,A,2025-04-02
+AST00003,CHI01,AMER-East,Cooling,Trane,TRA-COO-882,SN1657253,2017-01-02,2017-02-22,10,8.5,Critical,50.3,Medium,130,Tons,132435,38626,Active,C,2025-05-20
+AST00004,SJC01,AMER-West,Cooling,Carrier,CAR-COO-931,SN3735384,2013-06-21,2013-08-01,10,12.0,Critical,28.8,Medium,386,Tons,106606,15990,Active,A,2025-05-07
+AST00005,DAL01,AMER-Central,UPS,Schneider,SCH-UPS-439,SN3519955,2017-11-28,2018-01-18,12,7.6,Warning,61.0,High,1205,kVA,138555,65428,Active,A,2025-04-19
+AST00006,ASH01,AMER-East,Generator,Cummins,CUM-GEN-875,SN9969426,2016-12-31,2017-02-08,15,8.5,Warning,66.8,Medium,3253,kW,740337,390733,Active,B,2025-06-17
+AST00007,LAX01,AMER-West,Chiller,Trane,TRA-CHI-665,SN4410977,2020-10-18,2020-10-26,11,4.7,Warning,73.4,High,626,Tons,322283,207530,Active,C,2025-06-28
+AST00008,MIA01,AMER-Central,UPS,Schneider,SCH-UPS-301,SN3231658,2010-06-11,2010-07-21,12,15.1,Critical,41.5,Medium,519,kVA,101534,15230,Active,A,2025-06-18
+AST00009,DAL01,AMER-Central,Chiller,York,YOR-CHI-801,SN6798799,2022-06-18,2022-07-13,11,3.0,Good,90.5,Low,869,Tons,144300,111504,Active,B,2025-06-24
+AST00010,SEA01,AMER-West,UPS,Vertiv,VER-UPS-978,SN63355610,2010-12-04,2011-01-01,12,14.6,Critical,51.7,High,466,kVA,307851,46177,Active,A,2025-05-28
+AST00011,SEA01,AMER-West,Generator,Kohler,KOH-GEN-912,SN47689611,2011-01-15,2011-02-13,15,14.5,Critical,40.2,High,2367,kW,735808,143073,Active,B,2025-06-16
+AST00012,TOR01,AMER-Central,Cooling,Stulz,STU-COO-747,SN74866312,2015-07-21,2015-08-05,10,9.9,Critical,38.2,High,160,Tons,78986,13822,Active,A,2025-05-11
+AST00013,CHI01,AMER-East,Generator,Cummins,CUM-GEN-234,SN89482413,2022-05-12,2022-05-24,15,3.1,Good,82.8,Medium,1779,kW,655713,542784,Active,C,2025-06-10
+AST00014,DEN01,AMER-Central,UPS,Eaton,EAT-UPS-147,SN92165414,2018-07-02,2018-07-30,12,7.0,Warning,65.8,Medium,1054,kVA,114538,58859,Active,B,2025-06-25
+AST00015,ASH01,AMER-East,Generator,Kohler,KOH-GEN-561,SN25833815,2014-04-20,2014-04-25,15,11.2,Critical,51.7,Medium,2028,kW,903094,341168,Active,C,2025-06-14
+AST00016,SJC01,AMER-West,Cooling,Carrier,CAR-COO-970,SN74591416,2022-04-21,2022-05-04,10,3.2,Critical,81.9,High,286,Tons,187409,137433,Retired,C,
+AST00017,SJC01,AMER-West,PDU,Eaton,EAT-PDU-340,SN73134717,2014-01-24,2014-03-01,14,11.4,Warning,56.3,High,634,Amps,116910,37578,Active,B,2025-06-15
+AST00018,SEA01,AMER-West,UPS,Eaton,EAT-UPS-270,SN87468418,2014-08-06,2014-09-15,12,10.9,Critical,49.2,Low,774,kVA,133585,32468,Active,C,2025-06-12
+AST00019,DEN01,AMER-Central,Generator,Kohler,KOH-GEN-745,SN98169119,2017-06-22,2017-08-09,15,8.0,Warning,74.2,High,2363,kW,432906,240503,Active,B,2025-06-19
+AST00020,DAL01,AMER-Central,UPS,Vertiv,VER-UPS-605,SN17576620,2014-07-22,2014-08-23,12,10.9,Warning,58.1,Medium,439,kVA,251152,61043,Active,B,2025-06-16
+AST00021,TOR01,AMER-Central,PDU,ABB,ABB-PDU-844,SN50269021,2013-07-30,2013-09-11,14,11.9,Warning,62.2,Low,859,Amps,66959,19529,Active,B,2025-06-22
+AST00022,DEN01,AMER-Central,Cooling,Trane,TRA-COO-417,SN89018022,2022-12-28,2023-02-03,10,2.5,Good,84.2,High,386,Tons,78545,62181,Active,C,2025-06-17
+AST00023,TOR01,AMER-Central,Chiller,York,YOR-CHI-771,SN69312823,2023-02-01,2023-03-29,11,2.4,Good,83.3,Medium,262,Tons,159353,130379,Active,A,2025-06-20
+AST00024,MIA01,AMER-Central,Chiller,Trane,TRA-CHI-367,SN41487724,2022-10-04,2022-11-16,11,2.7,Good,82.9,High,535,Tons,187172,148886,Active,C,2025-05-24
+AST00025,TOR01,AMER-Central,Generator,Cummins,CUM-GEN-954,SN45222825,2020-02-14,2020-03-21,15,5.4,Good,79.7,Medium,3432,kW,537426,376198,Standby,C,2025-06-09
+AST00026,DAL01,AMER-Central,Generator,Cummins,CUM-GEN-829,SN33516726,2014-09-04,2014-09-14,15,10.8,Warning,62.8,Low,2439,kW,350467,140186,Active,C,2025-06-01
+AST00027,DEN01,AMER-Central,UPS,Schneider,SCH-UPS-866,SN79251727,2019-08-12,2019-09-09,12,5.9,Warning,67.5,Low,1133,kVA,196081,115742,Active,A,2025-05-17
+AST00028,DAL01,AMER-Central,UPS,Eaton,EAT-UPS-610,SN96705528,2010-07-17,2010-08-06,12,15.0,Critical,36.7,Medium,858,kVA,176202,26430,Active,C,2025-06-26
+AST00029,SJC01,AMER-West,UPS,Schneider,SCH-UPS-863,SN41839429,2019-04-21,2019-05-31,12,6.2,Good,77.1,High,652,kVA,124754,71040,Active,A,2025-06-21
+AST00030,LAX01,AMER-West,Generator,Kohler,KOH-GEN-247,SN75827130,2010-05-27,2010-06-07,15,15.1,Critical,47.7,Medium,2843,kW,681896,109861,Active,A,2025-06-28
+AST00031,DEN01,AMER-Central,Generator,Caterpillar,CAT-GEN-971,SN39964831,2018-02-24,2018-03-11,15,7.3,Good,76.2,High,2969,kW,851542,506194,Active,C,2025-01-21
+AST00032,ASH01,AMER-East,Chiller,Daikin,DAI-CHI-397,SN65459432,2021-02-13,2021-02-24,11,4.4,Warning,60.7,Medium,293,Tons,227512,151674,Active,B,2025-05-25
+AST00033,DAL01,AMER-Central,UPS,Schneider,SCH-UPS-259,SN29250633,2019-12-23,2020-02-20,12,5.5,Good,75.2,Medium,258,kVA,359544,222218,Active,B,2025-06-21
+AST00034,SJC01,AMER-West,PDU,ABB,ABB-PDU-758,SN63943934,2018-09-06,2018-09-26,14,6.8,Good,76.8,Medium,553,Amps,51295,30532,Active,A,2025-05-21
+AST00035,SJC01,AMER-West,UPS,Schneider,SCH-UPS-211,SN75791735,2018-09-27,2018-10-26,12,6.8,Warning,74.8,High,348,kVA,223272,117837,Active,B,2025-06-27
+AST00036,ASH01,AMER-East,UPS,Vertiv,VER-UPS-995,SN90778936,2018-02-09,2018-03-03,12,7.4,Good,78.6,High,1071,kVA,347186,168770,Standby,B,2025-03-17
+AST00037,DAL01,AMER-Central,Chiller,York,YOR-CHI-915,SN75934737,2020-05-19,2020-05-31,11,5.1,Critical,74.5,High,284,Tons,206416,126664,Retired,A,
+AST00038,TOR01,AMER-Central,Chiller,York,YOR-CHI-132,SN35668738,2022-12-19,2023-01-04,11,2.5,Good,84.8,High,619,Tons,401974,325842,Active,A,2024-12-21
+AST00039,DEN01,AMER-Central,Chiller,York,YOR-CHI-382,SN39289039,2012-11-11,2012-12-19,11,12.6,Critical,43.2,High,426,Tons,256672,38500,Retired,B,
+AST00040,MIA01,AMER-Central,PDU,Schneider,SCH-PDU-928,SN82990340,2022-06-15,2022-07-08,14,3.0,Good,86.5,Medium,696,Amps,118744,97539,Standby,C,2025-04-25
+AST00041,PHX01,AMER-West,Cooling,Trane,TRA-COO-617,SN27827441,2013-05-28,2013-07-12,10,12.1,Critical,25.0,High,116,Tons,68420,10263,Standby,C,2025-06-28
+AST00042,DAL01,AMER-Central,Generator,Cummins,CUM-GEN-280,SN21529442,2010-10-29,2010-12-07,15,14.7,Critical,44.4,High,1699,kW,928307,170189,Active,C,2025-06-19
+AST00043,MIA01,AMER-Central,Cooling,Trane,TRA-COO-260,SN21801543,2010-07-10,2010-07-17,10,15.0,Critical,25.0,Low,207,Tons,91641,13746,Active,A,2025-06-03
+AST00044,ASH01,AMER-East,Generator,Caterpillar,CAT-GEN-834,SN46589044,2014-12-22,2015-02-04,15,10.5,Warning,57.3,Medium,1625,kW,352991,147079,Standby,C,2025-05-14
+AST00045,NYC01,AMER-East,Cooling,Stulz,STU-COO-884,SN25882345,2020-12-28,2021-02-03,10,4.5,Good,82.7,High,378,Tons,170510,106568,Active,C,2025-06-19
+AST00046,LAX01,AMER-West,Chiller,York,YOR-CHI-637,SN33536246,2017-09-07,2017-10-31,11,7.8,Warning,61.4,Medium,557,Tons,259788,106276,Active,B,2025-05-10
+AST00047,SJC01,AMER-West,PDU,Schneider,SCH-PDU-420,SN70186347,2018-01-29,2018-03-20,14,7.4,Good,81.0,Medium,549,Amps,121429,67942,Standby,A,2024-11-12
+AST00048,ASH01,AMER-East,Cooling,Stulz,STU-COO-982,SN54898248,2012-08-29,2012-09-17,10,12.8,Critical,29.7,Low,171,Tons,97097,14564,Active,A,2025-06-20
+AST00049,SJC01,AMER-West,Generator,Cummins,CUM-GEN-150,SN19384849,2023-07-01,2023-07-27,15,2.0,Good,98.0,Low,3361,kW,507897,451464,Active,B,2025-06-26
+AST00050,NYC01,AMER-East,Cooling,Stulz,STU-COO-781,SN48995750,2014-09-12,2014-10-01,10,10.8,Critical,35.9,Medium,133,Tons,178632,26794,Active,C,2025-06-23
+`,
+  "finance_monthly": `year_month,site_code,region,cost_center,spend_category,budget_usd,actual_spend_usd,variance_usd,variance_pct,vendor_name,po_number
+2024-01,ASH01,AMER-East,OPS-FAC,Maintenance Opex,240635,227166,-13469,-5.6,FacilityPro,PO100001
+2024-01,ASH01,AMER-East,OPS-DC,Power Opex,463884,473092,9208,1.98,EcoCool,PO100002
+2024-01,ASH01,AMER-East,OPS-DC,Capex Replacement,364734,342715,-22019,-6.04,DataVolt,PO100003
+2024-01,ASH01,AMER-East,OPS-FAC,Vendor Services,53689,53748,59,0.11,PowerGrid Mechanical,PO100004
+2024-01,ATL01,AMER-East,FIN-CAPEX,Maintenance Opex,165554,176233,10679,6.45,PowerGrid Mechanical,PO100005
+2024-01,ATL01,AMER-East,OPS-DC,Power Opex,108699,109509,810,0.75,FacilityPro,PO100006
+2024-01,ATL01,AMER-East,FIN-CAPEX,Capex Replacement,256026,276526,20500,8.01,PowerGrid Mechanical,PO100007
+2024-01,ATL01,AMER-East,ENG-SVC,Vendor Services,48990,48238,-752,-1.54,CBRE Ops,PO100008
+2024-01,CHI01,AMER-East,OPS-FAC,Maintenance Opex,137352,138981,1629,1.19,CBRE Ops,PO100009
+2024-01,CHI01,AMER-East,FIN-CAPEX,Power Opex,200828,209120,8292,4.13,ABB Services,PO100010
+2024-01,CHI01,AMER-East,OPS-FAC,Capex Replacement,223459,220735,-2724,-1.22,PowerGrid Mechanical,PO100011
+2024-01,CHI01,AMER-East,OPS-DC,Vendor Services,36190,37901,1711,4.73,DataVolt,PO100012
+2024-01,DAL01,AMER-Central,OPS-DC,Maintenance Opex,375692,346266,-29426,-7.83,Vertiv Services,PO100013
+2024-01,DAL01,AMER-Central,ENG-SVC,Power Opex,378410,349839,-28571,-7.55,CBRE Ops,PO100014
+2024-01,DAL01,AMER-Central,FIN-CAPEX,Capex Replacement,571701,577832,6131,1.07,FacilityPro,PO100015
+2024-01,DAL01,AMER-Central,ENG-SVC,Vendor Services,110063,122558,12495,11.35,EcoCool,PO100016
+2024-01,DEN01,AMER-Central,OPS-DC,Maintenance Opex,64619,62694,-1925,-2.98,FacilityPro,PO100017
+2024-01,DEN01,AMER-Central,OPS-DC,Power Opex,80282,83614,3332,4.15,FacilityPro,PO100018
+2024-01,DEN01,AMER-Central,ENG-SVC,Capex Replacement,47564,46915,-649,-1.36,ABB Services,PO100019
+2024-01,DEN01,AMER-Central,OPS-DC,Vendor Services,12026,13098,1072,8.91,EcoCool,PO100020
+2024-01,LAX01,AMER-West,OPS-DC,Maintenance Opex,124232,140866,16634,13.39,FacilityPro,PO100021
+2024-01,LAX01,AMER-West,OPS-FAC,Power Opex,206292,221302,15010,7.28,Schneider Services,PO100022
+2024-01,LAX01,AMER-West,OPS-DC,Capex Replacement,208603,202051,-6552,-3.14,DataVolt,PO100023
+2024-01,LAX01,AMER-West,ENG-SVC,Vendor Services,23337,23795,458,1.96,FacilityPro,PO100024
+2024-01,MIA01,AMER-Central,OPS-DC,Maintenance Opex,40806,47230,6424,15.74,DataVolt,PO100025
+2024-01,MIA01,AMER-Central,OPS-DC,Power Opex,95778,96270,492,0.51,DataVolt,PO100026
+2024-01,MIA01,AMER-Central,OPS-FAC,Capex Replacement,61648,64723,3075,4.99,DataVolt,PO100027
+2024-01,MIA01,AMER-Central,FIN-CAPEX,Vendor Services,15962,15891,-71,-0.44,ABB Services,PO100028
+2024-01,NYC01,AMER-East,ENG-SVC,Maintenance Opex,156992,162761,5769,3.67,FacilityPro,PO100029
+2024-01,NYC01,AMER-East,FIN-CAPEX,Power Opex,192150,215704,23554,12.26,DataVolt,PO100030
+2024-01,NYC01,AMER-East,OPS-FAC,Capex Replacement,198730,186967,-11763,-5.92,DataVolt,PO100031
+2024-01,NYC01,AMER-East,FIN-CAPEX,Vendor Services,32879,36784,3905,11.88,Schneider Services,PO100032
+2024-01,PHX01,AMER-West,ENG-SVC,Maintenance Opex,95075,98052,2977,3.13,Schneider Services,PO100033
+2024-01,PHX01,AMER-West,FIN-CAPEX,Power Opex,109492,110781,1289,1.18,EcoCool,PO100034
+2024-01,PHX01,AMER-West,OPS-DC,Capex Replacement,86356,94847,8491,9.83,ABB Services,PO100035
+2024-01,PHX01,AMER-West,FIN-CAPEX,Vendor Services,33451,32708,-743,-2.22,EcoCool,PO100036
+2024-01,SEA01,AMER-West,ENG-SVC,Maintenance Opex,122579,120734,-1845,-1.51,ABB Services,PO100037
+2024-01,SEA01,AMER-West,FIN-CAPEX,Power Opex,94514,103024,8510,9.0,EcoCool,PO100038
+2024-01,SEA01,AMER-West,OPS-FAC,Capex Replacement,146309,137910,-8399,-5.74,Schneider Services,PO100039
+2024-01,SEA01,AMER-West,OPS-DC,Vendor Services,20220,19469,-751,-3.71,DataVolt,PO100040
+2024-01,SJC01,AMER-West,OPS-FAC,Maintenance Opex,253868,294145,40277,15.87,ABB Services,PO100041
+2024-01,SJC01,AMER-West,OPS-DC,Power Opex,357853,379171,21318,5.96,EcoCool,PO100042
+2024-01,SJC01,AMER-West,OPS-DC,Capex Replacement,329354,315965,-13389,-4.07,Vertiv Services,PO100043
+2024-01,SJC01,AMER-West,OPS-DC,Vendor Services,54025,60425,6400,11.85,FacilityPro,PO100044
+2024-01,TOR01,AMER-Central,OPS-FAC,Maintenance Opex,142641,163581,20940,14.68,DataVolt,PO100045
+2024-01,TOR01,AMER-Central,OPS-DC,Power Opex,146631,162593,15962,10.89,Vertiv Services,PO100046
+2024-01,TOR01,AMER-Central,OPS-FAC,Capex Replacement,185046,197983,12937,6.99,PowerGrid Mechanical,PO100047
+2024-01,TOR01,AMER-Central,OPS-DC,Vendor Services,30994,31173,179,0.58,EcoCool,PO100048
+2024-02,ASH01,AMER-East,OPS-DC,Maintenance Opex,273227,281497,8270,3.03,Vertiv Services,PO100049
+2024-02,ASH01,AMER-East,FIN-CAPEX,Power Opex,566995,527033,-39962,-7.05,FacilityPro,PO100050
+`,
+  "customer_experience_monthly": `year_month,site_code,region,survey_response_count,customer_satisfaction_score,nps_score
+2024-01,ASH01,AMER-East,60,83.7,49
+2024-02,ASH01,AMER-East,23,73.6,40
+2024-03,ASH01,AMER-East,67,85.5,46
+2024-04,ASH01,AMER-East,71,84.3,47
+2024-05,ASH01,AMER-East,63,76.8,48
+2024-06,ASH01,AMER-East,18,83.6,42
+2024-07,ASH01,AMER-East,59,71.3,39
+2024-08,ASH01,AMER-East,32,80.7,44
+2024-09,ASH01,AMER-East,37,77.3,35
+2024-10,ASH01,AMER-East,27,78.6,42
+2024-11,ASH01,AMER-East,54,80.6,37
+2024-12,ASH01,AMER-East,73,83.1,39
+2025-01,ASH01,AMER-East,21,80.1,40
+2025-02,ASH01,AMER-East,30,78.7,38
+2025-03,ASH01,AMER-East,72,73.1,38
+2025-04,ASH01,AMER-East,22,84.7,39
+2025-05,ASH01,AMER-East,23,70.4,37
+2025-06,ASH01,AMER-East,45,77.5,39
+2024-01,CHI01,AMER-East,46,82.2,45
+2024-02,CHI01,AMER-East,46,87.9,42
+2024-03,CHI01,AMER-East,38,82.6,43
+2024-04,CHI01,AMER-East,24,82.3,38
+2024-05,CHI01,AMER-East,45,88.9,43
+2024-06,CHI01,AMER-East,29,86.7,46
+2024-07,CHI01,AMER-East,40,78.8,37
+2024-08,CHI01,AMER-East,71,79.3,38
+2024-09,CHI01,AMER-East,30,82.3,47
+2024-10,CHI01,AMER-East,42,90.1,51
+2024-11,CHI01,AMER-East,48,87.0,43
+2024-12,CHI01,AMER-East,49,79.2,44
+2025-01,CHI01,AMER-East,18,88.4,47
+2025-02,CHI01,AMER-East,59,84.0,42
+2025-03,CHI01,AMER-East,37,88.2,47
+2025-04,CHI01,AMER-East,51,86.3,51
+2025-05,CHI01,AMER-East,57,85.8,50
+2025-06,CHI01,AMER-East,73,83.5,44
+2024-01,NYC01,AMER-East,31,86.9,50
+2024-02,NYC01,AMER-East,53,92.8,50
+2024-03,NYC01,AMER-East,17,89.0,39
+2024-04,NYC01,AMER-East,13,83.6,40
+2024-05,NYC01,AMER-East,62,85.0,40
+2024-06,NYC01,AMER-East,24,86.4,42
+2024-07,NYC01,AMER-East,36,79.4,39
+2024-08,NYC01,AMER-East,66,84.5,44
+2024-09,NYC01,AMER-East,61,84.8,47
+2024-10,NYC01,AMER-East,26,92.0,48
+2024-11,NYC01,AMER-East,14,81.3,40
+2024-12,NYC01,AMER-East,49,88.0,48
+2025-01,NYC01,AMER-East,64,85.1,46
+2025-02,NYC01,AMER-East,68,89.2,47
+`,
+  "installed_customer_base_monthly": `year_month,site_code,region,installed_customers_count,active_cabinets_count,committed_power_mw,cross_connects_count
+2024-01,ASH01,AMER-East,150,490,43.76,548
+2024-02,ASH01,AMER-East,166,531,48.9,844
+2024-03,ASH01,AMER-East,164,385,49.17,1022
+2024-04,ASH01,AMER-East,157,424,60.85,997
+2024-05,ASH01,AMER-East,151,459,43.47,492
+2024-06,ASH01,AMER-East,165,479,61.21,709
+2024-07,ASH01,AMER-East,165,386,44.54,691
+2024-08,ASH01,AMER-East,166,384,59.23,783
+2024-09,ASH01,AMER-East,163,486,61.68,760
+2024-10,ASH01,AMER-East,165,547,47.48,620
+2024-11,ASH01,AMER-East,163,391,41.21,1058
+2024-12,ASH01,AMER-East,168,352,60.19,802
+2025-01,ASH01,AMER-East,158,399,50.6,1049
+2025-02,ASH01,AMER-East,177,427,49.59,991
+2025-03,ASH01,AMER-East,179,444,56.1,999
+2025-04,ASH01,AMER-East,169,352,59.42,1006
+2025-05,ASH01,AMER-East,169,372,55.9,626
+2025-06,ASH01,AMER-East,172,416,60.25,1162
+2024-01,CHI01,AMER-East,78,242,27.78,503
+2024-02,CHI01,AMER-East,66,132,23.14,266
+2024-03,CHI01,AMER-East,79,161,22.68,324
+2024-04,CHI01,AMER-East,71,162,23.0,289
+2024-05,CHI01,AMER-East,75,197,35.75,408
+2024-06,CHI01,AMER-East,78,221,26.97,310
+2024-07,CHI01,AMER-East,81,258,34.09,449
+2024-08,CHI01,AMER-East,79,260,36.85,465
+2024-09,CHI01,AMER-East,77,178,33.87,357
+2024-10,CHI01,AMER-East,75,228,23.79,297
+2024-11,CHI01,AMER-East,73,193,30.1,264
+2024-12,CHI01,AMER-East,81,229,25.84,454
+2025-01,CHI01,AMER-East,83,185,30.94,561
+2025-02,CHI01,AMER-East,84,168,35.08,521
+2025-03,CHI01,AMER-East,74,250,31.18,309
+2025-04,CHI01,AMER-East,83,194,36.63,360
+2025-05,CHI01,AMER-East,80,188,28.61,523
+2025-06,CHI01,AMER-East,76,248,35.46,395
+2024-01,NYC01,AMER-East,68,152,29.33,276
+2024-02,NYC01,AMER-East,66,182,29.13,421
+2024-03,NYC01,AMER-East,71,185,29.94,266
+2024-04,NYC01,AMER-East,68,213,34.96,358
+2024-05,NYC01,AMER-East,73,157,26.45,383
+2024-06,NYC01,AMER-East,79,264,23.88,412
+2024-07,NYC01,AMER-East,68,165,26.14,308
+2024-08,NYC01,AMER-East,64,212,31.47,222
+2024-09,NYC01,AMER-East,73,181,30.15,476
+2024-10,NYC01,AMER-East,62,173,24.91,259
+2024-11,NYC01,AMER-East,69,194,23.97,274
+2024-12,NYC01,AMER-East,73,163,22.58,233
+2025-01,NYC01,AMER-East,78,157,31.86,363
+2025-02,NYC01,AMER-East,71,232,27.06,233
+`,
+  "site_dim": `site_code,region,country,city,site_size,capacity_mw,power_redundancy,risk_baseline_index,commissioned_year
+ASH01,AMER-East,USA,Ashburn,XL,75,2N,0.95,2008
+CHI01,AMER-East,USA,Chicago,L,42,N+1,1.02,2016
+NYC01,AMER-East,USA,New York,L,40,N+1,1.06,2012
+ATL01,AMER-East,USA,Atlanta,M,26,N+1,1.12,2009
+SJC01,AMER-West,USA,San Jose,XL,70,2N,0.98,2008
+LAX01,AMER-West,USA,Los Angeles,L,38,N+1,1.07,2020
+SEA01,AMER-West,USA,Seattle,M,24,N+1,1.03,2012
+PHX01,AMER-West,USA,Phoenix,M,28,N+1,1.1,2012
+DAL01,AMER-Central,USA,Dallas,XL,68,2N,1.0,2005
+DEN01,AMER-Central,USA,Denver,M,22,N+1,1.04,2009
+MIA01,AMER-Central,USA,Miami,M,25,N+1,1.15,2004
+TOR01,AMER-Central,Canada,Toronto,L,34,N+1,1.01,2003
+`,
+  "date_dim": `calendar_date,date_key,year,quarter,month_num,month_name,year_month,week_of_year,day_of_week,is_weekend
+2024-01-01,20240101,2024,Q1,1,Jan,2024-01,1,Monday,False
+2024-01-02,20240102,2024,Q1,1,Jan,2024-01,1,Tuesday,False
+2024-01-03,20240103,2024,Q1,1,Jan,2024-01,1,Wednesday,False
+2024-01-04,20240104,2024,Q1,1,Jan,2024-01,1,Thursday,False
+2024-01-05,20240105,2024,Q1,1,Jan,2024-01,1,Friday,False
+2024-01-06,20240106,2024,Q1,1,Jan,2024-01,1,Saturday,True
+2024-01-07,20240107,2024,Q1,1,Jan,2024-01,1,Sunday,True
+2024-01-08,20240108,2024,Q1,1,Jan,2024-01,2,Monday,False
+2024-01-09,20240109,2024,Q1,1,Jan,2024-01,2,Tuesday,False
+2024-01-10,20240110,2024,Q1,1,Jan,2024-01,2,Wednesday,False
+2024-01-11,20240111,2024,Q1,1,Jan,2024-01,2,Thursday,False
+2024-01-12,20240112,2024,Q1,1,Jan,2024-01,2,Friday,False
+2024-01-13,20240113,2024,Q1,1,Jan,2024-01,2,Saturday,True
+2024-01-14,20240114,2024,Q1,1,Jan,2024-01,2,Sunday,True
+2024-01-15,20240115,2024,Q1,1,Jan,2024-01,3,Monday,False
+2024-01-16,20240116,2024,Q1,1,Jan,2024-01,3,Tuesday,False
+2024-01-17,20240117,2024,Q1,1,Jan,2024-01,3,Wednesday,False
+2024-01-18,20240118,2024,Q1,1,Jan,2024-01,3,Thursday,False
+2024-01-19,20240119,2024,Q1,1,Jan,2024-01,3,Friday,False
+2024-01-20,20240120,2024,Q1,1,Jan,2024-01,3,Saturday,True
+2024-01-21,20240121,2024,Q1,1,Jan,2024-01,3,Sunday,True
+2024-01-22,20240122,2024,Q1,1,Jan,2024-01,4,Monday,False
+2024-01-23,20240123,2024,Q1,1,Jan,2024-01,4,Tuesday,False
+2024-01-24,20240124,2024,Q1,1,Jan,2024-01,4,Wednesday,False
+2024-01-25,20240125,2024,Q1,1,Jan,2024-01,4,Thursday,False
+2024-01-26,20240126,2024,Q1,1,Jan,2024-01,4,Friday,False
+2024-01-27,20240127,2024,Q1,1,Jan,2024-01,4,Saturday,True
+2024-01-28,20240128,2024,Q1,1,Jan,2024-01,4,Sunday,True
+2024-01-29,20240129,2024,Q1,1,Jan,2024-01,5,Monday,False
+2024-01-30,20240130,2024,Q1,1,Jan,2024-01,5,Tuesday,False
+2024-01-31,20240131,2024,Q1,1,Jan,2024-01,5,Wednesday,False
+2024-02-01,20240201,2024,Q1,2,Feb,2024-02,5,Thursday,False
+2024-02-02,20240202,2024,Q1,2,Feb,2024-02,5,Friday,False
+2024-02-03,20240203,2024,Q1,2,Feb,2024-02,5,Saturday,True
+2024-02-04,20240204,2024,Q1,2,Feb,2024-02,5,Sunday,True
+2024-02-05,20240205,2024,Q1,2,Feb,2024-02,6,Monday,False
+2024-02-06,20240206,2024,Q1,2,Feb,2024-02,6,Tuesday,False
+2024-02-07,20240207,2024,Q1,2,Feb,2024-02,6,Wednesday,False
+2024-02-08,20240208,2024,Q1,2,Feb,2024-02,6,Thursday,False
+2024-02-09,20240209,2024,Q1,2,Feb,2024-02,6,Friday,False
+2024-02-10,20240210,2024,Q1,2,Feb,2024-02,6,Saturday,True
+2024-02-11,20240211,2024,Q1,2,Feb,2024-02,6,Sunday,True
+2024-02-12,20240212,2024,Q1,2,Feb,2024-02,7,Monday,False
+2024-02-13,20240213,2024,Q1,2,Feb,2024-02,7,Tuesday,False
+2024-02-14,20240214,2024,Q1,2,Feb,2024-02,7,Wednesday,False
+2024-02-15,20240215,2024,Q1,2,Feb,2024-02,7,Thursday,False
+2024-02-16,20240216,2024,Q1,2,Feb,2024-02,7,Friday,False
+2024-02-17,20240217,2024,Q1,2,Feb,2024-02,7,Saturday,True
+2024-02-18,20240218,2024,Q1,2,Feb,2024-02,7,Sunday,True
+2024-02-19,20240219,2024,Q1,2,Feb,2024-02,8,Monday,False
+`,
+};
+
+const CSV_TOTALS = {
+  "operations_daily": 6564,
+  "maintenance_work_orders": 7761,
+  "assets": 540,
+  "finance_monthly": 864,
+  "customer_experience_monthly": 216,
+  "installed_customer_base_monthly": 216,
+  "site_dim": 12,
+  "date_dim": 547,
+};
+
+function dlCSV(name) {
+  var data = CSV_SAMPLES[name];
+  var total = CSV_TOTALS[name];
+  if (!data) return;
+  var sample = data.trim().split('\n').length - 1;
+  showProtoNotice(name, sample, total);
+}
+
+function showProtoNotice(name, sample, total) {
+  var existing = document.getElementById('proto-modal');
+  if (existing) existing.remove();
+
+  var modal = document.createElement('div');
+  modal.id = 'proto-modal';
+
+  var backdrop = document.createElement('div');
+  backdrop.className = 'proto-backdrop';
+  backdrop.onclick = closeProtoModal;
+
+  var box = document.createElement('div');
+  box.className = 'proto-box';
+
+  var icon = document.createElement('div');
+  icon.className = 'proto-icon';
+  icon.textContent = '📊';
+
+  var title = document.createElement('div');
+  title.className = 'proto-title';
+  title.textContent = 'Sample Dataset Download';
+
+  var msg = document.createElement('div');
+  msg.className = 'proto-msg';
+  msg.innerHTML = 'This is a <strong>portfolio / prototype project</strong>. You are downloading a <strong>' + sample + '-row sample</strong> of <strong>' + name + '.csv</strong> (' + total.toLocaleString() + ' total rows in the full dataset).';
+
+  var note = document.createElement('div');
+  note.className = 'proto-note';
+  note.textContent = 'The full dataset and SQL schema are available in the project GitHub repository. This sample is sufficient to verify the data structure, column definitions, and schema design.';
+
+  var actions = document.createElement('div');
+  actions.className = 'proto-actions';
+
+  var dlBtn = document.createElement('button');
+  dlBtn.className = 'proto-dl';
+  dlBtn.textContent = '↓ Download ' + sample + '-row Sample';
+  dlBtn.onclick = function() { doDownload(name); };
+
+  var cancelBtn = document.createElement('button');
+  cancelBtn.className = 'proto-cancel';
+  cancelBtn.textContent = 'Cancel';
+  cancelBtn.onclick = closeProtoModal;
+
+  actions.appendChild(dlBtn);
+  actions.appendChild(cancelBtn);
+  box.appendChild(icon);
+  box.appendChild(title);
+  box.appendChild(msg);
+  box.appendChild(note);
+  box.appendChild(actions);
+  modal.appendChild(backdrop);
+  modal.appendChild(box);
+  document.body.appendChild(modal);
+  requestAnimationFrame(function() { modal.classList.add('proto-open'); });
+}
+
+function doDownload(name) {
+  var data = CSV_SAMPLES[name];
+  if (!data) return;
+  var blob = new Blob([data], {type: 'text/csv;charset=utf-8;'});
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = name + '_sample.csv';
+  a.click();
+  setTimeout(function() { URL.revokeObjectURL(url); }, 1000);
+  closeProtoModal();
+  showToast('Downloaded ' + name + '_sample.csv', 'blue');
+}
+
+function closeProtoModal() {
+  var modal = document.getElementById('proto-modal');
+  if (modal) {
+    modal.classList.remove('proto-open');
+    setTimeout(function() { if (modal.parentNode) modal.parentNode.removeChild(modal); }, 200);
+  }
+}
+
 </script>
 </body>
 </html>
