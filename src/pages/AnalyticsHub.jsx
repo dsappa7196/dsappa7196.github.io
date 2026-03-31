@@ -5,6 +5,32 @@ export default function AnalyticsHub({ onClose }) {
 
   return (
     <div style={{ width: "100vw", height: "100vh", margin: 0, padding: 0, position: "fixed", inset: 0, zIndex: 9999 }}>
+      
+      {/* Back button */}
+      <button
+        onClick={onClose}
+        style={{
+          position: "fixed",
+          top: 12,
+          right: 16,
+          zIndex: 10000,
+          background: "rgba(255,255,255,0.1)",
+          color: "#fff",
+          border: "1px solid rgba(255,255,255,0.25)",
+          borderRadius: 6,
+          padding: "6px 14px",
+          fontSize: 12,
+          fontFamily: "sans-serif",
+          cursor: "pointer",
+          backdropFilter: "blur(8px)",
+          display: "flex",
+          alignItems: "center",
+          gap: 6,
+        }}
+      >
+        ← Back to Portfolio
+      </button>
+
       {loading && (
         <div style={{
           position: "fixed", inset: 0, background: "#0d2240",
@@ -22,6 +48,7 @@ export default function AnalyticsHub({ onClose }) {
           <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
         </div>
       )}
+
       <iframe
         src="/Operations_Analytics_Hub.html"
         onLoad={() => setLoading(false)}
