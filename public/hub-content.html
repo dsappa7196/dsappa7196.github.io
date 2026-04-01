@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Operations Analytics Hub — Padmasree Sappa</title>
+<title>Data Center Operations Analytics Hub</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&family=Fraunces:ital,wght@0,300;0,600;0,700;1,300&display=swap" rel="stylesheet">
 <style>
@@ -639,7 +639,7 @@ body { background: var(--bg); color: var(--text); font-family: var(--sans); font
   <div class="brand" onclick="switchView('hub')">
     <div class="eq-mark">EQ</div>
     <div>
-      <div class="brand-name">Operations Analytics Hub</div>
+      <div class="brand-name">Data Center Operations Analytics Hub</div>
       <div class="brand-sub">Americas · 12 Sites · Decision Support System</div>
     </div>
   </div>
@@ -885,7 +885,7 @@ body { background: var(--bg); color: var(--text); font-family: var(--sans); font
           <div class="metric-card"><div class="mc-name">Composite Risk Score</div><div class="mc-formula">Avail(25%) + Incidents(20%) + Downtime(20%) + SLA(20%) + Variance(15%)</div><div class="mc-desc">Weighted composite score 0–100 across five operational signals per site. Higher = higher operational risk. Calculated as a DAX column on the Site dimension table.</div><div class="mc-target">Low: 0–30 · Warning: 30–60 · Critical: 60–100 · DAL01: 81.6</div></div>
           <div class="metric-card"><div class="mc-name">Condition Score</div><div class="mc-formula">AVG(condition_score) from assets — scale 0 to 100</div><div class="mc-desc">Asset health score from 0 (failed) to 100 (new condition). Derived from age, maintenance history, and failure frequency. Below 30 triggers replacement review flag.</div><div class="mc-target">Fleet Avg: 54.5 · Replacement Review: &lt;30 · 107 assets flagged</div></div>
           <div class="metric-card"><div class="mc-name">Asset Life Used %</div><div class="mc-formula">current_age_years ÷ expected_life_years × 100</div><div class="mc-desc">Percentage of an asset's expected operational life that has been consumed. Used alongside repair cost to determine repair-vs-replace decision threshold.</div><div class="mc-target">Review at: &gt;80% life used · Replace when: &gt;100% + Critical condition</div></div>
-          <div class="metric-card"><div class="mc-name">Repair-to-Replace Ratio</div><div class="mc-formula">SUM(repair_cost_usd) ÷ SUM(replacement_cost_usd)</div><div class="mc-desc">Total accumulated repair cost divided by replacement cost. Core decision metric from Matt's interview example. When repair costs approach replacement value, replacement is economically justified.</div><div class="mc-target">Review Flag: &gt;0.5 · Replace Decision: &gt;1.0</div></div>
+          <div class="metric-card"><div class="mc-name">Repair-to-Replace Ratio</div><div class="mc-formula">SUM(repair_cost_usd) ÷ SUM(replacement_cost_usd)</div><div class="mc-desc">Total accumulated repair cost divided by replacement cost. Core decision metric for evaluating asset economics. When repair costs approach replacement value, replacement is economically justified.</div><div class="mc-target">Review Flag: &gt;0.5 · Replace Decision: &gt;1.0</div></div>
           <div class="metric-card"><div class="mc-name">Critical Asset Count</div><div class="mc-formula">COUNTROWS where asset_condition = 'Critical'</div><div class="mc-desc">Count of active assets in Critical condition status. Critical assets have the highest failure probability and should be prioritized for maintenance scheduling and replacement review.</div><div class="mc-target">Current: 211 critical · 107 candidates for replacement review</div></div>
           <div class="metric-card"><div class="mc-name">Depreciated Value</div><div class="mc-formula">SUM(depreciated_value_usd) from assets</div><div class="mc-desc">Current book value of assets after depreciation. Used alongside replacement cost and repair cost to understand total capital at risk and inform budget planning for asset replacement programs.</div><div class="mc-target">Tracked per asset · Used in capital expenditure planning</div></div>
         </div>
@@ -1502,7 +1502,7 @@ CREATE TABLE installed_customer_base_monthly (
             <div class="build-title">Why HTML + Power BI — not just one tool</div>
             <ul class="build-list">
               <li><strong>Power BI Desktop</strong> = the analytics layer (model, DAX, dashboards)</li>
-              <li><strong>HTML hub</strong> = the access layer (what Matt described as a SharePoint-style repository)</li>
+              <li><strong>HTML hub</strong> = the access layer (a SharePoint-style repository for centralized dashboard access)</li>
               <li>Power BI Service requires an <strong>org Microsoft account</strong> to publish — not available for personal portfolio</li>
               <li>In production: Power BI reports would be <strong>embedded into this hub via iframe</strong> after publishing to Power BI Service</li>
             </ul>
