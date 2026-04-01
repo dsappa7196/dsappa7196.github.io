@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Hero from "./Components/Hero";
 import About from "./Components/About";
-import HubView_Image from "./assets/projects/HubView_Image.png";
+import HubViewImage from "./assets/projects/HubView_Image.png";
 import Experience from "./Components/Experience";
 import Projects from "./Components/Projects";
 import Technologies from "./Components/Technologies";
@@ -60,41 +60,24 @@ const App = () => {
       </div>
 
       {/* Featured: Operations Analytics Hub */}
-      <section className="mx-auto max-w-5xl px-6 py-16">
-        <div className="rounded-2xl border border-cyan-500/30 bg-neutral-900/60 backdrop-blur-sm overflow-hidden shadow-lg shadow-cyan-900/20">
-          <div className="flex flex-col md:flex-row items-center gap-8 p-8">
-            <div className="w-full md:w-1/2 flex-shrink-0">
-              <img
-                src={HubView_Image}
-                alt="Operations Analytics Hub preview"
-                className="rounded-xl w-full object-cover border border-neutral-700"
-              />
+      <div className="flex justify-center px-6 pb-10 -mt-2">
+        <div className="w-full max-w-4xl bg-gradient-to-r from-purple-900/40 to-cyan-900/30 border border-purple-500/30 rounded-2xl p-6 flex flex-col sm:flex-row items-center gap-6 backdrop-blur-sm">
+          <img src={HubViewImage} alt="Operations Analytics Hub" className="w-24 h-24 rounded-xl object-cover shadow-lg flex-shrink-0" />
+          <div className="flex-1 text-center sm:text-left">
+            <div className="text-xs font-semibold text-purple-400 uppercase tracking-widest mb-1">★ Featured Project</div>
+            <h3 className="text-white font-bold text-lg sm:text-xl mb-2">Operations Analytics Hub</h3>
+            <p className="text-neutral-300 text-sm leading-relaxed mb-3">End-to-end analytics system — MySQL star schema, Power BI semantic model, DAX measures, and 6 decision-support dashboards integrating operations, maintenance, asset, finance, and customer data across 12 sites.</p>
+            <div className="flex flex-wrap gap-2 justify-center sm:justify-start mb-4">
+              {["MySQL", "Power BI", "DAX", "SQL", "Star Schema"].map(t => (
+                <span key={t} className="bg-neutral-800 text-purple-300 px-3 py-1 rounded text-xs font-medium">{t}</span>
+              ))}
             </div>
-            <div className="flex flex-col gap-4">
-              <span className="text-xs font-semibold uppercase tracking-widest text-cyan-400">Featured Project</span>
-              <h2 className="text-2xl font-bold text-neutral-100">Operations Analytics Hub</h2>
-              <p className="text-sm text-neutral-400 leading-relaxed">
-                End-to-end analytics system built from scratch — MySQL star schema, Power BI semantic model with DAX
-                measures, and a SharePoint-style access hub with 6 decision-support dashboards. Integrates operations,
-                maintenance, asset, finance, and customer data across 12 sites.
-              </p>
-              <div className="flex flex-wrap gap-2">
-                {["MySQL", "Power BI", "DAX", "SQL", "HTML/JS", "Chart.js", "Star Schema"].map((tech) => (
-                  <span key={tech} className="rounded-full border border-cyan-700/50 bg-cyan-950/40 px-3 py-1 text-xs text-cyan-300">
-                    {tech}
-                  </span>
-                ))}
-              </div>
-              <button
-                onClick={openHub}
-                className="mt-2 self-start rounded-lg bg-cyan-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-cyan-500 transition-colors"
-              >
-                Open Analytics Hub
-              </button>
-            </div>
+            <button onClick={openHub} className="inline-flex items-center gap-2 bg-purple-600 hover:bg-purple-500 text-white px-5 py-2 rounded-lg text-sm font-semibold transition-colors duration-200">
+              Open Analytics Hub →
+            </button>
           </div>
         </div>
-      </section>
+      </div>
 
       {/* Sections */}
       <About />

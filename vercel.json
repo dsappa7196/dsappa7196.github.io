@@ -1,16 +1,8 @@
 {
   "routes": [
-    { "handle": "filesystem" },
-    { "src": "/Operations_Analytics_Hub.html", "dest": "/Operations_Analytics_Hub.html" },
     { "src": "/analytics-hub", "dest": "/index.html" },
+    { "src": "/hub-content.html", "dest": "/hub-content.html" },
+    { "handle": "filesystem" },
     { "src": "/(.*)", "dest": "/index.html" }
-  ],
-  "headers": [
-    {
-      "source": "/Operations_Analytics_Hub.html",
-      "headers": [
-        { "key": "X-Robots-Tag", "value": "noindex" }
-      ]
-    }
   ]
 }
