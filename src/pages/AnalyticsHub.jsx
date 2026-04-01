@@ -1,60 +1,85 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
+import "./hub/hub.css";
+import HubView       from "./hub/HubView";
+import DashboardView from "./hub/DashboardView";
 
 export default function AnalyticsHub({ onClose }) {
-  const [loading, setLoading] = useState(true);
+  const [activeView, setActiveView] = useState('hub');      // 'hub' | 'dashboards'
+  const [activePage, setActivePage] = useState('overview'); // dashboard page
+  const [toast, setToast] = useState({ msg: '', type: 'blue', visible: false });
+  const toastTimer = useRef(null);
+
+  const showToast = (msg, type = 'blue') => {
+    clearTimeout(toastTimer.current);
+    setToast({ msg, type, visible: true });
+    toastTimer.current = setTimeout(() => setToast(t => ({ ...t, visible: false })), 2800);
+  };
+
+  const switchView = (v) => setActiveView(v);
+
+  const navDB = (page) => {
+    setActivePage(page);
+    setActiveView('dashboards');
+  };
 
   return (
-    <div style={{ width: "100vw", height: "100vh", margin: 0, padding: 0, position: "fixed", inset: 0, zIndex: 9999 }}>
-      
-      {/* Back button */}
-      <button
-        onClick={onClose}
-        style={{
-          position: "fixed",
-          top: 12,
-          right: 16,
-          zIndex: 10000,
-          background: "rgba(255,255,255,0.1)",
-          color: "#fff",
-          border: "1px solid rgba(255,255,255,0.25)",
-          borderRadius: 6,
-          padding: "6px 14px",
-          fontSize: 12,
-          fontFamily: "sans-serif",
-          cursor: "pointer",
-          backdropFilter: "blur(8px)",
-          display: "flex",
-          alignItems: "center",
-          gap: 6,
-        }}
-      >
-        ← Back to Portfolio
-      </button>
+    <div className="hub-root" style={{ minHeight: '100vh' }}>
 
-      {loading && (
-        <div style={{
-          position: "fixed", inset: 0, background: "#0d2240",
-          display: "flex", flexDirection: "column",
-          alignItems: "center", justifyContent: "center", zIndex: 1000
-        }}>
-          <div style={{
-            width: 40, height: 40, border: "3px solid rgba(255,255,255,.2)",
-            borderTop: "3px solid #1a56db", borderRadius: "50%",
-            animation: "spin 0.8s linear infinite"
-          }}/>
-          <p style={{ color: "#9ca3af", marginTop: 16, fontFamily: "sans-serif", fontSize: 13 }}>
-            Loading Analytics Hub...
-          </p>
-          <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+      {/* Topbar */}
+      <div className="topbar">
+        <div className="brand" onClick={() => switchView('hub')} style={{ cursor: 'pointer' }}>
+          <div className="eq-mark">EQ</div>
+          <div>
+            <div className="brand-name">Operations Analytics Hub</div>
+            <div className="brand-sub">Americas · 12 Sites · Decision Support System</div>
+          </div>
         </div>
+        <div className="topbar-nav">
+          <button className={`tnav-btn${activeView === 'hub' ? ' active' : ''}`} onClick={() => switchView('hub')}>Hub</button>
+          <button className={`tnav-btn${activeView === 'dashboards' ? ' active' : ''}`} onClick={() => switchView('dashboards')}>Dashboards</button>
+        </div>
+        <div className="topbar-right">
+          <div className="live-badge"><div className="ldot"></div>LIVE</div>
+          <div className="period-label">JAN 2024 – JUN 2025</div>
+          <button
+            onClick={onClose}
+            style={{
+              background: 'rgba(255,255,255,0.1)',
+              color: '#fff',
+              border: '1px solid rgba(255,255,255,0.25)',
+              borderRadius: 6,
+              padding: '5px 12px',
+              fontSize: 11,
+              fontFamily: 'sans-serif',
+              cursor: 'pointer',
+              backdropFilter: 'blur(8px)',
+              marginLeft: 8,
+            }}
+          >
+            ← Portfolio
+          </button>
+        </div>
+      </div>
+
+      {/* Views */}
+      {activeView === 'hub' && (
+        <HubView
+          onSwitchToDashboard={() => switchView('dashboards')}
+          onNavDB={navDB}
+        />
+      )}
+      {activeView === 'dashboards' && (
+        <DashboardView
+          activePage={activePage}
+          onNavDB={navDB}
+          onSwitchToHub={() => switchView('hub')}
+          showToast={showToast}
+        />
       )}
 
-      <iframe
-        src="/Operations_Analytics_Hub.html"
-        onLoad={() => setLoading(false)}
-        style={{ width: "100%", height: "100%", border: "none", display: "block" }}
-        title="Operations Analytics Hub"
-      />
+      {/* Toast */}
+      <div className={`toast ${toast.type}${toast.visible ? ' show' : ''}`}>{toast.msg}</div>
+
     </div>
   );
 }
