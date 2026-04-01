@@ -37,6 +37,11 @@ const App = () => {
     setShowHub(false);
   };
 
+  // 🔥 IF DIRECT URL → SHOW HUB
+  if (window.location.pathname === '/analytics-hub') {
+    return <AnalyticsHub onClose={() => window.location.href = '/'} />;
+  }
+
   // 🔥 IF HUB IS OPEN → SHOW ONLY HUB
   if (showHub) {
     return <AnalyticsHub onClose={closeHub} />;
