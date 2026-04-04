@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { getFilteredMonths, getFilteredSites } from "../hubUtils";
+import { getFilteredMonths, getFilteredSites, getMonthlySeries } from "../hubUtils";
 import { renderFinance } from "../hubCharts";
 import { DATA } from "../hubData";
 
@@ -22,23 +22,35 @@ export default function PageFinance({ activeFilters, showToast }) {
   const siteCodes = new Set(fs.map(s => s.code));
   const varSites = DATA.sites.filter(s => siteCodes.has(s.code)).sort((a, b) => b.varPct - a.varPct);
 
+  const fm = getFilteredMonths(activeFilters);
+  const mi = fm.map(x => x.i);
+  const budgetSeries = getMonthlySeries('budget', activeFilters);
+  const actualSeries = getMonthlySeries('actual', activeFilters);
+  const totalBudget  = mi.reduce((a, i) => a + (budgetSeries[i] || 0), 0);
+  const totalActual  = mi.reduce((a, i) => a + (actualSeries[i] || 0), 0);
+  const totalVar     = totalActual - totalBudget;
+  const fmtM = v => '$' + (Math.abs(v) / 1e6).toFixed(1) + 'M';
+  const worstSite    = varSites[0];
+  const bestSite     = varSites[varSites.length - 1];
+  const varPct       = totalBudget > 0 ? ((totalVar / totalBudget) * 100).toFixed(1) : '0.0';
+
   return (
     <>
       <div className="action-bar">
         <span className="ab-label">Actions:</span>
-        <button className="act-btn ab-red"     onClick={() => showToast("Variance escalation flagged for ASH01 · ATL01 · SJC01", "amber")}>Flag Variance Sites</button>
+        <button className="act-btn ab-red"     onClick={() => showToast("Variance escalation flagged for top overspend sites", "amber")}>Flag Variance Sites</button>
         <button className="act-btn ab-amber"   onClick={() => showToast("Budget review request submitted for Power Opex overspend", "amber")}>Budget Review Request</button>
         <button className="act-btn ab-neutral" onClick={() => showToast("Finance variance report exported · All sites and categories", "blue")}>Export Report</button>
         <button className="act-btn ab-teal"    onClick={() => showToast("Cost reduction plan template opened for PM shift analysis", "blue")}>Cost Reduction Plan</button>
         <div className="ab-sep"></div>
-        <span className="ab-ctx">+$5.4M cumulative · All 18 months over budget</span>
+        <span className="ab-ctx">{totalVar >= 0 ? '+' : ''}{fmtM(totalVar)} cumulative · {fm.length} month{fm.length !== 1 ? 's' : ''} selected</span>
       </div>
       <div className="kpi-row">
-        <div className="kpi-card blue"><div className="kpi-label">Total Budget</div><div className="kpi-val blue">$136.1M</div><div className="kpi-sub">18-month approved</div></div>
-        <div className="kpi-card amber"><div className="kpi-label">Total Actual Spend</div><div className="kpi-val amber">$141.5M</div><div className="kpi-sub warn">All 18 months over budget</div></div>
-        <div className="kpi-card red"><div className="kpi-label">Total Overspend</div><div className="kpi-val red">+$5.4M</div><div className="kpi-sub crit">+4.0% over budget</div></div>
-        <div className="kpi-card amber"><div className="kpi-label">Worst Site</div><div className="kpi-val amber">ASH01</div><div className="kpi-sub warn">+5.5% variance</div></div>
-        <div className="kpi-card teal"><div className="kpi-label">Best Site</div><div className="kpi-val blue">PHX01</div><div className="kpi-sub ok">+1.8% variance</div></div>
+        <div className="kpi-card blue"><div className="kpi-label">Total Budget</div><div className="kpi-val blue">{fmtM(totalBudget)}</div><div className="kpi-sub">{fm.length}-month approved</div></div>
+        <div className="kpi-card amber"><div className="kpi-label">Total Actual Spend</div><div className="kpi-val amber">{fmtM(totalActual)}</div><div className="kpi-sub warn">{totalVar >= 0 ? 'Over' : 'Under'} budget</div></div>
+        <div className="kpi-card red"><div className="kpi-label">Total Overspend</div><div className="kpi-val red">{totalVar >= 0 ? '+' : '-'}{fmtM(totalVar)}</div><div className="kpi-sub crit">{totalVar >= 0 ? '+' : ''}{varPct}% vs budget</div></div>
+        <div className="kpi-card amber"><div className="kpi-label">Worst Site</div><div className="kpi-val amber">{worstSite?.code || '—'}</div><div className="kpi-sub warn">+{worstSite?.varPct ?? '—'}% variance</div></div>
+        <div className="kpi-card teal"><div className="kpi-label">Best Site</div><div className="kpi-val blue">{bestSite?.code || '—'}</div><div className="kpi-sub ok">+{bestSite?.varPct ?? '—'}% variance</div></div>
       </div>
       <div className="g2">
         <div className="chart-card">

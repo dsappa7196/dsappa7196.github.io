@@ -21,23 +21,30 @@ export default function PageCustomer({ activeFilters, showToast }) {
   const fs = getFilteredSites(activeFilters);
   const sortedCsat = [...fs].sort((a, b) => b.csat - a.csat);
 
+  const avgCSAT       = fs.length > 0 ? (fs.reduce((a, s) => a + s.csat, 0) / fs.length).toFixed(1) : '—';
+  const avgNPS        = fs.length > 0 ? (fs.reduce((a, s) => a + s.nps,  0) / fs.length).toFixed(1) : '—';
+  const bestSite      = sortedCsat[0];
+  const worstSite     = sortedCsat[sortedCsat.length - 1];
+  const meetingTarget = fs.filter(s => s.csat >= 85).length;
+  const csatAbove85   = meetingTarget > 0 ? fs.filter(s => s.csat >= 85).map(s => s.code).join(', ') : 'None';
+
   return (
     <>
       <div className="action-bar">
         <span className="ab-label">Actions:</span>
-        <button className="act-btn ab-red"     onClick={() => showToast("DAL01 customer experience escalation report created", "amber")}>DAL01 CSAT Escalation</button>
-        <button className="act-btn ab-amber"   onClick={() => showToast("Customer satisfaction improvement plan drafted for bottom 3 sites", "amber")}>Improvement Plan</button>
-        <button className="act-btn ab-neutral" onClick={() => showToast("Customer experience report exported · All sites · 18 months", "blue")}>Export Report</button>
+        <button className="act-btn ab-red"     onClick={() => showToast("CSAT escalation report created for lowest-scoring site", "amber")}>CSAT Escalation</button>
+        <button className="act-btn ab-amber"   onClick={() => showToast("Customer satisfaction improvement plan drafted for bottom sites", "amber")}>Improvement Plan</button>
+        <button className="act-btn ab-neutral" onClick={() => showToast("Customer experience report exported · All sites · selected period", "blue")}>Export Report</button>
         <button className="act-btn ab-teal"    onClick={() => showToast("NPS analysis summary generated for leadership briefing", "blue")}>NPS Summary</button>
         <div className="ab-sep"></div>
-        <span className="ab-ctx">Fleet avg 83.5 · Target 85 · 3 sites meeting target</span>
+        <span className="ab-ctx">Avg CSAT {avgCSAT} · Target 85 · {meetingTarget} site{meetingTarget !== 1 ? 's' : ''} meeting target</span>
       </div>
       <div className="kpi-row">
-        <div className="kpi-card amber"><div className="kpi-label">Fleet Avg CSAT</div><div className="kpi-val amber">83.5</div><div className="kpi-sub warn">Below 85 target</div></div>
-        <div className="kpi-card blue"><div className="kpi-label">Fleet Avg NPS</div><div className="kpi-val blue">43.4</div><div className="kpi-sub warn">Below 50 target</div></div>
-        <div className="kpi-card red"><div className="kpi-label">Lowest CSAT Site</div><div className="kpi-val red">74.9</div><div className="kpi-sub crit">DAL01 — 10.1pts below target</div></div>
-        <div className="kpi-card green"><div className="kpi-label">Best CSAT Site</div><div className="kpi-val green">89.1</div><div className="kpi-sub ok">DEN01 — exceeds target</div></div>
-        <div className="kpi-card green"><div className="kpi-label">Sites Meeting Target</div><div className="kpi-val green">3</div><div className="kpi-sub ok">DEN01, MIA01, PHX01</div></div>
+        <div className="kpi-card amber"><div className="kpi-label">Avg CSAT</div><div className="kpi-val amber">{avgCSAT}</div><div className="kpi-sub warn">{parseFloat(avgCSAT) >= 85 ? 'Meets target' : 'Below 85 target'}</div></div>
+        <div className="kpi-card blue"><div className="kpi-label">Avg NPS</div><div className="kpi-val blue">{avgNPS}</div><div className="kpi-sub warn">{parseFloat(avgNPS) >= 50 ? 'Meets target' : 'Below 50 target'}</div></div>
+        <div className="kpi-card red"><div className="kpi-label">Lowest CSAT Site</div><div className="kpi-val red">{worstSite?.csat ?? '—'}</div><div className="kpi-sub crit">{worstSite?.code || '—'} — {worstSite ? (85 - worstSite.csat).toFixed(1) + 'pts below target' : '—'}</div></div>
+        <div className="kpi-card green"><div className="kpi-label">Best CSAT Site</div><div className="kpi-val green">{bestSite?.csat ?? '—'}</div><div className="kpi-sub ok">{bestSite?.code || '—'}{bestSite?.csat >= 85 ? ' — exceeds target' : ''}</div></div>
+        <div className="kpi-card green"><div className="kpi-label">Sites Meeting Target</div><div className="kpi-val green">{meetingTarget}</div><div className="kpi-sub ok">{csatAbove85}</div></div>
       </div>
       <div className="g2">
         <div className="chart-card">

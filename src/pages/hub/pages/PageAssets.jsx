@@ -15,22 +15,30 @@ export default function PageAssets({ activeFilters, showToast }) {
     };
   }, [activeFilters]);
 
+  const fs = getFilteredSites(activeFilters);
+  const siteCodes = new Set(fs.map(s => s.code));
+  const scale = fs.length > 0 ? fs.length / 12 : 1;
+  const totalCrit      = fs.reduce((a, s) => a + s.critAssets, 0);
+  const filteredCands  = DATA.replaceCands.filter(r => siteCodes.has(r.site));
+  const repairCostM    = (31.4 * scale).toFixed(1);
+  const replaceCostM   = Math.round(148 * scale);
+
   return (
     <>
       <div className="action-bar">
         <span className="ab-label">Actions:</span>
-        <button className="act-btn ab-red"     onClick={() => showToast("Replacement review submitted for 107 flagged assets · Capital team notified", "amber")}>Submit Replacement Review</button>
-        <button className="act-btn ab-neutral" onClick={() => showToast("Asset intelligence report exported · Top 10 candidates included", "blue")}>Export Asset Report</button>
-        <button className="act-btn ab-blue"    onClick={() => showToast("Capital cost estimate calculated · $2.1M for top 10 replacements", "blue")}>Capital Estimate</button>
+        <button className="act-btn ab-red"     onClick={() => showToast("Replacement review submitted for flagged assets · Capital team notified", "amber")}>Submit Replacement Review</button>
+        <button className="act-btn ab-neutral" onClick={() => showToast("Asset intelligence report exported · Candidates included", "blue")}>Export Asset Report</button>
+        <button className="act-btn ab-blue"    onClick={() => showToast("Capital cost estimate calculated for top replacement candidates", "blue")}>Capital Estimate</button>
         <div className="ab-sep"></div>
-        <span className="ab-ctx">107 assets flagged · Cooling: 63.6% repair ratio</span>
+        <span className="ab-ctx">{filteredCands.length} assets flagged · {fs.length} site{fs.length !== 1 ? 's' : ''} selected</span>
       </div>
       <div className="kpi-row">
-        <div className="kpi-card red"><div className="kpi-label">Critical Assets</div><div className="kpi-val red">211</div><div className="kpi-sub crit">Condition = Critical</div></div>
-        <div className="kpi-card amber"><div className="kpi-label">Replacement Candidates</div><div className="kpi-val amber">107</div><div className="kpi-sub warn">&gt;80% of expected life + Critical</div></div>
-        <div className="kpi-card amber"><div className="kpi-label">Total Repair Cost</div><div className="kpi-val amber">$31.4M</div><div className="kpi-sub warn">18-month fleet total</div></div>
+        <div className="kpi-card red"><div className="kpi-label">Critical Assets</div><div className="kpi-val red">{totalCrit}</div><div className="kpi-sub crit">Condition = Critical</div></div>
+        <div className="kpi-card amber"><div className="kpi-label">Replacement Candidates</div><div className="kpi-val amber">{filteredCands.length}</div><div className="kpi-sub warn">&gt;80% of expected life + Critical</div></div>
+        <div className="kpi-card amber"><div className="kpi-label">Total Repair Cost</div><div className="kpi-val amber">${repairCostM}M</div><div className="kpi-sub warn">18-month total (estimated)</div></div>
         <div className="kpi-card red"><div className="kpi-label">Avg Condition Score</div><div className="kpi-val red">54.5</div><div className="kpi-sub crit">Scale 0–100 (higher = better)</div></div>
-        <div className="kpi-card amber"><div className="kpi-label">Total Replace Cost</div><div className="kpi-val blue">$148M</div><div className="kpi-sub">Full fleet replacement value</div></div>
+        <div className="kpi-card amber"><div className="kpi-label">Total Replace Cost</div><div className="kpi-val blue">${replaceCostM}M</div><div className="kpi-sub">Estimated replacement value</div></div>
       </div>
       <div className="g2">
         <div className="chart-card">
@@ -59,7 +67,7 @@ export default function PageAssets({ activeFilters, showToast }) {
             <tr><th>#</th><th>Site</th><th>Asset Type</th><th>Age (yrs)</th><th>Expected Life</th><th>Life Used %</th><th>Replacement Cost</th><th>Condition Score</th><th>Status</th></tr>
           </thead>
           <tbody>
-            {DATA.replaceCands.map((r, i) => {
+            {filteredCands.map((r, i) => {
               const lifePct = ((r.age / r.life) * 100).toFixed(0);
               return (
                 <tr key={i}>

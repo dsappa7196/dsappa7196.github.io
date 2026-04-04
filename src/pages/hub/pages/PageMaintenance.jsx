@@ -19,23 +19,31 @@ export default function PageMaintenance({ activeFilters, showToast }) {
   const sorted = [...fs].sort((a, b) => b.slaB - a.slaB);
   const rt = Object.fromEntries(DATA.respTime.map(r => [r.code, r]));
 
+  const siteCodes    = new Set(fs.map(s => s.code));
+  const totalWOs     = fs.reduce((a, s) => a + s.wos, 0);
+  const totalBreaches = fs.reduce((a, s) => a + Math.round(s.wos * s.slaB / 100), 0);
+  const breachRate   = totalWOs > 0 ? ((totalBreaches / totalWOs) * 100).toFixed(1) : '0.0';
+  const avgCorrRatio = fs.length > 0 ? (fs.reduce((a, s) => a + s.corrRatio, 0) / fs.length).toFixed(1) : '0.0';
+  const repairCostM  = (31.4 * (fs.length > 0 ? fs.length / 12 : 1)).toFixed(1);
+  const totalRepeat  = DATA.respTime.filter(r => siteCodes.has(r.code)).reduce((a, r) => a + r.repeat, 0);
+
   return (
     <>
       <div className="action-bar">
         <span className="ab-label">Actions:</span>
-        <button className="act-btn ab-red"     onClick={() => showToast("SLA breach review created · 3,170 WOs flagged for audit", "amber")}>Review SLA Breaches</button>
-        <button className="act-btn ab-amber"   onClick={() => showToast("PM improvement plan sent to CHI01 · ATL01 · TOR01", "amber")}>PM Improvement Plan</button>
+        <button className="act-btn ab-red"     onClick={() => showToast("SLA breach review created · WOs flagged for audit", "amber")}>Review SLA Breaches</button>
+        <button className="act-btn ab-amber"   onClick={() => showToast("PM improvement plan sent to high corrective-ratio sites", "amber")}>PM Improvement Plan</button>
         <button className="act-btn ab-neutral" onClick={() => showToast("Maintenance analytics report exported", "blue")}>Export Report</button>
         <button className="act-btn ab-teal"    onClick={() => showToast("Vendor performance summary generated for top 5 vendors", "blue")}>Vendor Summary</button>
         <div className="ab-sep"></div>
-        <span className="ab-ctx">40.8% SLA breach rate · 61.6% corrective ratio</span>
+        <span className="ab-ctx">{breachRate}% SLA breach rate · {avgCorrRatio}% corrective ratio</span>
       </div>
       <div className="kpi-row">
-        <div className="kpi-card blue"><div className="kpi-label">Total Work Orders</div><div className="kpi-val blue">7,761</div><div className="kpi-sub">18 months · all sites</div></div>
-        <div className="kpi-card red"><div className="kpi-label">SLA Breach Count</div><div className="kpi-val red">3,170</div><div className="kpi-sub crit">40.8% breach rate vs 15% target</div></div>
-        <div className="kpi-card amber"><div className="kpi-label">Corrective Ratio</div><div className="kpi-val amber">61.6%</div><div className="kpi-sub warn">Target ≤40% corrective</div></div>
-        <div className="kpi-card amber"><div className="kpi-label">Total Repair Cost</div><div className="kpi-val amber">$31.4M</div><div className="kpi-sub warn">Fleet total</div></div>
-        <div className="kpi-card red"><div className="kpi-label">Repeat Failures</div><div className="kpi-val red">1,284</div><div className="kpi-sub crit">Same asset recurring failures</div></div>
+        <div className="kpi-card blue"><div className="kpi-label">Total Work Orders</div><div className="kpi-val blue">{totalWOs.toLocaleString()}</div><div className="kpi-sub">{fs.length} site{fs.length !== 1 ? 's' : ''} selected</div></div>
+        <div className="kpi-card red"><div className="kpi-label">SLA Breach Count</div><div className="kpi-val red">{totalBreaches.toLocaleString()}</div><div className="kpi-sub crit">{breachRate}% breach rate vs 15% target</div></div>
+        <div className="kpi-card amber"><div className="kpi-label">Corrective Ratio</div><div className="kpi-val amber">{avgCorrRatio}%</div><div className="kpi-sub warn">Target ≤40% corrective</div></div>
+        <div className="kpi-card amber"><div className="kpi-label">Total Repair Cost</div><div className="kpi-val amber">${repairCostM}M</div><div className="kpi-sub warn">Estimated total</div></div>
+        <div className="kpi-card red"><div className="kpi-label">Repeat Failures</div><div className="kpi-val red">{totalRepeat.toLocaleString()}</div><div className="kpi-sub crit">Same asset recurring failures</div></div>
       </div>
       <div className="g2">
         <div className="chart-card">

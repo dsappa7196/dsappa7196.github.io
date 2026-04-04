@@ -16,6 +16,12 @@ export default function PageRisk({ activeFilters, showToast }) {
 
   const fs = getFilteredSites(activeFilters);
   const sorted = [...fs].sort((a, b) => b.risk - a.risk);
+  const critical = sorted.filter(s => s.risk >= 60);
+  const warning  = sorted.filter(s => s.risk >= 30 && s.risk < 60);
+  const normal   = sorted.filter(s => s.risk < 30);
+  const topSite  = sorted[0];
+  const totalDt  = fs.reduce((a, s) => a + s.dt, 0);
+  const totalP1  = fs.reduce((a, s) => a + s.p1, 0);
 
   return (
     <>
@@ -26,14 +32,14 @@ export default function PageRisk({ activeFilters, showToast }) {
         <button className="act-btn ab-neutral" onClick={() => showToast("Site risk report exported · All 12 sites included", "blue")}>Export Scorecard</button>
         <button className="act-btn ab-blue"    onClick={() => showToast("Risk summary copied for leadership briefing", "blue")}>Copy Summary</button>
         <div className="ab-sep"></div>
-        <span className="ab-ctx">3 Critical · 6 Warning · 3 Normal</span>
+        <span className="ab-ctx">{critical.length} Critical · {warning.length} Warning · {normal.length} Normal</span>
       </div>
       <div className="kpi-row">
-        <div className="kpi-card red"><div className="kpi-label">Highest Risk Site</div><div className="kpi-val red">DAL01</div><div className="kpi-sub crit">Score 81.6 / 100</div></div>
-        <div className="kpi-card amber"><div className="kpi-label">Sites in Warning</div><div className="kpi-val amber">3</div><div className="kpi-sub warn">DAL01, ASH01, SJC01</div></div>
-        <div className="kpi-card green"><div className="kpi-label">Sites in Normal</div><div className="kpi-val green">9</div><div className="kpi-sub ok">PHX01, DEN01, MIA01 best</div></div>
-        <div className="kpi-card amber"><div className="kpi-label">Fleet Downtime</div><div className="kpi-val amber">41,297h</div><div className="kpi-sub warn">DAL01: 5,945h (14.4%)</div></div>
-        <div className="kpi-card red"><div className="kpi-label">Fleet P1 Incidents</div><div className="kpi-val red">584</div><div className="kpi-sub crit">Across 18 months</div></div>
+        <div className="kpi-card red"><div className="kpi-label">Highest Risk Site</div><div className="kpi-val red">{topSite?.code || '—'}</div><div className="kpi-sub crit">Score {topSite?.risk ?? '—'} / 100</div></div>
+        <div className="kpi-card amber"><div className="kpi-label">Critical Sites</div><div className="kpi-val amber">{critical.length}</div><div className="kpi-sub warn">{critical.length > 0 ? critical.map(s => s.code).join(', ') : 'None'}</div></div>
+        <div className="kpi-card green"><div className="kpi-label">Warning + Normal</div><div className="kpi-val green">{warning.length + normal.length}</div><div className="kpi-sub ok">{normal.length > 0 ? normal.slice(0, 3).map(s => s.code).join(', ') + ' best' : 'All at risk'}</div></div>
+        <div className="kpi-card amber"><div className="kpi-label">Fleet Downtime</div><div className="kpi-val amber">{totalDt.toLocaleString()}h</div><div className="kpi-sub warn">{topSite ? `${topSite.code}: ${topSite.dt.toLocaleString()}h` : '—'}</div></div>
+        <div className="kpi-card red"><div className="kpi-label">Fleet P1 Incidents</div><div className="kpi-val red">{totalP1.toLocaleString()}</div><div className="kpi-sub crit">Across {sorted.length} site{sorted.length !== 1 ? 's' : ''}</div></div>
       </div>
       <div className="g2">
         <div className="chart-card">

@@ -194,13 +194,14 @@ export function renderRisk(charts, fs) {
 // ─── Asset Intel ─────────────────────────────────────────────────
 export function renderAssets(charts, fs) {
   const siteCodes = new Set(fs.map(s => s.code));
+  const scale = fs.length > 0 ? fs.length / 12 : 1;
 
   const repairByType = [
-    { type: 'Cooling',   cost: 9820 },
-    { type: 'UPS',       cost: 7240 },
-    { type: 'Chiller',   cost: 5910 },
-    { type: 'Generator', cost: 4650 },
-    { type: 'PDU',       cost: 3780 },
+    { type: 'Cooling',   cost: Math.round(9820 * scale) },
+    { type: 'UPS',       cost: Math.round(7240 * scale) },
+    { type: 'Chiller',   cost: Math.round(5910 * scale) },
+    { type: 'Generator', cost: Math.round(4650 * scale) },
+    { type: 'PDU',       cost: Math.round(3780 * scale) },
   ];
   mk(charts, 'c-repair-type', 'bar', {
     labels: repairByType.map(r => r.type),
@@ -229,9 +230,9 @@ export function renderAssets(charts, fs) {
   mk(charts, 'c-asset-cond', 'bar', {
     labels: DATA.assetCond.types,
     datasets: [
-      { label: 'Critical', data: DATA.assetCond.critical, backgroundColor: 'rgba(190,18,60,.7)',   borderRadius: 2 },
-      { label: 'Warning',  data: DATA.assetCond.warning,  backgroundColor: 'rgba(180,83,9,.55)',  borderRadius: 2 },
-      { label: 'Good',     data: DATA.assetCond.good,     backgroundColor: 'rgba(4,120,87,.55)',  borderRadius: 2 },
+      { label: 'Critical', data: DATA.assetCond.critical.map(v => Math.max(1, Math.round(v * scale))), backgroundColor: 'rgba(190,18,60,.7)',   borderRadius: 2 },
+      { label: 'Warning',  data: DATA.assetCond.warning.map(v => Math.max(1, Math.round(v * scale))),  backgroundColor: 'rgba(180,83,9,.55)',  borderRadius: 2 },
+      { label: 'Good',     data: DATA.assetCond.good.map(v => Math.max(1, Math.round(v * scale))),     backgroundColor: 'rgba(4,120,87,.55)',  borderRadius: 2 },
     ]
   }, {
     plugins: { ...base.plugins, legend: { display: true, labels: { color: C.text, font: { size: 10, family: "'DM Sans',sans-serif" } } } },
@@ -259,6 +260,11 @@ export function renderFinance(charts, mi, ml, fs, activeFilters) {
   const budget = mi.map(i => (getMonthlySeries('budget', activeFilters)[i] ?? null));
   const actual = mi.map(i => (getMonthlySeries('actual', activeFilters)[i] ?? null));
 
+  // Scale spend-category charts by proportion of filtered spend vs full-fleet 18-month total
+  const filteredActual = actual.reduce((a, v) => a + (v || 0), 0);
+  const fleetActualAll = FLEET_MO.actual.reduce((a, b) => a + b, 0);
+  const catScale = fleetActualAll > 0 ? filteredActual / fleetActualAll : 1;
+
   mk(charts, 'c-fin-trend', 'bar', {
     labels: ml,
     datasets: [
@@ -276,8 +282,8 @@ export function renderFinance(charts, mi, ml, fs, activeFilters) {
   mk(charts, 'c-spend-cat', 'bar', {
     labels: DATA.spendCats.map(s => s.cat),
     datasets: [
-      { label: 'Budget', data: DATA.spendCats.map(s => s.budget), backgroundColor: 'rgba(26,86,219,.35)', borderRadius: 3 },
-      { label: 'Actual', data: DATA.spendCats.map(s => s.actual), backgroundColor: 'rgba(180,83,9,.55)',  borderRadius: 3 }
+      { label: 'Budget', data: DATA.spendCats.map(s => Math.round(s.budget * catScale)), backgroundColor: 'rgba(26,86,219,.35)', borderRadius: 3 },
+      { label: 'Actual', data: DATA.spendCats.map(s => Math.round(s.actual * catScale)), backgroundColor: 'rgba(180,83,9,.55)',  borderRadius: 3 }
     ]
   }, {
     plugins: { ...base.plugins, legend: { display: true, labels: { color: C.text, font: { size: 10, family: "'DM Sans',sans-serif" } } } },
@@ -305,7 +311,7 @@ export function renderFinance(charts, mi, ml, fs, activeFilters) {
     labels: DATA.spendCats.map(s => s.cat),
     datasets: [{
       label: 'Variance $K',
-      data: DATA.spendCats.map(s => s.actual - s.budget),
+      data: DATA.spendCats.map(s => Math.round((s.actual - s.budget) * catScale)),
       backgroundColor: DATA.spendCats.map(s => (s.actual - s.budget) > 1000 ? 'rgba(190,18,60,.65)' : 'rgba(180,83,9,.55)'),
       borderRadius: 3
     }]
@@ -322,9 +328,10 @@ export function renderFinance(charts, mi, ml, fs, activeFilters) {
 
 // ─── Maintenance ─────────────────────────────────────────────────
 export function renderMaintenance(charts, fs, activeFilters) {
+  const scale = fs.length > 0 ? fs.length / 12 : 1;
   mk(charts, 'c-maint-pareto', 'bar', {
     labels: DATA.failPareto.map(f => f.cat),
-    datasets: [{ label: 'Repair Cost ($K)', data: DATA.failPareto.map(f => f.cost), backgroundColor: ['rgba(190,18,60,.7)', 'rgba(180,83,9,.65)', 'rgba(180,83,9,.55)', 'rgba(180,83,9,.45)', 'rgba(14,116,144,.5)', 'rgba(14,116,144,.45)', 'rgba(26,86,219,.45)', 'rgba(26,86,219,.35)'], borderRadius: 3 }]
+    datasets: [{ label: 'Repair Cost ($K)', data: DATA.failPareto.map(f => Math.round(f.cost * scale)), backgroundColor: ['rgba(190,18,60,.7)', 'rgba(180,83,9,.65)', 'rgba(180,83,9,.55)', 'rgba(180,83,9,.45)', 'rgba(14,116,144,.5)', 'rgba(14,116,144,.45)', 'rgba(26,86,219,.45)', 'rgba(26,86,219,.35)'], borderRadius: 3 }]
   }, {
     indexAxis: 'y',
     plugins: { ...base.plugins },
