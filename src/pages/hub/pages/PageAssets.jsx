@@ -3,17 +3,17 @@ import { getFilteredSites } from "../hubUtils";
 import { renderAssets } from "../hubCharts";
 import { DATA } from "../hubData";
 
-export default function PageAssets({ activeFilters, showToast }) {
+export default function PageAssets({ activeFilters, showToast, onSiteClick, activeSites }) {
   const chartsRef = useRef({});
 
   useEffect(() => {
     const fs = getFilteredSites(activeFilters);
-    renderAssets(chartsRef.current, fs);
+    renderAssets(chartsRef.current, fs, onSiteClick, activeSites);
     return () => {
       Object.values(chartsRef.current).forEach(c => c.destroy());
       chartsRef.current = {};
     };
-  }, [activeFilters]);
+  }, [activeFilters, onSiteClick, activeSites]);
 
   const fs = getFilteredSites(activeFilters);
   const siteCodes = new Set(fs.map(s => s.code));
@@ -48,6 +48,7 @@ export default function PageAssets({ activeFilters, showToast }) {
         <div className="chart-card">
           <div className="cc-head"><div><div className="cc-title">Critical Assets by Site</div><div className="cc-sub">Count per location</div></div><div className="cc-badge cb-red">DAL01: 22 critical</div></div>
           <div className="cc-body"><canvas id="c-crit-site" height="240"></canvas></div>
+          <div className="chart-click-hint">Click any bar to filter · Click again to clear</div>
         </div>
       </div>
       <div className="g2">
@@ -58,6 +59,7 @@ export default function PageAssets({ activeFilters, showToast }) {
         <div className="chart-card">
           <div className="cc-head"><div><div className="cc-title">Capacity Utilization by Site</div><div className="cc-sub">18-month average % · Healthy range 60–85%</div></div><div className="cc-badge cb-amber">ASH01 · SJC01 · DAL01 high</div></div>
           <div className="cc-body"><canvas id="c-cap-site" height="200"></canvas></div>
+          <div className="chart-click-hint">Click any bar to filter · Click again to clear</div>
         </div>
       </div>
       <div className="sec-label">Top 10 Replacement Candidates — Ranked by Condition Score</div>

@@ -30,11 +30,26 @@ export const base = {
 };
 
 // charts is a ref.current object: { [id]: Chart instance }
-export function mk(charts, id, type, data, opts = {}) {
+export function mk(charts, id, type, data, opts = {}, onBarClick = null) {
   const canvas = document.getElementById(id);
   if (!canvas) return;
   if (charts[id]) { charts[id].destroy(); delete charts[id]; }
-  charts[id] = new Chart(canvas, { type, data, options: { ...base, ...opts } });
+  const finalOpts = { ...base, ...opts };
+  if (onBarClick) {
+    finalOpts.onClick = (_, elements) => {
+      if (elements.length > 0) onBarClick(data.labels[elements[0].index]);
+    };
+    canvas.style.cursor = 'pointer';
+  } else {
+    canvas.style.cursor = '';
+  }
+  charts[id] = new Chart(canvas, { type, data, options: finalOpts });
+}
+
+// Returns per-bar border color array for selected site codes
+function barBorder(codes, sel) {
+  if (!sel || sel.length === 0) return codes.map(() => 'transparent');
+  return codes.map(c => sel.includes(c) ? 'rgba(255,255,255,.85)' : 'transparent');
 }
 
 export function barColor(val, lo, hi) {
@@ -134,12 +149,14 @@ export function renderOverview(charts, mi, ml, fs, activeFilters) {
 }
 
 // ─── Site Risk ───────────────────────────────────────────────────
-export function renderRisk(charts, fs) {
+export function renderRisk(charts, fs, onSiteClick, selectedSites) {
+  const sel = selectedSites || [];
   const sorted = [...fs].sort((a, b) => b.risk - a.risk);
+  const riskLabels = sorted.map(s => s.code);
 
   mk(charts, 'c-risk-bars', 'bar', {
-    labels: sorted.map(s => s.code),
-    datasets: [{ label: 'Risk Score', data: sorted.map(s => s.risk), backgroundColor: sorted.map(s => s.risk >= 60 ? 'rgba(190,18,60,.7)' : s.risk >= 30 ? 'rgba(180,83,9,.6)' : 'rgba(4,120,87,.6)'), borderRadius: 3 }]
+    labels: riskLabels,
+    datasets: [{ label: 'Risk Score', data: sorted.map(s => s.risk), backgroundColor: sorted.map(s => s.risk >= 60 ? 'rgba(190,18,60,.7)' : s.risk >= 30 ? 'rgba(180,83,9,.6)' : 'rgba(4,120,87,.6)'), borderColor: barBorder(riskLabels, sel), borderWidth: sel.length > 0 ? 2 : 0, borderRadius: 3 }]
   }, {
     indexAxis: 'y',
     plugins: { ...base.plugins },
@@ -147,11 +164,12 @@ export function renderRisk(charts, fs) {
       x: { min: 0, max: 100, ticks: { color: C.text3, font: { size: 9, family: "'DM Mono',monospace" } }, grid: { color: 'rgba(226,229,234,.5)' } },
       y: { ticks: { color: C.text, font: { size: 10, family: "'DM Mono',monospace", weight: '500' } }, grid: { display: false } }
     }
-  });
+  }, onSiteClick ? c => onSiteClick(c) : null);
 
+  const dtLabels = sorted.map(s => s.code);
   mk(charts, 'c-dt-site', 'bar', {
-    labels: sorted.map(s => s.code),
-    datasets: [{ label: 'Downtime (hrs)', data: sorted.map(s => s.dt), backgroundColor: sorted.map(s => s.dt > 4000 ? 'rgba(190,18,60,.65)' : s.dt > 2500 ? 'rgba(180,83,9,.55)' : 'rgba(4,120,87,.55)'), borderRadius: 3 }]
+    labels: dtLabels,
+    datasets: [{ label: 'Downtime (hrs)', data: sorted.map(s => s.dt), backgroundColor: sorted.map(s => s.dt > 4000 ? 'rgba(190,18,60,.65)' : s.dt > 2500 ? 'rgba(180,83,9,.55)' : 'rgba(4,120,87,.55)'), borderColor: barBorder(dtLabels, sel), borderWidth: sel.length > 0 ? 2 : 0, borderRadius: 3 }]
   }, {
     indexAxis: 'y',
     plugins: { ...base.plugins },
@@ -159,10 +177,11 @@ export function renderRisk(charts, fs) {
       x: { ticks: { color: C.text3, font: { size: 9, family: "'DM Mono',monospace" }, callback: v => v.toLocaleString() + 'h' }, grid: { color: 'rgba(226,229,234,.5)' } },
       y: { ticks: { color: C.text, font: { size: 10, family: "'DM Mono',monospace" } }, grid: { display: false } }
     }
-  });
+  }, onSiteClick ? c => onSiteClick(c) : null);
 
+  const incLabels = sorted.map(s => s.code);
   mk(charts, 'c-inc-site', 'bar', {
-    labels: sorted.map(s => s.code),
+    labels: incLabels,
     datasets: [
       { label: 'P1', data: sorted.map(s => s.p1),                                          backgroundColor: 'rgba(190,18,60,.7)',   borderRadius: 2 },
       { label: 'P2', data: sorted.map(s => Math.round((s.inc - s.p1) * 0.32)),             backgroundColor: 'rgba(180,83,9,.55)',  borderRadius: 2 },
@@ -174,25 +193,27 @@ export function renderRisk(charts, fs) {
       x: { stacked: true, ticks: { color: C.text, font: { size: 10, family: "'DM Mono',monospace" } }, grid: { display: false } },
       y: { stacked: true, ticks: { color: C.text3, font: { size: 9, family: "'DM Mono',monospace" } }, grid: { color: 'rgba(226,229,234,.5)' } }
     }
-  });
+  }, onSiteClick ? c => onSiteClick(c) : null);
 
   const csatBySite = sorted.map(s => s.csat);
+  const csatLabels = sorted.map(s => s.code);
   mk(charts, 'c-risk-csat', 'bar', {
-    labels: sorted.map(s => s.code),
-    datasets: [{ label: 'CSAT Score', data: csatBySite, backgroundColor: csatBySite.map(v => v < 80 ? 'rgba(190,18,60,.7)' : v < 85 ? 'rgba(180,83,9,.55)' : 'rgba(4,120,87,.6)'), borderRadius: 3 }]
+    labels: csatLabels,
+    datasets: [{ label: 'CSAT Score', data: csatBySite, backgroundColor: csatBySite.map(v => v < 80 ? 'rgba(190,18,60,.7)' : v < 85 ? 'rgba(180,83,9,.55)' : 'rgba(4,120,87,.6)'), borderColor: barBorder(csatLabels, sel), borderWidth: sel.length > 0 ? 2 : 0, borderRadius: 3 }]
   }, {
     plugins: { ...base.plugins },
     scales: {
       x: { ticks: { color: C.text, font: { size: 10, family: "'DM Mono',monospace" } }, grid: { display: false } },
       y: { min: 70, max: 92, ticks: { color: C.text3, font: { size: 9, family: "'DM Mono',monospace" } }, grid: { color: 'rgba(226,229,234,.5)' } }
     }
-  });
+  }, onSiteClick ? c => onSiteClick(c) : null);
 
   return sorted;
 }
 
 // ─── Asset Intel ─────────────────────────────────────────────────
-export function renderAssets(charts, fs) {
+export function renderAssets(charts, fs, onSiteClick, selectedSites) {
+  const sel = selectedSites || [];
   const siteCodes = new Set(fs.map(s => s.code));
   const scale = fs.length > 0 ? fs.length / 12 : 1;
 
@@ -216,16 +237,17 @@ export function renderAssets(charts, fs) {
   });
 
   const critBySite = DATA.sites.filter(s => siteCodes.has(s.code)).map(s => ({ code: s.code, crit: s.critAssets })).sort((a, b) => b.crit - a.crit);
+  const critLabels = critBySite.map(s => s.code);
   mk(charts, 'c-crit-site', 'bar', {
-    labels: critBySite.map(s => s.code),
-    datasets: [{ label: 'Critical Assets', data: critBySite.map(s => s.crit), backgroundColor: 'rgba(190,18,60,.55)', borderRadius: 3 }]
+    labels: critLabels,
+    datasets: [{ label: 'Critical Assets', data: critBySite.map(s => s.crit), backgroundColor: 'rgba(190,18,60,.55)', borderColor: barBorder(critLabels, sel), borderWidth: sel.length > 0 ? 2 : 0, borderRadius: 3 }]
   }, {
     plugins: { ...base.plugins },
     scales: {
       x: { ticks: { color: C.text, font: { size: 10, family: "'DM Mono',monospace" } }, grid: { display: false } },
       y: { ticks: { color: C.text3, font: { size: 9, family: "'DM Mono',monospace" } }, grid: { color: 'rgba(226,229,234,.5)' } }
     }
-  });
+  }, onSiteClick ? c => onSiteClick(c) : null);
 
   mk(charts, 'c-asset-cond', 'bar', {
     labels: DATA.assetCond.types,
@@ -243,20 +265,22 @@ export function renderAssets(charts, fs) {
   });
 
   const capSorted = DATA.capUtil.filter(c => siteCodes.has(c.code)).sort((a, b) => b.cap - a.cap);
+  const capLabels = capSorted.map(c => c.code);
   mk(charts, 'c-cap-site', 'bar', {
-    labels: capSorted.map(c => c.code),
-    datasets: [{ label: 'Capacity Utilization %', data: capSorted.map(c => c.cap), backgroundColor: capSorted.map(c => c.cap > 75 ? 'rgba(180,83,9,.6)' : c.cap > 65 ? 'rgba(26,86,219,.5)' : 'rgba(4,120,87,.55)'), borderRadius: 3 }]
+    labels: capLabels,
+    datasets: [{ label: 'Capacity Utilization %', data: capSorted.map(c => c.cap), backgroundColor: capSorted.map(c => c.cap > 75 ? 'rgba(180,83,9,.6)' : c.cap > 65 ? 'rgba(26,86,219,.5)' : 'rgba(4,120,87,.55)'), borderColor: barBorder(capLabels, sel), borderWidth: sel.length > 0 ? 2 : 0, borderRadius: 3 }]
   }, {
     plugins: { ...base.plugins },
     scales: {
       x: { ticks: { color: C.text, font: { size: 10, family: "'DM Mono',monospace" } }, grid: { display: false } },
       y: { min: 55, max: 80, ticks: { color: C.text3, font: { size: 9, family: "'DM Mono',monospace" }, callback: v => v + '%' }, grid: { color: 'rgba(226,229,234,.5)' } }
     }
-  });
+  }, onSiteClick ? c => onSiteClick(c) : null);
 }
 
 // ─── Finance ─────────────────────────────────────────────────────
-export function renderFinance(charts, mi, ml, fs, activeFilters) {
+export function renderFinance(charts, mi, ml, fs, activeFilters, onSiteClick, selectedSites) {
+  const sel = selectedSites || [];
   const budget = mi.map(i => (getMonthlySeries('budget', activeFilters)[i] ?? null));
   const actual = mi.map(i => (getMonthlySeries('actual', activeFilters)[i] ?? null));
 
@@ -295,9 +319,10 @@ export function renderFinance(charts, mi, ml, fs, activeFilters) {
 
   const siteCodes = new Set(fs.map(s => s.code));
   const varSites = DATA.sites.filter(s => siteCodes.has(s.code)).sort((a, b) => b.varPct - a.varPct);
+  const varLabels = varSites.map(s => s.code);
   mk(charts, 'c-var-site', 'bar', {
-    labels: varSites.map(s => s.code),
-    datasets: [{ label: 'Variance %', data: varSites.map(s => s.varPct), backgroundColor: varSites.map(s => s.varPct > 4 ? 'rgba(190,18,60,.65)' : s.varPct > 2 ? 'rgba(180,83,9,.55)' : 'rgba(4,120,87,.55)'), borderRadius: 3 }]
+    labels: varLabels,
+    datasets: [{ label: 'Variance %', data: varSites.map(s => s.varPct), backgroundColor: varSites.map(s => s.varPct > 4 ? 'rgba(190,18,60,.65)' : s.varPct > 2 ? 'rgba(180,83,9,.55)' : 'rgba(4,120,87,.55)'), borderColor: barBorder(varLabels, sel), borderWidth: sel.length > 0 ? 2 : 0, borderRadius: 3 }]
   }, {
     indexAxis: 'y',
     plugins: { ...base.plugins },
@@ -305,7 +330,7 @@ export function renderFinance(charts, mi, ml, fs, activeFilters) {
       x: { min: 0, max: 7, ticks: { color: C.text3, font: { size: 9, family: "'DM Mono',monospace" }, callback: v => '+' + v + '%' }, grid: { color: 'rgba(226,229,234,.5)' } },
       y: { ticks: { color: C.text, font: { size: 10, family: "'DM Mono',monospace" } }, grid: { display: false } }
     }
-  });
+  }, onSiteClick ? c => onSiteClick(c) : null);
 
   mk(charts, 'c-var-cat', 'bar', {
     labels: DATA.spendCats.map(s => s.cat),
@@ -327,7 +352,8 @@ export function renderFinance(charts, mi, ml, fs, activeFilters) {
 }
 
 // ─── Maintenance ─────────────────────────────────────────────────
-export function renderMaintenance(charts, fs, activeFilters) {
+export function renderMaintenance(charts, fs, activeFilters, onSiteClick, selectedSites) {
+  const sel = selectedSites || [];
   const scale = fs.length > 0 ? fs.length / 12 : 1;
   mk(charts, 'c-maint-pareto', 'bar', {
     labels: DATA.failPareto.map(f => f.cat),
@@ -343,16 +369,17 @@ export function renderMaintenance(charts, fs, activeFilters) {
 
   const sorted = [...fs].sort((a, b) => b.slaB - a.slaB);
   const slaCounts = sorted.map(s => Math.round(s.wos * s.slaB / 100));
+  const slaLabels = sorted.map(s => s.code);
   mk(charts, 'c-sla-breach', 'bar', {
-    labels: sorted.map(s => s.code),
-    datasets: [{ label: 'SLA Breach Count', data: slaCounts, backgroundColor: sorted.map(s => s.slaB > 45 ? 'rgba(190,18,60,.7)' : s.slaB > 35 ? 'rgba(180,83,9,.6)' : 'rgba(14,116,144,.5)'), borderRadius: 3 }]
+    labels: slaLabels,
+    datasets: [{ label: 'SLA Breach Count', data: slaCounts, backgroundColor: sorted.map(s => s.slaB > 45 ? 'rgba(190,18,60,.7)' : s.slaB > 35 ? 'rgba(180,83,9,.6)' : 'rgba(14,116,144,.5)'), borderColor: barBorder(slaLabels, sel), borderWidth: sel.length > 0 ? 2 : 0, borderRadius: 3 }]
   }, {
     plugins: { ...base.plugins },
     scales: {
       x: { ticks: { color: C.text, font: { size: 10, family: "'DM Mono',monospace" } }, grid: { display: false } },
       y: { ticks: { color: C.text3, font: { size: 9, family: "'DM Mono',monospace" } }, grid: { color: 'rgba(226,229,234,.5)' } }
     }
-  });
+  }, onSiteClick ? c => onSiteClick(c) : null);
 
   const totalWO   = fs.reduce((a, s) => a + s.wos, 0);
   const corrTotal = fs.reduce((a, s) => a + Math.round(s.wos * s.corrRatio / 100), 0);
@@ -365,16 +392,17 @@ export function renderMaintenance(charts, fs, activeFilters) {
     scales: { x: { display: false }, y: { display: false } }
   });
 
+  const corrLabels = sorted.map(s => s.code);
   mk(charts, 'c-corr-site', 'bar', {
-    labels: sorted.map(s => s.code),
-    datasets: [{ label: 'Corrective Ratio %', data: sorted.map(s => s.corrRatio), backgroundColor: sorted.map(s => s.corrRatio > 62 ? 'rgba(190,18,60,.65)' : s.corrRatio > 58 ? 'rgba(180,83,9,.6)' : 'rgba(26,86,219,.5)'), borderRadius: 3 }]
+    labels: corrLabels,
+    datasets: [{ label: 'Corrective Ratio %', data: sorted.map(s => s.corrRatio), backgroundColor: sorted.map(s => s.corrRatio > 62 ? 'rgba(190,18,60,.65)' : s.corrRatio > 58 ? 'rgba(180,83,9,.6)' : 'rgba(26,86,219,.5)'), borderColor: barBorder(corrLabels, sel), borderWidth: sel.length > 0 ? 2 : 0, borderRadius: 3 }]
   }, {
     plugins: { ...base.plugins },
     scales: {
       x: { ticks: { color: C.text, font: { size: 10, family: "'DM Mono',monospace" } }, grid: { display: false } },
       y: { min: 50, max: 70, ticks: { color: C.text3, font: { size: 9, family: "'DM Mono',monospace" }, callback: v => v + '%' }, grid: { color: 'rgba(226,229,234,.5)' } }
     }
-  });
+  }, onSiteClick ? c => onSiteClick(c) : null);
 
   const fm = getFilteredMonths(activeFilters);
   const mi = fm.map(x => x.i);
@@ -395,22 +423,24 @@ export function renderMaintenance(charts, fs, activeFilters) {
 
   const siteCodes = new Set(fs.map(s => s.code));
   const rtSorted = DATA.respTime.filter(r => siteCodes.has(r.code)).sort((a, b) => b.resp - a.resp);
+  const rtLabels = rtSorted.map(r => r.code);
   mk(charts, 'c-resp-time', 'bar', {
-    labels: rtSorted.map(r => r.code),
-    datasets: [{ label: 'Avg Response Time (hrs)', data: rtSorted.map(r => r.resp), backgroundColor: rtSorted.map(r => r.resp > 4.5 ? 'rgba(190,18,60,.65)' : r.resp > 4.0 ? 'rgba(180,83,9,.6)' : 'rgba(4,120,87,.55)'), borderRadius: 3 }]
+    labels: rtLabels,
+    datasets: [{ label: 'Avg Response Time (hrs)', data: rtSorted.map(r => r.resp), backgroundColor: rtSorted.map(r => r.resp > 4.5 ? 'rgba(190,18,60,.65)' : r.resp > 4.0 ? 'rgba(180,83,9,.6)' : 'rgba(4,120,87,.55)'), borderColor: barBorder(rtLabels, sel), borderWidth: sel.length > 0 ? 2 : 0, borderRadius: 3 }]
   }, {
     plugins: { ...base.plugins },
     scales: {
       x: { ticks: { color: C.text, font: { size: 10, family: "'DM Mono',monospace" } }, grid: { display: false } },
       y: { min: 3, max: 5.5, ticks: { color: C.text3, font: { size: 9, family: "'DM Mono',monospace" }, callback: v => v + 'h' }, grid: { color: 'rgba(226,229,234,.5)' } }
     }
-  });
+  }, onSiteClick ? c => onSiteClick(c) : null);
 
   return { sorted, rtSorted };
 }
 
 // ─── Customer ────────────────────────────────────────────────────
-export function renderCustomer(charts, mi, ml, fs, activeFilters) {
+export function renderCustomer(charts, mi, ml, fs, activeFilters, onSiteClick, selectedSites) {
+  const sel = selectedSites || [];
   const csat = mi.map(i => (getMonthlySeries('csat', activeFilters)[i] ?? null));
   const nps  = mi.map(i => (FLEET_MO['nps'] ? FLEET_MO['nps'][i] : null) ?? null);
 
@@ -431,16 +461,17 @@ export function renderCustomer(charts, mi, ml, fs, activeFilters) {
 
   const siteCodes = new Set(fs.map(s => s.code));
   const sortedCsat = [...fs].sort((a, b) => b.csat - a.csat);
+  const csatSiteLabels = sortedCsat.map(s => s.code);
   mk(charts, 'c-csat-site', 'bar', {
-    labels: sortedCsat.map(s => s.code),
-    datasets: [{ label: 'CSAT Score', data: sortedCsat.map(s => s.csat), backgroundColor: sortedCsat.map(s => s.csat < 80 ? 'rgba(190,18,60,.7)' : s.csat < 85 ? 'rgba(180,83,9,.55)' : 'rgba(4,120,87,.6)'), borderRadius: 3 }]
+    labels: csatSiteLabels,
+    datasets: [{ label: 'CSAT Score', data: sortedCsat.map(s => s.csat), backgroundColor: sortedCsat.map(s => s.csat < 80 ? 'rgba(190,18,60,.7)' : s.csat < 85 ? 'rgba(180,83,9,.55)' : 'rgba(4,120,87,.6)'), borderColor: barBorder(csatSiteLabels, sel), borderWidth: sel.length > 0 ? 2 : 0, borderRadius: 3 }]
   }, {
     plugins: { ...base.plugins },
     scales: {
       x: { ticks: { color: C.text, font: { size: 10, family: "'DM Mono',monospace" } }, grid: { display: false } },
       y: { min: 70, max: 93, ticks: { color: C.text3, font: { size: 9, family: "'DM Mono',monospace" } }, grid: { color: 'rgba(226,229,234,.5)' } }
     }
-  });
+  }, onSiteClick ? c => onSiteClick(c) : null);
 
   const caData = DATA.csatAvail.filter(d => siteCodes.has(d.code)).sort((a, b) => a.avail - b.avail);
   mk(charts, 'c-csat-avail', 'scatter', {

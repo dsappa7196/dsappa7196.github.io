@@ -3,17 +3,17 @@ import { getFilteredSites } from "../hubUtils";
 import { renderMaintenance } from "../hubCharts";
 import { DATA } from "../hubData";
 
-export default function PageMaintenance({ activeFilters, showToast }) {
+export default function PageMaintenance({ activeFilters, showToast, onSiteClick, activeSites }) {
   const chartsRef = useRef({});
 
   useEffect(() => {
     const fs = getFilteredSites(activeFilters);
-    renderMaintenance(chartsRef.current, fs, activeFilters);
+    renderMaintenance(chartsRef.current, fs, activeFilters, onSiteClick, activeSites);
     return () => {
       Object.values(chartsRef.current).forEach(c => c.destroy());
       chartsRef.current = {};
     };
-  }, [activeFilters]);
+  }, [activeFilters, onSiteClick, activeSites]);
 
   const fs = getFilteredSites(activeFilters);
   const sorted = [...fs].sort((a, b) => b.slaB - a.slaB);
@@ -53,6 +53,7 @@ export default function PageMaintenance({ activeFilters, showToast }) {
         <div className="chart-card">
           <div className="cc-head"><div><div className="cc-title">SLA Breach Count by Site</div><div className="cc-sub">Total work orders breaching SLA</div></div><div className="cc-badge cb-red">DAL01: 458 breaches</div></div>
           <div className="cc-body"><canvas id="c-sla-breach" height="240"></canvas></div>
+          <div className="chart-click-hint">Click any bar to filter · Click again to clear</div>
         </div>
       </div>
       <div className="g2">
@@ -63,6 +64,7 @@ export default function PageMaintenance({ activeFilters, showToast }) {
         <div className="chart-card">
           <div className="cc-head"><div><div className="cc-title">Corrective Ratio by Site</div><div className="cc-sub">Higher = more reactive operations</div></div></div>
           <div className="cc-body"><canvas id="c-corr-site" height="180"></canvas></div>
+          <div className="chart-click-hint">Click any bar to filter · Click again to clear</div>
         </div>
       </div>
       <div className="g2">
@@ -73,6 +75,7 @@ export default function PageMaintenance({ activeFilters, showToast }) {
         <div className="chart-card">
           <div className="cc-head"><div><div className="cc-title">Avg Response Time by Site</div><div className="cc-sub">Hours to first response · lower is better</div></div><div className="cc-badge cb-red">LAX01: 4.71h worst</div></div>
           <div className="cc-body"><canvas id="c-resp-time" height="180"></canvas></div>
+          <div className="chart-click-hint">Click any bar to filter · Click again to clear</div>
         </div>
       </div>
       <div className="sec-label">Site Maintenance Detail</div>

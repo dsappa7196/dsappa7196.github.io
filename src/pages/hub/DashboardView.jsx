@@ -160,12 +160,12 @@ export default function DashboardView({ activePage, onNavDB, onSwitchToHub, show
       </div>
 
       {/* Pages — conditional render so charts init on mount and destroy on unmount */}
-      {activePage === 'overview'    && <PageOverview    activeFilters={activeFilters} onNav={onNavDB} showToast={showToast} />}
-      {activePage === 'risk'        && <PageRisk        activeFilters={activeFilters} showToast={showToast} />}
-      {activePage === 'assets'      && <PageAssets      activeFilters={activeFilters} showToast={showToast} />}
-      {activePage === 'finance'     && <PageFinance     activeFilters={activeFilters} showToast={showToast} />}
-      {activePage === 'maintenance' && <PageMaintenance activeFilters={activeFilters} showToast={showToast} />}
-      {activePage === 'customer'    && <PageCustomer    activeFilters={activeFilters} showToast={showToast} />}
+      {activePage === 'overview'    && <PageOverview    activeFilters={activeFilters} onNav={onNavDB} showToast={showToast} onSiteClick={toggleSite} activeSites={activeFilters.sites} />}
+      {activePage === 'risk'        && <PageRisk        activeFilters={activeFilters} showToast={showToast} onSiteClick={toggleSite} activeSites={activeFilters.sites} />}
+      {activePage === 'assets'      && <PageAssets      activeFilters={activeFilters} showToast={showToast} onSiteClick={toggleSite} activeSites={activeFilters.sites} />}
+      {activePage === 'finance'     && <PageFinance     activeFilters={activeFilters} showToast={showToast} onSiteClick={toggleSite} activeSites={activeFilters.sites} />}
+      {activePage === 'maintenance' && <PageMaintenance activeFilters={activeFilters} showToast={showToast} onSiteClick={toggleSite} activeSites={activeFilters.sites} />}
+      {activePage === 'customer'    && <PageCustomer    activeFilters={activeFilters} showToast={showToast} onSiteClick={toggleSite} activeSites={activeFilters.sites} />}
     </>
   );
 }

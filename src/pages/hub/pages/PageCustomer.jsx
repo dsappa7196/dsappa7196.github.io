@@ -3,7 +3,7 @@ import { getFilteredMonths, getFilteredSites } from "../hubUtils";
 import { renderCustomer } from "../hubCharts";
 import { DATA } from "../hubData";
 
-export default function PageCustomer({ activeFilters, showToast }) {
+export default function PageCustomer({ activeFilters, showToast, onSiteClick, activeSites }) {
   const chartsRef = useRef({});
 
   useEffect(() => {
@@ -11,12 +11,12 @@ export default function PageCustomer({ activeFilters, showToast }) {
     const fs = getFilteredSites(activeFilters);
     const mi = fm.map(x => x.i);
     const ml = fm.map(x => x.m);
-    renderCustomer(chartsRef.current, mi, ml, fs, activeFilters);
+    renderCustomer(chartsRef.current, mi, ml, fs, activeFilters, onSiteClick, activeSites);
     return () => {
       Object.values(chartsRef.current).forEach(c => c.destroy());
       chartsRef.current = {};
     };
-  }, [activeFilters]);
+  }, [activeFilters, onSiteClick, activeSites]);
 
   const fs = getFilteredSites(activeFilters);
   const sortedCsat = [...fs].sort((a, b) => b.csat - a.csat);
@@ -54,6 +54,7 @@ export default function PageCustomer({ activeFilters, showToast }) {
         <div className="chart-card">
           <div className="cc-head"><div><div className="cc-title">CSAT Score by Site</div><div className="cc-sub">18-month average per location</div></div><div className="cc-badge cb-red">DAL01: 74.9</div></div>
           <div className="cc-body"><canvas id="c-csat-site" height="200"></canvas></div>
+          <div className="chart-click-hint">Click any bar to filter · Click again to clear</div>
         </div>
       </div>
       <div className="g2">

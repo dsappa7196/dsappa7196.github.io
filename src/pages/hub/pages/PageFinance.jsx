@@ -3,7 +3,7 @@ import { getFilteredMonths, getFilteredSites, getMonthlySeries } from "../hubUti
 import { renderFinance } from "../hubCharts";
 import { DATA } from "../hubData";
 
-export default function PageFinance({ activeFilters, showToast }) {
+export default function PageFinance({ activeFilters, showToast, onSiteClick, activeSites }) {
   const chartsRef = useRef({});
 
   useEffect(() => {
@@ -11,12 +11,12 @@ export default function PageFinance({ activeFilters, showToast }) {
     const fs = getFilteredSites(activeFilters);
     const mi = fm.map(x => x.i);
     const ml = fm.map(x => x.m);
-    renderFinance(chartsRef.current, mi, ml, fs, activeFilters);
+    renderFinance(chartsRef.current, mi, ml, fs, activeFilters, onSiteClick, activeSites);
     return () => {
       Object.values(chartsRef.current).forEach(c => c.destroy());
       chartsRef.current = {};
     };
-  }, [activeFilters]);
+  }, [activeFilters, onSiteClick, activeSites]);
 
   const fs = getFilteredSites(activeFilters);
   const siteCodes = new Set(fs.map(s => s.code));
@@ -66,6 +66,7 @@ export default function PageFinance({ activeFilters, showToast }) {
         <div className="chart-card">
           <div className="cc-head"><div><div className="cc-title">Variance % by Site</div><div className="cc-sub">18-month cumulative overspend per site</div></div><div className="cc-badge cb-red">ASH01 worst: +5.5%</div></div>
           <div className="cc-body"><canvas id="c-var-site" height="200"></canvas></div>
+          <div className="chart-click-hint">Click any bar to filter · Click again to clear</div>
         </div>
         <div className="chart-card">
           <div className="cc-head"><div><div className="cc-title">Variance by Spend Category</div><div className="cc-sub">Budget vs actual overspend ($K) per category</div></div><div className="cc-badge cb-amber">Maint Opex +4.4%</div></div>

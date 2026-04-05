@@ -293,6 +293,7 @@
 .hub-root .cb-green { background: var(--green-lt); color: var(--green); }
 .hub-root .cb-blue { background: var(--blue-lt); color: var(--blue); }
 .hub-root .cc-body { position: relative; }
+.hub-root .chart-click-hint { font-family: var(--mono); font-size: 9px; color: var(--text4); text-align: center; margin-top: 8px; opacity: 0.65; letter-spacing: .04em; }
 
 /* ─── TABLES ──────────────────────────────────────────────── */
 .hub-root .data-table { width: 100%; border-collapse: collapse; font-size: 11px; }

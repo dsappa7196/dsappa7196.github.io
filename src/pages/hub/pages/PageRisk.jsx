@@ -2,17 +2,17 @@ import { useEffect, useRef } from "react";
 import { getFilteredSites } from "../hubUtils";
 import { renderRisk } from "../hubCharts";
 
-export default function PageRisk({ activeFilters, showToast }) {
+export default function PageRisk({ activeFilters, showToast, onSiteClick, activeSites }) {
   const chartsRef = useRef({});
 
   useEffect(() => {
     const fs = getFilteredSites(activeFilters);
-    const sorted = renderRisk(chartsRef.current, fs);
+    renderRisk(chartsRef.current, fs, onSiteClick, activeSites);
     return () => {
       Object.values(chartsRef.current).forEach(c => c.destroy());
       chartsRef.current = {};
     };
-  }, [activeFilters]);
+  }, [activeFilters, onSiteClick, activeSites]);
 
   const fs = getFilteredSites(activeFilters);
   const sorted = [...fs].sort((a, b) => b.risk - a.risk);
@@ -45,20 +45,24 @@ export default function PageRisk({ activeFilters, showToast }) {
         <div className="chart-card">
           <div className="cc-head"><div><div className="cc-title">Composite Risk Score — All Sites</div><div className="cc-sub">Weighted: Avail(25%) + Incidents(20%) + Downtime(20%) + SLA(20%) + Variance(15%)</div></div><div className="cc-badge cb-red">DAL01 critical</div></div>
           <div className="cc-body"><canvas id="c-risk-bars" height="260"></canvas></div>
+          <div className="chart-click-hint">Click any bar to filter · Click again to clear</div>
         </div>
         <div className="chart-card">
           <div className="cc-head"><div><div className="cc-title">Total Downtime by Site</div><div className="cc-sub">18-month cumulative hours</div></div><div className="cc-badge cb-red">DAL01: 5,945h</div></div>
           <div className="cc-body"><canvas id="c-dt-site" height="260"></canvas></div>
+          <div className="chart-click-hint">Click any bar to filter · Click again to clear</div>
         </div>
       </div>
       <div className="g2">
         <div className="chart-card">
           <div className="cc-head"><div><div className="cc-title">Incident Count by Site — P1 / P2 / P3</div><div className="cc-sub">18-month total per location · stacked by severity</div></div><div className="cc-badge cb-red">DAL01: 1,009 total</div></div>
           <div className="cc-body"><canvas id="c-inc-site" height="200"></canvas></div>
+          <div className="chart-click-hint">Click any bar to filter · Click again to clear</div>
         </div>
         <div className="chart-card">
           <div className="cc-head"><div><div className="cc-title">Customer Satisfaction (CSAT) by Site</div><div className="cc-sub">18-month average · operational risk directly impacts customer experience · target ≥85</div></div><div className="cc-badge cb-red">DAL01: 74.9 — 10pts below target</div></div>
           <div className="cc-body"><canvas id="c-risk-csat" height="200"></canvas></div>
+          <div className="chart-click-hint">Click any bar to filter · Click again to clear</div>
         </div>
       </div>
       <div className="sec-label">Full Site Scorecard</div>
