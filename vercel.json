@@ -1,4 +1,5 @@
 {
+  "outputDirectory": "dist",
   "routes": [
     { "src": "/analytics-hub", "dest": "/index.html" },
     { "src": "/hub-content.html", "dest": "/hub-content.html" },
