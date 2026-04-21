@@ -81,12 +81,12 @@ const Projects = ({ openHub }) => {
 
                   {/* 🔥 SPECIAL CASE FOR HUB */}
                   {title === "Operations Analytics Hub" ? (
-                    <button
-                      onClick={openHub}
+                    <a
+                      href="/analytics-hub"
                       className="text-green-400 hover:text-green-300 hover:underline inline-flex items-center gap-1 text-sm sm:text-base"
                     >
                       Open Analytics Hub <FaExternalLinkAlt className="text-xs" />
-                    </button>
+                    </a>
                   ) : (
                     <>
                       {project.live && (
