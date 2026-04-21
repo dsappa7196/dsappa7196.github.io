@@ -199,6 +199,11 @@ body { background: var(--bg); color: var(--text); font-family: var(--sans); font
 }
 .htab:hover { color: var(--text); }
 .htab.active { color: var(--blue); border-bottom-color: var(--blue); font-weight: 600; }
+.itab { padding: 9px 16px; font-family: var(--sans); font-size: 12px; font-weight: 500; color: var(--text3); border: none; background: none; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; transition: all .15s; letter-spacing: .01em; }
+.itab:hover { color: var(--text); }
+.itab.active { color: var(--blue); border-bottom-color: var(--blue); font-weight: 600; }
+.itab-content { display: none; }
+.itab-content.active { display: block; animation: fadein .2s ease; }
 
 .hub-tab-content { display: none; }
 .hub-tab-content.active { display: block; }
@@ -646,6 +651,7 @@ body { background: var(--bg); color: var(--text); font-family: var(--sans); font
   <div class="topbar-nav">
     <button class="tnav-btn active" id="btn-hub" onclick="switchView('hub')">Hub</button>
     <button class="tnav-btn" id="btn-dashboards" onclick="switchView('dashboards')">Dashboards</button>
+    <button class="tnav-btn" id="btn-insight" onclick="switchView('insight')">Insight &amp; Strategy</button>
   </div>
   <div class="topbar-right">
     <div class="live-badge"><div class="ldot"></div>LIVE</div>
@@ -716,7 +722,6 @@ body { background: var(--bg); color: var(--text); font-family: var(--sans); font
     <button class="htab" onclick="switchHubTab('metrics',this)">Metric Definitions</button>
     <button class="htab" onclick="switchHubTab('datamodel',this)">Data Model</button>
     <button class="htab" onclick="switchHubTab('sourcedata',this)">Source Data</button>
-    <button class="htab" onclick="switchHubTab('builtnotes',this)">How It Was Built</button>
     <button class="htab" onclick="switchHubTab('howto',this)">How to Use</button>
     <button class="htab" onclick="switchHubTab('ownership',this)">Ownership</button>
   </div>
@@ -1466,8 +1471,25 @@ CREATE TABLE installed_customer_base_monthly (
       </div>
     </div>
 
+
+
+  </div><!-- hub-body -->
+</div><!-- view-hub -->
+
+<!-- ═══ INSIGHT & STRATEGY VIEW ═══════════════════════════════ -->
+<div class="view" id="view-insight">
+  <div class="hub-tabs" id="insight-tab-nav">
+    <button class="itab active" onclick="switchInsightTab('builtnotes',this)">How It Was Built</button>
+    <button class="itab" onclick="switchInsightTab('compliance',this)">Commit Compliance</button>
+    <button class="itab" onclick="switchInsightTab('automation',this)">Automation</button>
+    <button class="itab" onclick="switchInsightTab('systems',this)">Source Systems</button>
+    <button class="itab" onclick="switchInsightTab('comms',this)">Communication</button>
+    <button class="itab" onclick="switchInsightTab('roadmap',this)">Roadmap</button>
+  </div>
+  <div class="hub-body">
+
     <!-- ══ Tab: How It Was Built ════════════════════════════════ -->
-    <div class="hub-tab-content" id="htab-builtnotes">
+    <div class="itab-content active" id="itab-builtnotes">
       <div class="hub-section">
         <div class="hub-section-head">
           <div class="hub-section-label">How This Was Built</div>
@@ -1588,10 +1610,243 @@ CREATE TABLE installed_customer_base_monthly (
       </div>
     </div>
 
+    <!-- Tab: Commit Compliance Tracking -->
+    <div class="itab-content" id="itab-compliance">
+      <div class="hub-section">
+        <div class="hub-section-head">
+          <div class="hub-section-label">🎯 Commit Compliance Tracking</div>
+          <div class="hub-section-line"></div>
+          <div class="hub-section-count">92% target set by operations leadership · Measured from 7,761 work orders</div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 2fr;gap:14px;margin-bottom:14px;">
+          <div class="metric-card" style="display:flex;flex-direction:column;gap:6px;">
+            <div class="kpi-val red" style="font-size:32px;">59.2%</div>
+            <div class="mc-name">Current Compliance Rate</div>
+            <div class="mc-target" style="color:var(--amber);">Target: ≥ 92%</div>
+            <div class="mc-desc" style="margin-top:4px;">4,591 of 7,761 work orders completed within their committed SLA window. 32.8 percentage points below the 92% target.</div>
+          </div>
+          <div class="metric-grid">
+            <div class="metric-card">
+              <div class="mc-name">SLA Breaches</div>
+              <div class="kpi-val red" style="font-size:26px;margin:6px 0 4px;">3,170</div>
+              <div class="mc-target">40.8% of all work orders</div>
+              <div class="mc-desc" style="margin-top:6px;">Every single breach came from reactive corrective work. Not one of the 2,983 preventive WOs missed its SLA window.</div>
+            </div>
+            <div class="metric-card">
+              <div class="mc-name">Root Cause</div>
+              <div class="kpi-val amber" style="font-size:26px;margin:6px 0 4px;">61.6%</div>
+              <div class="mc-target">Corrective ratio — target ≤40%</div>
+              <div class="mc-desc" style="margin-top:6px;">4,778 of 7,761 WOs were reactive corrective work. The data is unambiguous: fix the corrective ratio, and the compliance rate follows.</div>
+            </div>
+          </div>
+        </div>
+        <div style="background:var(--blue-lt);border:1px solid rgba(26,86,219,.2);border-left:3px solid var(--blue);border-radius:6px;padding:12px 16px;font-size:12px;color:var(--text2);line-height:1.7;">
+          Corrective WOs cost an average of <strong>$5,611</strong> vs <strong>$1,544</strong> for preventive work — <strong>263% more expensive</strong> per work order. <strong>85% of all repair cost</strong> ($26.8M of $31.4M total) comes from reactive work. <strong>1,225 repeat failures</strong> (15.8% of all WOs) show the same assets failing repeatedly because the root cause is never resolved.<br>
+          <span style="color:var(--blue);font-family:var(--mono);font-size:11px;">→ Shift the corrective ratio from 61.6% toward ≤40% and three things improve at once: compliance rate, total repair cost, and repeat failure count.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab: Automation -->
+    <div class="itab-content" id="itab-automation">
+      <div class="hub-section">
+        <div class="hub-section-head">
+          <div class="hub-section-label">⚡ Automation</div>
+          <div class="hub-section-line"></div>
+          <div class="hub-section-count">What the pipeline does · What that eliminates for the team</div>
+        </div>
+        <div class="g2">
+          <div class="chart-card">
+            <div class="cc-head"><div><div class="cc-title">What Runs Automatically</div></div></div>
+            <div style="display:flex;flex-direction:column;">
+              <div style="display:flex;gap:12px;align-items:flex-start;">
+                <div style="display:flex;flex-direction:column;align-items:center;flex-shrink:0;width:22px;">
+                  <div class="howto-step" style="margin-bottom:0;flex-shrink:0;">1</div>
+                  <div style="width:1px;flex:1;min-height:28px;background:var(--border2);margin-top:4px;"></div>
+                </div>
+                <div style="padding-bottom:16px;flex:1;">
+                  <div class="howto-title">Python: Clean &amp; Validate</div>
+                  <div class="howto-desc">On every data load, scripts standardise column names, handle nulls, validate data types, and flag anomalies across all 8 source tables before anything reaches a dashboard.</div>
+                  <div class="mc-formula" style="margin-top:6px;">~3 min runtime · runs on data load</div>
+                </div>
+              </div>
+              <div style="display:flex;gap:12px;align-items:flex-start;">
+                <div style="display:flex;flex-direction:column;align-items:center;flex-shrink:0;width:22px;">
+                  <div class="howto-step" style="margin-bottom:0;flex-shrink:0;">2</div>
+                  <div style="width:1px;flex:1;min-height:28px;background:var(--border2);margin-top:4px;"></div>
+                </div>
+                <div style="padding-bottom:16px;flex:1;">
+                  <div class="howto-title">SQL: Schedule &amp; Transform</div>
+                  <div class="howto-desc">Scheduled queries take 6,564 daily operations rows, aggregate them into monthly KPIs, calculate composite risk scores for all 12 sites, and flag the 107 asset replacement candidates. Runs on a schedule — no manual trigger needed.</div>
+                  <div class="mc-formula" style="margin-top:6px;">Scheduled monthly · 5th of month</div>
+                </div>
+              </div>
+              <div style="display:flex;gap:12px;align-items:flex-start;">
+                <div style="display:flex;flex-direction:column;align-items:center;flex-shrink:0;width:22px;">
+                  <div class="howto-step" style="margin-bottom:0;flex-shrink:0;">3</div>
+                </div>
+                <div style="flex:1;">
+                  <div class="howto-title">Dashboard: Always Current</div>
+                  <div class="howto-desc">The hub loads the latest processed data on every visit. No one needs to pull a report, send a file, or ask which version is current.</div>
+                  <div class="mc-formula" style="margin-top:6px;">Zero manual effort · live on refresh</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="chart-card">
+            <div class="cc-head"><div><div class="cc-title">What This Replaces</div></div></div>
+            <div class="metric-grid" style="margin-bottom:10px;">
+              <div style="background:var(--red-lt);border:1px solid rgba(190,18,60,.18);border-radius:6px;padding:12px 14px;">
+                <div class="dec-tag" style="color:var(--red);margin-bottom:8px;">● CURRENT MANUAL PROCESS</div>
+                <ul class="build-list">
+                  <li>Hours pulling data from multiple systems each week</li>
+                  <li>Excel pivots rebuilt from scratch each cycle</li>
+                  <li>Multiple file versions — unclear which is current</li>
+                  <li>Data cleaning done manually row by row</li>
+                </ul>
+              </div>
+              <div style="background:var(--green-lt);border:1px solid rgba(4,120,87,.18);border-radius:6px;padding:12px 14px;">
+                <div class="dec-tag" style="color:var(--green);margin-bottom:8px;">✓ WITH THIS PIPELINE</div>
+                <ul class="build-list">
+                  <li>Pipeline runs in background — 0 manual data hours</li>
+                  <li>Open a browser — dashboard already current</li>
+                  <li>Single source of truth — one hub, one URL</li>
+                  <li>Python validates data before it reaches dashboards</li>
+                </ul>
+              </div>
+            </div>
+            <div style="font-family:var(--mono);font-size:10px;color:var(--green);background:var(--green-lt);border:1px solid rgba(4,120,87,.2);border-radius:4px;padding:8px 12px;letter-spacing:.04em;">✓ Time spent on data prep shifts to time spent on analysis and decisions</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab: Source Systems -->
+    <div class="itab-content" id="itab-systems">
+      <div class="hub-section">
+        <div class="hub-section-head">
+          <div class="hub-section-label">🔌 Source Systems</div>
+          <div class="hub-section-line"></div>
+          <div class="hub-section-count">Where the data comes from · How it gets cleaned · Where it lands</div>
+        </div>
+        <div class="chart-card">
+          <div class="cc-head"><div><div class="cc-title">Every number in this hub traces back to one of these source systems</div></div></div>
+          <div style="display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-bottom:14px;">
+            <div style="display:flex;flex-wrap:wrap;gap:6px;align-items:center;">
+              <div style="background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:8px 12px;">
+                <div style="font-family:var(--sans);font-size:11px;font-weight:600;color:var(--text);">ServiceNow</div>
+                <div style="font-size:10px;color:var(--text3);margin-top:2px;">Incidents · WOs · Alarms</div>
+              </div>
+              <div style="background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:8px 12px;">
+                <div style="font-family:var(--sans);font-size:11px;font-weight:600;color:var(--text);">Oracle / Coupa</div>
+                <div style="font-size:10px;color:var(--text3);margin-top:2px;">Budget · Actuals · POs</div>
+              </div>
+              <div style="background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:8px 12px;">
+                <div style="font-family:var(--sans);font-size:11px;font-weight:600;color:var(--text);">Siebel</div>
+                <div style="font-size:10px;color:var(--text3);margin-top:2px;">Assets · Customers</div>
+              </div>
+              <div style="background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:8px 12px;">
+                <div style="font-family:var(--sans);font-size:11px;font-weight:600;color:var(--text);">Excel / CSV</div>
+                <div style="font-size:10px;color:var(--text3);margin-top:2px;">Manual uploads</div>
+              </div>
+              <div style="border:1px dashed var(--teal);border-radius:6px;padding:8px 12px;background:var(--teal-lt);">
+                <div style="font-family:var(--sans);font-size:11px;font-weight:600;color:var(--teal);">Salesforce ↗</div>
+                <div style="font-size:10px;color:var(--teal);margin-top:2px;opacity:.75;">CRM — Equinix currently migrating</div>
+              </div>
+            </div>
+            <div style="font-family:var(--mono);font-size:14px;color:var(--text4);padding:0 4px;flex-shrink:0;">→</div>
+            <div style="background:var(--teal-lt);border:1px solid rgba(14,116,144,.25);border-radius:6px;padding:8px 12px;">
+              <div style="font-family:var(--sans);font-size:11px;font-weight:600;color:var(--teal);">Python</div>
+              <div style="font-size:10px;color:var(--teal);margin-top:2px;opacity:.8;">Clean · Validate · Transform</div>
+            </div>
+            <div style="font-family:var(--mono);font-size:14px;color:var(--text4);padding:0 4px;flex-shrink:0;">→</div>
+            <div style="background:var(--amber-lt);border:1px solid rgba(180,83,9,.25);border-radius:6px;padding:8px 12px;">
+              <div style="font-family:var(--sans);font-size:11px;font-weight:600;color:var(--amber);">MySQL · Star Schema</div>
+              <div style="font-size:10px;color:var(--amber);margin-top:2px;opacity:.8;">8 tables · Single source</div>
+            </div>
+            <div style="font-family:var(--mono);font-size:14px;color:var(--text4);padding:0 4px;flex-shrink:0;">→</div>
+            <div style="background:var(--teal-lt);border:1px solid rgba(14,116,144,.25);border-radius:6px;padding:8px 12px;">
+              <div style="font-family:var(--sans);font-size:11px;font-weight:600;color:var(--teal);">Power BI + Hub</div>
+              <div style="font-size:10px;color:var(--teal);margin-top:2px;opacity:.8;">Dashboards · Insights</div>
+            </div>
+          </div>
+          <div style="background:var(--blue-lt);border:1px solid rgba(26,86,219,.2);border-left:3px solid var(--blue);border-radius:6px;padding:11px 14px;font-size:12px;color:var(--text2);line-height:1.7;">
+            <strong style="color:var(--blue);">Salesforce note:</strong> Salesforce is Equinix's incoming CRM platform, currently mid-migration. This data model is already structured to receive a Salesforce connector — the tables, joins, and customer fields are in place. When migration completes, customer account health, renewal status, and activity data flow in automatically without any rebuild of the existing model.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab: Communication Outputs -->
+    <div class="itab-content" id="itab-comms">
+      <div class="hub-section">
+        <div class="hub-section-head">
+          <div class="hub-section-label">📤 Communication Outputs</div>
+          <div class="hub-section-line"></div>
+          <div class="hub-section-count">One data model · Three different outputs</div>
+        </div>
+        <div class="g3">
+          <div class="chart-card" style="border-top:2px solid var(--red);">
+            <div class="dec-tag" style="color:var(--red);margin-bottom:8px;">Operations Director</div>
+            <div class="cc-title" style="margin-bottom:8px;">Monthly Insight Briefing</div>
+            <div class="howto-desc" style="margin-bottom:10px;">• Format: PowerPoint — max 3 slides, one decision per slide<br>• Structure: every slide follows What → Why → What to do next<br>• Covers: site risk, asset replacement candidates, spend variance<br>• Delivered: first week of each month<br>• Time to consume: under 5 minutes</div>
+            <div class="mc-formula">Monthly · first week</div>
+          </div>
+          <div class="chart-card" style="border-top:2px solid var(--teal);">
+            <div class="dec-tag" style="color:var(--teal);margin-bottom:8px;">Site &amp; Regional Managers</div>
+            <div class="cc-title" style="margin-bottom:8px;">Self-Serve Dashboard Access</div>
+            <div class="howto-desc" style="margin-bottom:10px;">• Access: this hub, filtered to their site or region<br>• Available: all 6 decision views without requesting anything<br>• Filters: region, site, and time period on every dashboard page<br>• Always current: no file to request, no version to track<br>• No analyst dependency for day-to-day reporting needs</div>
+            <div class="mc-formula">On demand · always current</div>
+          </div>
+          <div class="chart-card" style="border-top:2px solid var(--amber);">
+            <div class="dec-tag" style="color:var(--amber);margin-bottom:8px;">Finance &amp; Planning</div>
+            <div class="cc-title" style="margin-bottom:8px;">Monthly Spend Variance Export</div>
+            <div class="howto-desc" style="margin-bottom:10px;">• Format: Excel — structured for finance review workflows<br>• Covers: all 4 spend categories across all 12 sites<br>• Shows: budget vs actual, variance $, variance %, PO-level detail<br>• Flags: top overspend sites and categories highlighted<br>• Total variance tracked: +$5.4M (+4.0%) over 18 months</div>
+            <div class="mc-formula">Monthly · finance cycle</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab: Analytics Roadmap -->
+    <div class="itab-content" id="itab-roadmap">
+      <div class="hub-section">
+        <div class="hub-section-head">
+          <div class="hub-section-label">🗺️ Analytics Roadmap</div>
+          <div class="hub-section-line"></div>
+          <div class="hub-section-count">Planned extensions · Grounded in interview discussions</div>
+        </div>
+        <div class="g2">
+          <div class="chart-card" style="border-top:2px solid var(--teal);">
+            <div class="dec-tag" style="color:var(--teal);margin-bottom:8px;">Near Term · 0–3 Months</div>
+            <div class="cc-title" style="margin-bottom:8px;">Commit Compliance — Root Cause Breakdown</div>
+            <div class="howto-desc" style="margin-bottom:10px;">The current data already contains failure_category, site_code, and technician_id for every breached work order. The next step is grouping those 3,170 breaches by category and site to show exactly where the 40.8% breach rate is concentrated — without collecting any new data.</div>
+            <div class="mc-formula">Source: maintenance_work_orders.csv · already in model</div>
+          </div>
+          <div class="chart-card" style="border-top:2px solid var(--amber);">
+            <div class="dec-tag" style="color:var(--amber);margin-bottom:8px;">Mid Term · 3–6 Months</div>
+            <div class="cc-title" style="margin-bottom:8px;">Salesforce Integration — Customer Data Layer</div>
+            <div class="howto-desc" style="margin-bottom:10px;">Equinix is mid-migration to Salesforce as its primary CRM. When complete, customer account health and activity data connects directly into this model. The CSAT vs availability correlation already tracked here — DAL01 at 99.678% availability, 74.9 CSAT — becomes a live, continuously updated relationship rather than a static observation.</div>
+            <div class="mc-formula">Dependency: Salesforce migration · currently in progress</div>
+          </div>
+          <div class="chart-card" style="border-top:2px solid #6d28d9;">
+            <div class="dec-tag" style="color:#6d28d9;margin-bottom:8px;">Long Term · 6–12 Months</div>
+            <div class="cc-title" style="margin-bottom:8px;">BMS Alarm Deduplication</div>
+            <div class="howto-desc" style="margin-bottom:10px;">BMS tools generate multiple alarms for the same underlying event. Field technicians see 8 alerts that are actually 1 problem — creating noise that delays the right response. Python clustering logic would group correlated alarms by asset, time window, and failure type into single actionable incidents. Directly connected to the 1,225 repeat failures (15.8% of WOs) where root causes are not being resolved.</div>
+            <div class="mc-formula">Data source: BMS alarm feeds · not yet connected to this model</div>
+          </div>
+          <div class="chart-card" style="border-top:2px solid #6d28d9;">
+            <div class="dec-tag" style="color:#6d28d9;margin-bottom:8px;">Long Term · 6–12 Months</div>
+            <div class="cc-title" style="margin-bottom:8px;">Predictive Risk Scoring — Early Warning</div>
+            <div class="howto-desc" style="margin-bottom:10px;">The composite risk score currently tells you where a site stands today. The next layer uses corrective ratio trajectory, incident frequency trends, and asset age to project where a site will be in 2–4 weeks. DAL01's deterioration was visible in the data months before its risk score peaked at 84.5/100 — a forward-looking model would have flagged it earlier.</div>
+            <div class="mc-formula">Source: operations_daily + maintenance_work_orders · already loaded</div>
+          </div>
+        </div>
+      </div>
+    </div>
 
   </div><!-- hub-body -->
-</div><!-- view-hub -->
-
+</div><!-- view-insight -->
 
 <!-- ═══ DASHBOARD VIEW ═════════════════════════════════════════ -->
 <div class="view" id="view-dashboards">
@@ -2238,6 +2493,13 @@ function switchHubTab(tab, btn) {
   document.querySelectorAll('.hub-tab-content').forEach(t => t.classList.remove('active'));
   document.querySelectorAll('.htab').forEach(b => b.classList.remove('active'));
   document.getElementById('htab-' + tab).classList.add('active');
+  btn.classList.add('active');
+}
+
+function switchInsightTab(tab, btn) {
+  document.querySelectorAll('.itab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.itab').forEach(b => b.classList.remove('active'));
+  document.getElementById('itab-' + tab).classList.add('active');
   btn.classList.add('active');
 }
 
@@ -3190,11 +3452,12 @@ function showProtoNotice(name, sample, total) {
 
   var msg = document.createElement('div');
   msg.className = 'proto-msg';
-  msg.innerHTML = 'This is a <strong>portfolio / prototype project</strong>. You are downloading a <strong>' + sample + '-row sample</strong> of <strong>' + name + '.csv</strong> (' + total.toLocaleString() + ' total rows in the full dataset).';
+  msg.innerHTML = '<strong style="font-family:var(--mono);font-size:13px;color:var(--navy);">' + name + '.csv</strong><br>'
+    + 'Sample rows: <strong>' + sample + '</strong> &nbsp;·&nbsp; Full dataset: <strong>' + total.toLocaleString() + ' rows</strong>';
 
   var note = document.createElement('div');
   note.className = 'proto-note';
-  note.textContent = 'The full dataset and SQL schema are available in the project GitHub repository. This sample is sufficient to verify the data structure, column definitions, and schema design.';
+  note.textContent = 'This is a portfolio prototype. This sample confirms the schema, column definitions, and relationships used in all dashboards. No real company data is used.';
 
   var actions = document.createElement('div');
   actions.className = 'proto-actions';

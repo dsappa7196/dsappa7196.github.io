@@ -6,7 +6,11 @@
       "Bash(npm run:*)",
       "Bash(git add:*)",
       "Bash(git commit:*)",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "Bash(python:*)",
+      "Bash(del \"C:/Users/padma/OneDrive/Desktop/temp_insight.html\")",
+      "Bash(python3:*)",
+      "Read(//tmp/**)"
     ]
   }
 }
