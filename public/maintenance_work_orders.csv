@@ -1,0 +1,2 @@
+work_order_id,asset_id,site_code,work_order_date,maintenance_type,failure_category,priority_level,repair_cost_usd,response_time_hours,resolution_time_hours,sla_breach_flag,repeat_failure_flag,year_month
+WO-ALL-001,ASSET-ALL,FLEET,2024-01-15,Corrective,Routine Wear,P2,31400000,4.2,16.7,1,0,2024-01

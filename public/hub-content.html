@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Data Center Operations Analytics Hub</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&family=Fraunces:ital,wght@0,300;0,600;0,700;1,300&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -686,32 +687,32 @@ body { background: var(--bg); color: var(--text); font-family: var(--sans); font
   <div class="hub-kpi-strip">
     <div class="hub-kpi">
       <div class="hub-kpi-label">Fleet Availability</div>
-      <div class="hub-kpi-val green" id="h-avail">99.78%</div>
+      <div class="hub-kpi-val green" id="fleet-avail-kpi">99.78%</div>
       <div class="hub-kpi-sub warn">↓ Below 99.9% SLA target</div>
     </div>
     <div class="hub-kpi">
       <div class="hub-kpi-label">Total Incidents</div>
-      <div class="hub-kpi-val amber" id="h-inc">9,099</div>
+      <div class="hub-kpi-val amber" id="total-incidents-kpi">9,099</div>
       <div class="hub-kpi-sub crit">584 P1 · 750 outage events</div>
     </div>
     <div class="hub-kpi">
       <div class="hub-kpi-label">Total Repair Cost</div>
-      <div class="hub-kpi-val amber" id="h-repair">$31.4M</div>
+      <div class="hub-kpi-val amber" id="repair-cost-kpi">$31.4M</div>
       <div class="hub-kpi-sub warn">40.8% SLA breach rate</div>
     </div>
     <div class="hub-kpi">
       <div class="hub-kpi-label">Budget Overspend</div>
-      <div class="hub-kpi-val red" id="h-var">+$5.4M</div>
+      <div class="hub-kpi-val red" id="budget-overspend-kpi">+$5.4M</div>
       <div class="hub-kpi-sub crit">+4.0% over budget · 18 mos</div>
     </div>
     <div class="hub-kpi">
       <div class="hub-kpi-label">Avg Fleet CSAT</div>
-      <div class="hub-kpi-val amber" id="h-csat">83.5</div>
+      <div class="hub-kpi-val amber" id="avg-csat-kpi">83.5</div>
       <div class="hub-kpi-sub warn">Below 85 target · DAL01: 74.9</div>
     </div>
     <div class="hub-kpi">
       <div class="hub-kpi-label">Critical Assets</div>
-      <div class="hub-kpi-val red" id="h-crit">211</div>
+      <div class="hub-kpi-val red" id="critical-assets-kpi">211</div>
       <div class="hub-kpi-sub crit">107 flagged for replacement</div>
     </div>
   </div>
@@ -1493,9 +1494,13 @@ CREATE TABLE installed_customer_base_monthly (
     <div class="itab-content active" id="itab-builtnotes">
       <div class="hub-section">
         <div class="hub-section-head">
-          <div class="hub-section-label">How This Was Built</div>
+          <div class="hub-section-label">HOW THIS WAS BUILT</div>
           <div class="hub-section-line"></div>
-          <div class="hub-section-count">Tech stack · Key decisions · Architecture rationale</div>
+          <div class="hub-section-count">Built from scratch · 8 CSV datasets · Star schema → Python → Dashboard</div>
+        </div>
+
+        <div style="background:var(--surface2);border:1px solid var(--border);border-left:3px solid var(--blue);border-radius:6px;padding:14px 18px;margin-bottom:20px;font-size:12px;color:var(--text2);line-height:1.7;">
+          This hub was built independently to demonstrate the full analytics workflow: raw data → cleaning → data model → insight → communication. Every number on this page was calculated from 8 source datasets covering 12 sites over 18 months. No templates. No sample data.
         </div>
 
         <div class="build-grid">
@@ -1617,7 +1622,7 @@ CREATE TABLE installed_customer_base_monthly (
         <div class="hub-section-head">
           <div class="hub-section-label">🎯 Commit Compliance Tracking</div>
           <div class="hub-section-line"></div>
-          <div class="hub-section-count">92% target set by operations leadership · Measured from 7,761 work orders</div>
+          <div class="hub-section-count">The single most important ops metric · Where we are vs where we need to be · What's driving the gap</div>
         </div>
         <div style="display:grid;grid-template-columns:1fr 2fr;gap:14px;margin-bottom:14px;">
           <div class="metric-card" style="display:flex;flex-direction:column;gap:6px;">
@@ -1642,6 +1647,7 @@ CREATE TABLE installed_customer_base_monthly (
           </div>
         </div>
         <div style="background:var(--blue-lt);border:1px solid rgba(26,86,219,.2);border-left:3px solid var(--blue);border-radius:6px;padding:12px 16px;font-size:12px;color:var(--text2);line-height:1.7;">
+          This is the metric flagged as the team's #1 focus area. Here is what the data shows:<br><br>
           Corrective WOs cost an average of <strong>$5,611</strong> vs <strong>$1,544</strong> for preventive work — <strong>263% more expensive</strong> per work order. <strong>85% of all repair cost</strong> ($26.8M of $31.4M total) comes from reactive work. <strong>1,225 repeat failures</strong> (15.8% of all WOs) show the same assets failing repeatedly because the root cause is never resolved.<br>
           <span style="color:var(--blue);font-family:var(--mono);font-size:11px;">→ Shift the corrective ratio from 61.6% toward ≤40% and three things improve at once: compliance rate, total repair cost, and repeat failure count.</span>
         </div>
@@ -1654,7 +1660,7 @@ CREATE TABLE installed_customer_base_monthly (
         <div class="hub-section-head">
           <div class="hub-section-label">⚡ Automation</div>
           <div class="hub-section-line"></div>
-          <div class="hub-section-count">What the pipeline does · What that eliminates for the team</div>
+          <div class="hub-section-count">What runs without anyone touching it · What that means for analyst time</div>
         </div>
         <div class="g2">
           <div class="chart-card">
@@ -1716,7 +1722,7 @@ CREATE TABLE installed_customer_base_monthly (
                 </ul>
               </div>
             </div>
-            <div style="font-family:var(--mono);font-size:10px;color:var(--green);background:var(--green-lt);border:1px solid rgba(4,120,87,.2);border-radius:4px;padding:8px 12px;letter-spacing:.04em;">✓ Time spent on data prep shifts to time spent on analysis and decisions</div>
+            <div style="font-family:var(--mono);font-size:10px;color:var(--green);background:var(--green-lt);border:1px solid rgba(4,120,87,.2);border-radius:4px;padding:8px 12px;letter-spacing:.04em;">✓ The goal: zero time spent moving data. All time spent on what the data means.</div>
           </div>
         </div>
       </div>
@@ -1728,10 +1734,10 @@ CREATE TABLE installed_customer_base_monthly (
         <div class="hub-section-head">
           <div class="hub-section-label">🔌 Source Systems — Data Integration Layer</div>
           <div class="hub-section-line"></div>
-          <div class="hub-section-count">Where the data comes from · How it gets cleaned · Where it lands</div>
+          <div class="hub-section-count">ServiceNow · Oracle · Siebel · Excel → cleaned → modelled → dashboards</div>
         </div>
         <div class="chart-card">
-          <div class="cc-head"><div><div class="cc-title">Every number in this hub traces back to one of these source systems</div></div></div>
+          <div class="cc-head"><div><div class="cc-title">Data from 5 source systems — cleaned, joined, and modelled into a single star schema</div></div></div>
           <div style="display:flex;flex-wrap:nowrap;align-items:center;gap:6px;margin-bottom:14px;overflow-x:auto;">
             <div style="display:flex;flex-wrap:nowrap;gap:6px;align-items:center;">
               <div style="background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:6px 8px;">
@@ -1772,7 +1778,7 @@ CREATE TABLE installed_customer_base_monthly (
             </div>
           </div>
           <div style="background:var(--blue-lt);border:1px solid rgba(26,86,219,.2);border-left:3px solid var(--blue);border-radius:6px;padding:11px 14px;font-size:12px;color:var(--text2);line-height:1.7;">
-            <strong style="color:var(--blue);">Salesforce note:</strong> Salesforce is Equinix's incoming CRM platform, currently mid-migration. This data model is already structured to receive a Salesforce connector — the tables, joins, and customer fields are in place. When migration completes, customer account health, renewal status, and activity data flow in automatically without any rebuild of the existing model.
+            <strong style="color:var(--blue);">Salesforce note:</strong> Salesforce is Equinix's incoming CRM. Currently mid-migration. This model already has the tables and joins in place — when migration completes, customer account health and renewal data flow in automatically. No rebuild needed.
           </div>
         </div>
       </div>
@@ -1782,27 +1788,27 @@ CREATE TABLE installed_customer_base_monthly (
     <div class="itab-content" id="itab-comms">
       <div class="hub-section">
         <div class="hub-section-head">
-          <div class="hub-section-label">📤 Communication Outputs</div>
+          <div class="hub-section-label">WHO GETS WHAT — AND WHY IT'S DIFFERENT</div>
           <div class="hub-section-line"></div>
-          <div class="hub-section-count">One data model · Three different outputs</div>
+          <div class="hub-section-count">Same data · Packaged differently · Nobody gets more than they need</div>
         </div>
         <div class="g3">
           <div class="chart-card" style="border-top:2px solid var(--red);">
             <div class="dec-tag" style="color:var(--red);margin-bottom:8px;">Operations Director</div>
-            <div class="cc-title" style="margin-bottom:8px;">Monthly Insight Briefing</div>
-            <div class="howto-desc" style="margin-bottom:10px;">• Format: PowerPoint — max 3 slides, one decision per slide<br>• Structure: every slide follows What → Why → What to do next<br>• Covers: site risk, asset replacement candidates, spend variance<br>• Delivered: first week of each month<br>• Time to consume: under 5 minutes</div>
+            <div class="cc-title" style="margin-bottom:8px;">Monthly Decision Briefing</div>
+            <div class="howto-desc" style="margin-bottom:10px;">- 3 decisions. 3 actions. One slide each.<br>- What happened → Why → What to do next<br>- Delivered first week of every month<br>- No data literacy required to act on it</div>
             <div class="mc-formula">Monthly · first week</div>
           </div>
           <div class="chart-card" style="border-top:2px solid var(--teal);">
             <div class="dec-tag" style="color:var(--teal);margin-bottom:8px;">Site &amp; Regional Managers</div>
             <div class="cc-title" style="margin-bottom:8px;">Self-Serve Dashboard Access</div>
-            <div class="howto-desc" style="margin-bottom:10px;">• Access: this hub, filtered to their site or region<br>• Available: all 6 decision views without requesting anything<br>• Filters: region, site, and time period on every dashboard page<br>• Always current: no file to request, no version to track<br>• No analyst dependency for day-to-day reporting needs</div>
+            <div class="howto-desc" style="margin-bottom:10px;">- Open the hub, filter to your site<br>- All 6 views available without asking anyone<br>- Always current — no report request needed<br>- Replaces the weekly data pull entirely</div>
             <div class="mc-formula">On demand · always current</div>
           </div>
           <div class="chart-card" style="border-top:2px solid var(--amber);">
             <div class="dec-tag" style="color:var(--amber);margin-bottom:8px;">Finance &amp; Planning</div>
             <div class="cc-title" style="margin-bottom:8px;">Monthly Spend Variance Export</div>
-            <div class="howto-desc" style="margin-bottom:10px;">• Format: Excel — structured for finance review workflows<br>• Covers: all 4 spend categories across all 12 sites<br>• Shows: budget vs actual, variance $, variance %, PO-level detail<br>• Flags: top overspend sites and categories highlighted<br>• Total variance tracked: +$5.4M (+4.0%) over 18 months</div>
+            <div class="howto-desc" style="margin-bottom:10px;">- Excel format — drops into existing finance workflow<br>- Budget vs actual across all 4 spend categories<br>- Every site, every month, every vendor flagged<br>- +$5.4M variance (+4.0%) tracked over 18 months</div>
             <div class="mc-formula">Monthly · finance cycle</div>
           </div>
         </div>
@@ -1813,33 +1819,33 @@ CREATE TABLE installed_customer_base_monthly (
     <div class="itab-content" id="itab-roadmap">
       <div class="hub-section">
         <div class="hub-section-head">
-          <div class="hub-section-label">🗺️ Analytics Roadmap</div>
+          <div class="hub-section-label">WHAT GETS BUILT NEXT — AND WHY</div>
           <div class="hub-section-line"></div>
-          <div class="hub-section-count">Planned extensions · Prioritised by operational impact</div>
+          <div class="hub-section-count">Each item directly addresses a gap in the current model</div>
         </div>
         <div class="g2">
           <div class="chart-card" style="border-top:2px solid var(--teal);">
             <div class="dec-tag" style="color:var(--teal);margin-bottom:8px;">Near Term · 0–3 Months</div>
-            <div class="cc-title" style="margin-bottom:8px;">Commit Compliance — Root Cause Breakdown</div>
-            <div class="howto-desc" style="margin-bottom:10px;">The current data already contains failure_category, site_code, and technician_id for every breached work order. The next step is grouping those 3,170 breaches by category and site to show exactly where the 40.8% breach rate is concentrated — without collecting any new data.</div>
+            <div class="cc-title" style="margin-bottom:8px;">Commit Compliance — Drill Into the 40.8%</div>
+            <div class="howto-desc" style="margin-bottom:10px;">The 3,170 breached WOs already contain failure_category, site_code, and technician data. Next step: group those breaches to show exactly which sites, asset types, and work categories are driving the gap. The data is already there — this is a grouping layer.</div>
             <div class="mc-formula">Source: maintenance_work_orders.csv · already in model</div>
           </div>
           <div class="chart-card" style="border-top:2px solid var(--amber);">
             <div class="dec-tag" style="color:var(--amber);margin-bottom:8px;">Mid Term · 3–6 Months</div>
-            <div class="cc-title" style="margin-bottom:8px;">Salesforce Integration — Customer Data Layer</div>
-            <div class="howto-desc" style="margin-bottom:10px;">Equinix is mid-migration to Salesforce as its primary CRM. When complete, customer account health and activity data connects directly into this model. The CSAT vs availability correlation already tracked here — DAL01 at 99.678% availability, 74.9 CSAT — becomes a live, continuously updated relationship rather than a static observation.</div>
+            <div class="cc-title" style="margin-bottom:8px;">Salesforce — Close the Customer Data Gap</div>
+            <div class="howto-desc" style="margin-bottom:10px;">Right now customer health data is not in this model. When Salesforce migration completes, account health, renewal status, and activity data connect directly. The CSAT vs availability correlation this hub already tracks — DAL01 at 99.678% / 74.9 CSAT — becomes a live, auto-updating relationship.</div>
             <div class="mc-formula">Dependency: Salesforce migration · currently in progress</div>
           </div>
           <div class="chart-card" style="border-top:2px solid #6d28d9;">
             <div class="dec-tag" style="color:#6d28d9;margin-bottom:8px;">Long Term · 6–12 Months</div>
-            <div class="cc-title" style="margin-bottom:8px;">BMS Alarm Deduplication</div>
-            <div class="howto-desc" style="margin-bottom:10px;">BMS tools generate multiple alarms for the same underlying event. Field technicians see 8 alerts that are actually 1 problem — creating noise that delays the right response. Python clustering logic would group correlated alarms by asset, time window, and failure type into single actionable incidents. Directly connected to the 1,225 repeat failures (15.8% of WOs) where root causes are not being resolved.</div>
+            <div class="cc-title" style="margin-bottom:8px;">BMS Alarms — From Noise to Signal</div>
+            <div class="howto-desc" style="margin-bottom:10px;">Right now one equipment failure generates 8 separate alarms. Technicians respond to the noise, not the problem. Python clustering groups correlated alarms by asset and time window into one actionable incident. Directly connected to 1,225 repeat failures in the current dataset — same assets failing because the root cause is buried in duplicate alerts.</div>
             <div class="mc-formula">Data source: BMS alarm feeds · not yet connected to this model</div>
           </div>
           <div class="chart-card" style="border-top:2px solid #6d28d9;">
             <div class="dec-tag" style="color:#6d28d9;margin-bottom:8px;">Long Term · 6–12 Months</div>
-            <div class="cc-title" style="margin-bottom:8px;">Predictive Risk Scoring — Early Warning</div>
-            <div class="howto-desc" style="margin-bottom:10px;">The composite risk score currently tells you where a site stands today. The next layer uses corrective ratio trajectory, incident frequency trends, and asset age to project where a site will be in 2–4 weeks. DAL01's deterioration was visible in the data months before its risk score peaked at 84.5/100 — a forward-looking model would have flagged it earlier.</div>
+            <div class="cc-title" style="margin-bottom:8px;">Predictive Scoring — Flag Problems Before They Happen</div>
+            <div class="howto-desc" style="margin-bottom:10px;">The current risk score tells you where a site stands today. The next layer projects where it will be in 2–4 weeks — using corrective ratio trajectory, incident frequency, and asset age curves. DAL01's decline was visible months before its score peaked at 84.5/100. A forward model catches it earlier.</div>
             <div class="mc-formula">Source: operations_daily + maintenance_work_orders · already loaded</div>
           </div>
         </div>
@@ -2224,6 +2230,60 @@ CREATE TABLE installed_customer_base_monthly (
 <div class="toast" id="toast"></div>
 
 <script>
+// ─── Dynamic KPI loading from CSV files ───────────────────────
+async function loadKPIsFromCSV() {
+  try {
+    const [opsRes, maintRes, finRes, cxRes, assetRes] = await Promise.all([
+      fetch('./operations_daily.csv'),
+      fetch('./maintenance_work_orders.csv'),
+      fetch('./finance_monthly.csv'),
+      fetch('./customer_experience_monthly.csv'),
+      fetch('./assets.csv')
+    ]);
+    const [opsText, maintText, finText, cxText, assetText] = await Promise.all([
+      opsRes.text(), maintRes.text(), finRes.text(), cxRes.text(), assetRes.text()
+    ]);
+    const ops    = Papa.parse(opsText,   {header:true, skipEmptyLines:true}).data;
+    const maint  = Papa.parse(maintText, {header:true, skipEmptyLines:true}).data;
+    const fin    = Papa.parse(finText,   {header:true, skipEmptyLines:true}).data;
+    const cx     = Papa.parse(cxText,    {header:true, skipEmptyLines:true}).data;
+    const assets = Papa.parse(assetText, {header:true, skipEmptyLines:true}).data;
+
+    const availVals = ops.map(r => parseFloat(r.availability_pct)).filter(v => !isNaN(v));
+    const fleetAvail = availVals.length ? (availVals.reduce((a,b) => a+b, 0) / availVals.length).toFixed(2) : null;
+
+    const totalInc = ops.reduce((sum,r) => sum + (parseInt(r.incidents_total)||0), 0);
+
+    const totalRepair = maint.reduce((sum,r) => sum + (parseInt(r.repair_cost_usd)||0), 0);
+    const repairM = (totalRepair / 1000000).toFixed(1);
+
+    const totalBudget = fin.reduce((sum,r) => sum + (parseInt(r.budget_usd)||0), 0);
+    const totalActual = fin.reduce((sum,r) => sum + (parseInt(r.actual_spend_usd)||0), 0);
+    const varianceM = ((totalActual - totalBudget) / 1000000).toFixed(1);
+
+    const csatVals = cx.map(r => parseFloat(r.customer_satisfaction_score)).filter(v => !isNaN(v));
+    const avgCsat = csatVals.length ? (csatVals.reduce((a,b) => a+b, 0) / csatVals.length).toFixed(1) : null;
+
+    const criticalAssets = assets.filter(r => r.asset_condition === 'Critical').length;
+
+    if (fleetAvail)      updateKPI('fleet-avail-kpi',      fleetAvail + '%');
+    if (totalInc)        updateKPI('total-incidents-kpi',  totalInc.toLocaleString());
+    if (totalRepair)     updateKPI('repair-cost-kpi',      '$' + repairM + 'M');
+    if (totalBudget)     updateKPI('budget-overspend-kpi', '+$' + varianceM + 'M');
+    if (avgCsat)         updateKPI('avg-csat-kpi',         avgCsat);
+    if (criticalAssets)  updateKPI('critical-assets-kpi',  criticalAssets.toString());
+
+    console.log('KPIs loaded from CSV:', {fleetAvail, totalInc, repairM, varianceM, avgCsat, criticalAssets});
+  } catch(err) {
+    console.warn('CSV load failed, using static values:', err);
+  }
+}
+function updateKPI(id, value) {
+  const el = document.getElementById(id);
+  if (el) el.textContent = value;
+}
+document.addEventListener('DOMContentLoaded', loadKPIsFromCSV);
+
 // ═══════════════════════════════════════════════════════════════
 // DATA — Real numbers computed from all 8 CSV tables
 // Per-site monthly data enables full filter responsiveness

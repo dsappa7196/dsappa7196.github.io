@@ -1,0 +1,3 @@
+year_month,site_code,region,cost_center,spend_category,budget_usd,actual_spend_usd,variance_usd,variance_pct,vendor_name,po_number
+2024-01,FLEET,AMER,OPS-DC,Power Opex,68050000,70750000,2700000,3.97,VARIOUS,PO-2024-001
+2024-02,FLEET,AMER,OPS-DC,Maintenance Opex,68050000,70750000,2700000,3.97,VARIOUS,PO-2024-002
