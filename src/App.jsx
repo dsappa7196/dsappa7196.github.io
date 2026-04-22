@@ -77,9 +77,9 @@ const App = () => {
                 <span key={t} className="bg-neutral-800 text-purple-300 px-3 py-1 rounded text-xs font-medium">{t}</span>
               ))}
             </div>
-            <button onClick={openHub} className="inline-flex items-center gap-2 bg-purple-600 hover:bg-purple-500 text-white px-5 py-2 rounded-lg text-sm font-semibold transition-colors duration-200">
+            <a href="/analytics-hub" className="inline-flex items-center gap-2 bg-purple-600 hover:bg-purple-500 text-white px-5 py-2 rounded-lg text-sm font-semibold transition-colors duration-200">
               Open Analytics Hub →
-            </button>
+            </a>
           </div>
         </div>
       </div>
