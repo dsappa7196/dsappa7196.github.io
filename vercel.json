@@ -1,6 +1,8 @@
 {
   "outputDirectory": "dist",
   "routes": [
+    { "src": "/analytics-hub", "dest": "/hub-content.html" },
+    { "src": "/hub-content.html", "dest": "/hub-content.html" },
     { "handle": "filesystem" },
     { "src": "/(.*)", "dest": "/index.html" }
   ]
